@@ -1,0 +1,113 @@
+[
+{
+	"uri": "https://docs.kaleidochain.io/",
+	"title": "kaleidochain",
+	"tags": [],
+	"description": "",
+	"content": " Kaleidochain 欢迎查看Kaleidochain文档\n  本文档正在频繁更新，请及时查看最新内容。\n "
+},
+{
+	"uri": "https://docs.kaleidochain.io/contract/contract-creator/",
+	"title": "合约创建人",
+	"tags": [],
+	"description": "",
+	"content": "在Kaleido Chain中，系统内置了一个系统合约，记录了所有合约的创建人地址。创建人地址就是部署合约的外部账号地址。如果一个合约A是由另一个合约B部署的，合约A的创建人地址就自动继承合约B的创建人地址。\n合约创建人有多种用途。第一种用途就是合约抵押机制。合约要可执行，需要先抵押一定量的token到其创建人账户中。系统自动识别合约的创建人抵押量，来计算合约可被调用的次数。第二种用途就是权限管理。很多情况下，一个合约都需要与一个超级管理员关联，以限制部分接口的调用权限。合约创建人机制默认提供了一直超级管理员的可选项，简化了相关合约的开发。\n要在Solidity中获取一个合约的创建人，需要使用以下代码：\nimport 'lib/syscontract.sol'; contract Demo { // WithDraw - only creator can get the token function WithDraw(uint amount) public { require(msg.sender == SysContract.creatorOf(address(this))); msg.sender.transfer(amount); } }  "
+},
+{
+	"uri": "https://docs.kaleidochain.io/introduction/",
+	"title": "介绍",
+	"tags": [],
+	"description": "",
+	"content": " Kaleido是新一代高性能区块链游戏平台。它采用了公开透明的、纯PoS区块链共识技术，实现了纯分布式的、可扩展的和高安全的区块链。它还提供了可信P2P传输、零知识证明等机制，尤其使得游戏类应用开发更为便捷，运行效果更好。\n测试网络 目前，我们的测试网络正在运营。该文档主要以测试网为主，说明如何安装、配置并加入Kaleido区块链。 主链发布后，该文档也会相应地更新。\n参与社区讨论 你可以在我们的社区与Kaleido开发者和其他社区成员一起交流与讨论，可以获得更有针对性的帮助和信息。\n  社区正在建设中，稍后会在这里公开。\n 了解最新项目进展 你可以在我们的博客了解项目的最新进展情况。\n"
+},
+{
+	"uri": "https://docs.kaleidochain.io/getting-started/installing-node/",
+	"title": "安装运行节点",
+	"tags": [],
+	"description": "",
+	"content": " 我们目前只提供基于docker的二进制版本，仅需要安装docker并拉取镜像即可。\ndocker pull kaleidochain/client  准备运行目录 首次运行，你需要准备一个数据目录，该目录可以在任意位置，但我们建议使用$HOME/.kaleido。为了后面使用方便，可以将该目录设置为环境变量KALEIDO_HOME。选取的目录将交由kaleido进行使用和管理，因此建议选择的目录下不要存储其它数据和文件。\nmkdir $HOME/.kaleido export KALEIDO_HOME=$HOME/.kaleido echo $KALEIDO_HOME  后面的命令中，我们将使用环境变量$KALEIDO_HOME来表示该目录。\n作为全节点启动 使用以下命令启动一个名为kalnode的全节点，通过参数--testnet使其连接到测试网络。\ndocker run -d --name kalnode -p 38883:38883 -p 38883:38883/udp \\ -v $KALEIDO_HOME:/root/.ethereum kaleidochain/client --testnet  启动后，该节点会连接上测试网络，下载区块数据。 我们可以通过IPC连上该节点，查看连接上的peer节点数、当前区块高度等。\ndocker exec -it kalnode geth --testnet attach \u0026gt; net.peerCount 15 \u0026gt; eth.blockNumber 17568 \u0026gt; exit  如果你想让自己的节点也显示在网络状态页面中，增加参数--ethstats \u0026quot;your-node-name:bpFe9vOevM@stats-testnet.kaleidochain.io:38881\u0026quot;启动即可，其中your-node-name需要使用自己的节点名称来代替。\ndocker run -d --name kalnode -p 38883:38883 -p 38883:38883/udp \\ -v $KALEIDO_HOME:/root/.ethereum kaleidochain/client --testnet \\ --ethstats \u0026quot;your-node-name:bpFe9vOevM@stats-testnet.kaleidochain.io:38881\u0026quot;  作为服务节点启动 如果你有钱包或其它应用，就需要在全节点的基础上，通过--rpc和--ws参数来开启RPC和WS服务，同时映射8545/8546端口到主机。 这里需要注意的是，由于节点运行在docker容器中，所以RPC和WS服务监听的IP必须是0.0.0.0。\ndocker stop kalnode \u0026amp;\u0026amp; docker rm kalnode docker run -d --name kalnode \\ -p 38883:38883 -p 38883:38883/udp -p 8545:8545 -p 8546:8546 \\ -v $KALEIDO_HOME:/root/.ethereum \\ kaleidochain/client --testnet \\ --rpc --rpcaddr 0.0.0.0 --rpcvhosts '*' \\ --ws --wsaddr 0.0.0.0 --wsorigins '*'  我们也可以使用如下命令，直接连接RPC和WS服务来使用。\ndocker exec -it kalnode geth attach http://127.0.0.1:8545 \u0026gt; eth.blockNumber 17568 \u0026gt; exit docker exec -it kalnode geth attach http://127.0.0.1:8546 \u0026gt; eth.blockNumber 17568 \u0026gt; exit  接下来，你的钱包应用就可以选择连接上你自己的全节点了。\n如果需要查看详细日志，我们可以带上日志参数--vmodule 'p2p/discv5/*=3,p2p/discover/*=3,*=5'重新启动全节点，然后就可以使用docker logs命令查看到详细日志。\ndocker stop kalnode \u0026amp;\u0026amp; docker rm kalnode docker run -d --name kalnode \\ -p 38883:38883 -p 38883:38883/udp -p 8545:8545 -p 8546:8546 \\ -v $KALEIDO_HOME:/root/.ethereum \\ kaleidochain/client --testnet \\ --rpc --rpcaddr 0.0.0.0 --rpcvhosts '*' \\ --ws --wsaddr 0.0.0.0 --wsorigins '*' \\ --vmodule 'p2p/discv5/*=3,p2p/discover/*=3,*=5' docker logs --tail=100 -f kalnode  更新版本 如有新版本，只需要更新docker镜像，删除之前的容器，重新创建新的容器即可。\ndocker pull kaleidochain/client docker stop kalnode \u0026amp;\u0026amp; docker rm kalnode docker run -d --name kalnode \\ -p 38883:38883 -p 38883:38883/udp \\ -v $KALEIDO_HOME:/root/.ethereum \\ kaleidochain/client --testnet docker logs --tail=100 -f kalnode  "
+},
+{
+	"uri": "https://docs.kaleidochain.io/mining/create-miner-key/",
+	"title": "创建挖矿凭证",
+	"tags": [],
+	"description": "",
+	"content": "我们首先需要创建挖矿公私钥对，得到挖矿凭证minerkey。\n假设当前区块高度为12065，通常情况下，你想尽快开始挖矿，那么你应该选择比当前区块高度略大或相等的高度值，这里我们选取12100，来生成从12100高度开始挖矿的minerkey，这个minerkey属于12100高度所在区间。这个开始高度由参数--begin指定。此外，在生成minerkey的时候，还要通过--miner指明矿工账号，--coinbase指明受益人的地址（即接收区块奖励的地址）。\n如下命令就是用来生成一个属于12100高度所在区间的挖矿凭证minerkey，矿工账号miner和受益人coinbase都是0x958DE277Cde7f5808a910dBf6f7854DF52C25833。\ndocker run --rm -v $KALEIDO_HOME:/root/.ethereum \\ kaleidochain/client --testnet makeminerkey \\ --begin 12100 \\ --miner 0x958DE277Cde7f5808a910dBf6f7854DF52C25833 \\ --coinbase 0x958DE277Cde7f5808a910dBf6f7854DF52C25833  以上命令执行需要一定的时间，完成后输出结果最后内容如下，这里给出了生成的minerkey，其内部包含了受益人coinbase的地址、起始高度begin、区间的结束高度end等信息。\nUsing following params: contract address: 0x1000000000000000000000000000000000000002 miner: 0x958DE277Cde7f5808a910dBf6f7854DF52C25833 coinbase: 0x958DE277Cde7f5808a910dBf6f7854DF52C25833 begin: 12100 end: 1000000 Generate minerkey: 0x2c91689a000000000000000000000000958de277cde7f5808a910dbf6f7854df52c258330000000000000000000000000000000000000000000000000000000000000002c0bd0fe9db297d84f28da5ff851e8c7f30dab5f45ee7891311d78d7bbda6e5d878c98aab5aa50746b052e423385c497ba38066c2f6f6dc05c600a5eab6110b02f9e77403c5becfc80251c4d038e50d3a6b99bd1db88ca7547b8abc134e8235610000000000000000000000000000000000000000000000000000000000002f44  以上输出的最后一行中的0x2c9168...就是挖矿凭证minerkey，其作用相当于公钥。对应的私钥数据存储在节点的数据目录$KALEIDO_HOME/testnet/geth/下以ephemeralkey为前缀的目录，该数据通常比较大。\n"
+},
+{
+	"uri": "https://docs.kaleidochain.io/mining/register-miner-key/",
+	"title": "注册挖矿凭证",
+	"tags": [],
+	"description": "",
+	"content": " 要使minerkey可以挖矿，还需要有投票权。这需要使用自己的账户，调用矿工合约0x1000000000000000000000000000000000000002，将自己的矿工账户与挖矿凭证关联起来。这相当于将自己持有的token对应的投票权，委托给了这个minerkey。minerkey只有被委托后，才会具有一定的投票权，才能在挖矿中使用。\n注册矿工本质上是一次合约调用，有两种方式： 1. 通过钱包注册 2. 通过命令行注册\n使用钱包注册（推荐） 在钱包中，用你的账户，向测试链发送一笔交易，接收地址为矿工合约地址0x1000000000000000000000000000000000000002，data填写为上面生成的minerkey内容即可。在某些钱包客户端中，交易页面默认没有Data字段，需要在设置中打开。\n注册一次需要的gas费用大约在200000左右，建议填写gas费用为210000，或者在类似MetaMask的客户端中，选择Fastest来发送。gas太少会导致交易执行失败。\n使用命令行注册 使用命令行向矿工合约地址0x1000000000000000000000000000000000000002发送一笔交易，将data字段填写为上面生成的minerkey即可。\ndocker exec -it kalnode geth --testnet attach \u0026gt; myaddr = '0x958DE277Cde7f5808a910dBf6f7854DF52C25833'; \u0026gt; personal.unlockAccount(myaddr, 'your-password'); \u0026gt; hash = eth.sendTransaction({ from: myaddr, to: '0x1000000000000000000000000000000000000002', gas: 200000, gasPrice: 20000000000, data: '0x2c91689a0000000000000000000000001805b7ee5dd340981628b81d5d094c44a027bdc500000000000000000000000000000000000000000000000000000000000000028b259c4c04e61089ce9c0554339fa9dca01f6ef8c7de4f9268add46cd77c6d0fa668a15f6fec02b01d8f37a80a29cf62360aa69b975fa94b23ec6a32d8abf87d3e4c8f41c3c49e6d765aa7449dc510c0cf95a8ba714bd8abecf16e69df9318e200000000000000000000000000000000000000000000000000000000000003e8' }); \u0026gt; admin.sleepBlocks(2); \u0026gt; eth.getTransactionReceipt(hash);  "
+},
+{
+	"uri": "https://docs.kaleidochain.io/getting-started/creating-new-account/",
+	"title": "创建新的账户",
+	"tags": [],
+	"description": "",
+	"content": " 如果你还没有账户，可以按照本指引创建一个属于你自己的账户。这里介绍了通过成熟可信的钱包工具生成和命令行生成的方法。\n使用钱包客户端生成账户（推荐） 你可以使用现有的以太坊钱包，连接到kaleido区块链网络后，创建新的账户。\n下面以MetaMask为例，说明连接kaleido测试网络和创建账户的流程。\n在MetaMask中，点击右上角的下拉菜单。在打开的列表中，点击最底部的Custom RPC。在New Network文本框中，点击Show Advanced Options后，显示出4个文本框，分别填写如下信息：\n New RPC URL: http://testnet.kaleidochain.io:8545 ChainID: 889 Symbol: KAL Nickname: Kaleido Test Network  填写后如下图。\n最后点击旁边的Save按钮。\n当最上方的网络名称栏显示Kaleido Test Network即表示连接成功。\n然后在MetaMask中创建账户即可。一旦你有了token，就可以方便的使用钱包进行转账了。\n使用命令行生成账户 在运行你自己的节点之后，你还可以通过命令行生成一个新账户，具体如下。将其中的your-password替换为你自己的密码即可。\ndocker exec -it kalnode geth --testnet attach \u0026gt; personal.newAccount('your-password') \u0026quot;0xe40046ef6f0d4a05d90ca62d8ead47e21c886fc1\u0026quot; \u0026gt; eth.accounts [\u0026quot;0xe40046ef6f0d4a05d90ca62d8ead47e21c886fc1\u0026quot;]  "
+},
+{
+	"uri": "https://docs.kaleidochain.io/getting-started/",
+	"title": "入门",
+	"tags": [],
+	"description": "",
+	"content": "我们建立了横跨各主要大陆的全球性区块链测试网络，你可以从网络状态页面查看到网络的运行情况。通过下面的步骤，你也可以加入这个测试网络。\n 安装运行节点   创建新的账户   获取测试网KAL   测试你的应用   "
+},
+{
+	"uri": "https://docs.kaleidochain.io/mining/running-node-as-miner/",
+	"title": "运行挖矿节点",
+	"tags": [],
+	"description": "",
+	"content": " 一旦注册好矿工合约，将投票权成功委托给了挖矿凭证，那么就可以使用该挖矿凭证挖矿了。加上参数--mine --etherbase \u0026lt;miner addr\u0026gt;重新启动前面的全节点即可。\n注意这里的--etherbase的值，应该写你刚才发起矿工注册的交易的账号地址（而不是收益地址）。挖矿程序会使用该地址，在挖矿合约中查找你注册的挖矿信息。\ndocker stop kalnode \u0026amp;\u0026amp; docker rm kalnode docker run -d --name kalnode -v $KALEIDO_HOME:/root/.ethereum \\ -p 38883:38883 -p 38883:38883/udp \\ kaleidochain/client --testnet \\ --mine --etherbase 'your-address'  可以使用以下命令查询验证你的节点是否正在挖矿：\ndocker exec -it kalnode geth --testnet attach \u0026gt; eth.mining true  如果仍然没有开始挖矿，可能有几个原因：\n minerkey没有注册成功 节点启动时的参数没有设置，或者没有与minerkey匹配 没有token，或只有少于1个单位的token 区块高度还没有到你注册的区间范围内 minerkey对应的私钥数据目录不存在或不匹配  如有以上问题，可以查阅之前的文档，重新操作一次。或者将相关信息和问题发到社区中寻求帮助。\n持续挖矿 由于挖矿凭证是有区块范围的，区块高度超过相应范围后，之前的挖矿凭证就失效了。你需要提前为下一个区间范围注册好另一个挖矿凭证，以保持持续不间断的挖矿。\n为避免矿工合约数据过大，矿工合约限制了最多能提前注册未来1个区间。 你可以提前为未来1个区间生成minerkey并提前注册，并预估好这几个区间跑完的时间，设置好提醒方式，以提醒你再次注册。 在测试网络中，1个区间大约可以跑24天。你可以设置每2~3周来检查或注册一次。\n"
+},
+{
+	"uri": "https://docs.kaleidochain.io/getting-started/getting-testnet-token/",
+	"title": "获取测试网KAL",
+	"tags": [],
+	"description": "",
+	"content": "我们创建了一个免费领取kaleidochain测试网络KAL Token的页面 ，点击进去，填写自己的账户地址即可领取。\n"
+},
+{
+	"uri": "https://docs.kaleidochain.io/getting-started/testing-your-dapp/",
+	"title": "测试你的应用",
+	"tags": [],
+	"description": "",
+	"content": "Kaleidochain官方维护了一个测试网络的全节点testnet.kaleidochain.io，开放了RPC（8545端口）和WS（8546端口）接口，你可以使用命令行或者钱包连接到测试网络，部署和测试你的应用。\n部署时所需要的token，可以通过测试网络KAL分发页面免费领取。\n此外，你也可以启动一个测试网节点，待区块数据同步好后(可能需要数小时时间)，即可开始测试。\n"
+},
+{
+	"uri": "https://docs.kaleidochain.io/mining/",
+	"title": "挖矿",
+	"tags": [],
+	"description": "",
+	"content": "在Kaleido中，除了账户的公私钥对外，还有另外一种矿工公私钥对minerkey。账户通过调用矿工合约minerdb注册接口，将自己与矿工公私钥对关联，表示授权该矿工公私钥使用自己持有的token权重进行挖矿。\n由于在挖矿过程中，需要使用到矿工私钥，因此这样的实现方案使得不需要token持有账户的私钥即可使用该账户对应的投票权，避免了暴露token持有账户私钥的可能性，极大地提升了安全性。\n此外，每一次账户和矿工公私钥的关联都不是永久的，因为矿工公私钥是有有效期的。生成矿工公私钥时，需要选择一个区块链的高度范围，那么该关联授权仅在对应高度范围内才有效。\n测试链将区块链的高度按1,000,000大小划分为一个个区间，即[0, 1,000,000)是第一个区间，[1,000,000, 2,000,000)是第二个区间，以此类推。生成矿工公私钥时，只能自由选择起始高度，结束高度就是起始高度对应区间的最后一个区块，相当于将关联授权的有效期限制在起始高度所在区间内。\n按照后续步骤，启动你自己的挖矿节点。\n 创建挖矿凭证   注册挖矿凭证   运行挖矿节点   委托池   "
+},
+{
+	"uri": "https://docs.kaleidochain.io/contract/",
+	"title": "智能合约",
+	"tags": [],
+	"description": "",
+	"content": " 合约创建人   "
+},
+{
+	"uri": "https://docs.kaleidochain.io/mining/delegate-pool/",
+	"title": "委托池",
+	"tags": [],
+	"description": "",
+	"content": " 除了持有token的外部账户可以参与挖矿外，持有token的合约也可以参与挖矿。这为多种形式的挖矿提供了技术机制。\n委托池的用途 在你初期没有token的时候，你可以部署一个官方提供的委托合约代码，向官方申请委托授权。官方经过审核后，就会为你的合约进行抵押和委托。\n通过委托池挖矿，你也可以实现集中多人的小量token到一起来参与挖矿的功能。你只需要部署自己的委托池合约，并确保合约可以执行（参考合约抵押机制）。发布自己的合约地址，\n最后，你使用自己的委托合约注册矿工，就可以开始挖矿。\n委托池的实现 外部账户注册矿工是通过发起交易的方式，调用系统矿工合约来注册的。合约的注册方式有点不同。合约必须要实现一个调用系统矿工合约进行注册的接口，外部账户或其它合约通过调用该接口来注册矿工。\n在有多层合约嵌套调用时，需要注意以下细节。在注册系统矿工合约时，谁是矿工取决于msg.sender是谁。正常情况下，应该使用call调用系统矿工合约时，来实现将合约自己注册成为矿工。如果是要将调用合约的外部账号注册成为矿工，那么就需要使用delegatecall来调用，以使得msg.sender继承自调用者。具体可参考关于call和delegatecall的区别说明。\n注册成为矿工时可以指定受益人，因此合约提供的注册矿工的接口通常都要做权限管理，限制某些地址才能调用、或者某些地址才能成为受益人，以防止收益人账号被他人修改。最简单的实现是，只要合约的创建人才可调用该接口。\n下面是一个简单但功能完整的委托池的实现：\nimport \u0026quot;./lib/SysContract.sol\u0026quot;; import \u0026quot;./lib/math/SafeMath.sol\u0026quot;; contract DelegatePoolDemo { using SafeMath for uint256; mapping(address=\u0026gt;uint256) private _balances; // register self into minerdb function registerMiner(bytes minerkey) public { require(msg.sender == SysContract.creatorOf(address(this))); SysContract.minerRegister(minerkey); } /** * @dev Gets the balance of the specified address. * @param owner The address to query the balance of. * @return A uint256 representing the amount owned by the passed address. */ function balanceOf(address owner) public view returns (uint256) { return _balances[owner]; } /** * @dev Delegate token to this contract. */ function delegate() public payable returns (bool) { require(msg.value \u0026gt; 0); _balances[msg.sender] = _balances[msg.sender].add(msg.value); return true; } /** * @dev Transfer token to a specified address. * @param to The address to transfer to. * @param value The amount to be transferred. */ function transfer(address to, uint256 value) public { require(to != address(0), \u0026quot;transfer to the zero address\u0026quot;); _balances[from] = _balances[from].sub(value); to.transfer(value); } }  "
+},
+{
+	"uri": "https://docs.kaleidochain.io/categories/",
+	"title": "Categories",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "https://docs.kaleidochain.io/tags/",
+	"title": "Tags",
+	"tags": [],
+	"description": "",
+	"content": ""
+}]

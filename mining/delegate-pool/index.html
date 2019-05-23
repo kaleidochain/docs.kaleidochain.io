@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="zh" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="description" content="">
+
+
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
+    <title>委托池 :: Kaleido文档</title>
+
+    
+    <link href="/css/nucleus.css?1558621476" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1558621476" rel="stylesheet">
+    <link href="/css/hybrid.css?1558621476" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1558621476" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1558621476" rel="stylesheet">
+    <link href="/css/auto-complete.css?1558621476" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1558621476" rel="stylesheet">
+    <link href="/css/theme.css?1558621476" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1558621476" rel="stylesheet">
+    
+      <link href="/css/theme-mine.css?1558621476" rel="stylesheet">
+    
+
+    <script src="/js/jquery-3.3.1.min.js?1558621476"></script>
+
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    <style type="text/css">
+ a#logo img {
+     width: 30%;
+     height: 30%;
+ }
+</style>
+
+  </head>
+  <body class="" data-url="/mining/delegate-pool/">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/">
+    <img src="/images/kaleido3-512-512.png">
+    <br/>
+    <span><b>Kaleido</b>chain</span>
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="查找英文……">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1558621476"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1558621476"></script>
+<script type="text/javascript">
+    
+        var baseurl = "https:\/\/docs.kaleidochain.io\/";
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1558621476"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/introduction/" title="介绍" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/introduction/">
+          <i class="fas fa-fw fa-info"></i> 介绍
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/getting-started/" title="入门" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/getting-started/">
+          <i class="fas fa-walking fa-fw"></i></i> 入门
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/getting-started/installing-node/" title="安装运行节点" class="dd-item ">
+        <a href="/getting-started/installing-node/">
+        安装运行节点
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/getting-started/creating-new-account/" title="创建新的账户" class="dd-item ">
+        <a href="/getting-started/creating-new-account/">
+        创建新的账户
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/getting-started/getting-testnet-token/" title="获取测试网KAL" class="dd-item ">
+        <a href="/getting-started/getting-testnet-token/">
+        获取测试网KAL
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/getting-started/testing-your-dapp/" title="测试你的应用" class="dd-item ">
+        <a href="/getting-started/testing-your-dapp/">
+        测试你的应用
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/mining/" title="挖矿" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/mining/">
+          <i class="fas fa-hammer fa-fw"></i></i> 挖矿
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/mining/create-miner-key/" title="创建挖矿凭证" class="dd-item ">
+        <a href="/mining/create-miner-key/">
+        创建挖矿凭证
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/mining/register-miner-key/" title="注册挖矿凭证" class="dd-item ">
+        <a href="/mining/register-miner-key/">
+        注册挖矿凭证
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/mining/running-node-as-miner/" title="运行挖矿节点" class="dd-item ">
+        <a href="/mining/running-node-as-miner/">
+        运行挖矿节点
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/mining/delegate-pool/" title="委托池" class="dd-item active">
+        <a href="/mining/delegate-pool/">
+        委托池
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/contract/" title="智能合约" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/contract/">
+          <i class="fas fa-file-contract fa-fw"></i></i> 智能合约
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/contract/contract-creator/" title="合约创建人" class="dd-item ">
+        <a href="/contract/contract-creator/">
+        合约创建人
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+      <section id="shortcuts">
+        <h3>更多</h3>
+        <ul>
+          
+              <li> 
+                  <a class="padding" href="https://kaleidochain.io"><i class='fas fa-fw fa-home'></i> kaleidochain.io</a>
+              </li>
+          
+              <li> 
+                  <a class="padding" href="https://github.com/kaleidochain/kaleido"><i class='fab fa-fw fa-github'></i> kaleido Github</a>
+              </li>
+          
+        </ul>
+      </section>
+    
+
+    
+    <section id="prefooter">
+      <hr/>
+      <ul>
+      
+        <li>
+          <a class="padding">
+            <i class="fas fa-language fa-fw"></i>
+          <div class="select-style">
+            <select id="select-language" onchange="location = this.value;">
+          
+          
+          
+              
+              
+                  
+              
+                  
+                    
+                    
+                      <option id="zh" value="https://docs.kaleidochain.io/mining/delegate-pool/" selected>中文</option>
+                    
+                  
+              
+          
+        </select>
+        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          width="255px" height="255px" viewBox="0 0 255 255" style="enable-background:new 0 0 255 255;" xml:space="preserve">
+          <g>
+            <g id="arrow-drop-down">
+              <polygon points="0,63.75 127.5,191.25 255,63.75 		" />
+            </g>
+          </g>
+        </svg>
+        </div>
+        </a>
+        </li>
+      
+      
+      
+      </ul>
+    </section>
+    
+    <section id="footer">
+      
+<a class="github-button" href="https://github.com/kaleidochain" aria-label="Follow @kaleidochain on GitHub">Follow @kaleidochain</a>
+
+<a class="github-button" href="https://github.com/kaleidochain/kaleido" data-icon="octicon-star" data-show-count="true" aria-label="Star kaleidochain/kaleido on GitHub">Star</a>
+
+<p>Built with <a href="https://github.com/matcornic/hugo-theme-learn"><i class="fas fa-heart"></i></a> from <a href="https://kaleidochain.io">Kaleidochain</a> and <a href="https://gohugo.io/">Hugo</a></p>
+
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'>kaleidochain</a> > <a href='/mining/'>挖矿</a> > 委托池
+          
+         
+          
+         
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#委托池的用途">委托池的用途</a></li>
+<li><a href="#委托池的实现">委托池的实现</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              委托池
+            </h1>
+          
+
+        
+
+
+
+
+
+<p>除了持有token的外部账户可以参与挖矿外，持有token的合约也可以参与挖矿。这为多种形式的挖矿提供了技术机制。</p>
+
+<h3 id="委托池的用途">委托池的用途</h3>
+
+<p>在你初期没有token的时候，你可以部署一个官方提供的委托合约代码，向官方申请委托授权。官方经过审核后，就会为你的合约进行抵押和委托。</p>
+
+<p>通过委托池挖矿，你也可以实现集中多人的小量token到一起来参与挖矿的功能。你只需要部署自己的委托池合约，并确保合约可以执行（参考合约抵押机制）。发布自己的合约地址，</p>
+
+<p>最后，你使用自己的委托合约注册矿工，就可以开始挖矿。</p>
+
+<h3 id="委托池的实现">委托池的实现</h3>
+
+<p>外部账户注册矿工是通过发起交易的方式，调用系统矿工合约来注册的。合约的注册方式有点不同。合约必须要实现一个调用系统矿工合约进行注册的接口，外部账户或其它合约通过调用该接口来注册矿工。</p>
+
+<p>在有多层合约嵌套调用时，需要注意以下细节。在注册系统矿工合约时，谁是矿工取决于msg.sender是谁。正常情况下，应该使用call调用系统矿工合约时，来实现将合约自己注册成为矿工。如果是要将调用合约的外部账号注册成为矿工，那么就需要使用delegatecall来调用，以使得msg.sender继承自调用者。具体可参考关于call和delegatecall的<a href="https://ethereum.stackexchange.com/questions/3667/difference-between-call-callcode-and-delegatecall">区别说明</a>。</p>
+
+<p>注册成为矿工时可以指定受益人，因此合约提供的注册矿工的接口通常都要做权限管理，限制某些地址才能调用、或者某些地址才能成为受益人，以防止收益人账号被他人修改。最简单的实现是，只要合约的创建人才可调用该接口。</p>
+
+<p>下面是一个简单但功能完整的委托池的实现：</p>
+
+<pre><code class="language-solidity">import &quot;./lib/SysContract.sol&quot;;
+import &quot;./lib/math/SafeMath.sol&quot;;
+
+contract DelegatePoolDemo {
+    using SafeMath for uint256;
+
+    mapping(address=&gt;uint256) private _balances;
+
+    // register self into minerdb
+    function registerMiner(bytes minerkey) public {
+        require(msg.sender == SysContract.creatorOf(address(this)));
+        
+        SysContract.minerRegister(minerkey);
+    }
+    
+    /**
+     * @dev Gets the balance of the specified address.
+     * @param owner The address to query the balance of.
+     * @return A uint256 representing the amount owned by the passed address.
+     */
+    function balanceOf(address owner) public view returns (uint256) {
+        return _balances[owner];
+    }
+    
+    /**
+     * @dev Delegate token to this contract.
+     */
+    function delegate() public payable returns (bool) {
+        require(msg.value &gt; 0);
+        _balances[msg.sender] = _balances[msg.sender].add(msg.value);
+        return true;
+    }
+    
+    /**
+     * @dev Transfer token to a specified address.
+     * @param to The address to transfer to.
+     * @param value The amount to be transferred.
+     */
+    function transfer(address to, uint256 value) public {
+        require(to != address(0), &quot;transfer to the zero address&quot;);
+
+        _balances[from] = _balances[from].sub(value);
+        to.transfer(value);
+    }
+}
+
+</code></pre>
+
+
+<footer class=" footline" >
+	
+</footer>
+
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="/mining/running-node-as-miner/" title="运行挖矿节点"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="/contract/" title="智能合约" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1558621476"></script>
+    <script src="/js/perfect-scrollbar.min.js?1558621476"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1558621476"></script>
+    <script src="/js/jquery.sticky.js?1558621476"></script>
+    <script src="/js/featherlight.min.js?1558621476"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1558621476"></script>
+    <script src="/js/highlight.pack.js?1558621476"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/js/modernizr.custom-3.6.0.js?1558621476"></script>
+    <script src="/js/learn.js?1558621476"></script>
+    <script src="/js/hugo-learn.js?1558621476"></script>
+
+    <link href="/mermaid/mermaid.css?1558621476" type="text/css" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1558621476"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    
+
+  </body>
+</html>
+

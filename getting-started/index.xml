@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>入门 on Kaleido文档</title>
+    <link>https://docs.kaleidochain.io/getting-started/</link>
+    <description>Recent content in 入门 on Kaleido文档</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 23 May 2019 12:01:19 +0800</lastBuildDate>
+    
+	<atom:link href="https://docs.kaleidochain.io/getting-started/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>安装运行节点</title>
+      <link>https://docs.kaleidochain.io/getting-started/installing-node/</link>
+      <pubDate>Thu, 23 May 2019 12:05:32 +0800</pubDate>
+      
+      <guid>https://docs.kaleidochain.io/getting-started/installing-node/</guid>
+      <description>我们目前只提供基于docker的二进制版本，仅需要安装docker并拉取镜像即可。
+docker pull kaleidochain/client  准备运行目录 首次运行，你需要准备一个数据目录，该目录可以在任意位置，但我们建议使用$HOME/.kaleido。为了后面使用方便，可以将该目录设置为环境变量KALEIDO_HOME。选取的目录将交由kaleido进行使用和管理，因此建议选择的目录下不要存储其它数据和文件。
+mkdir $HOME/.kaleido export KALEIDO_HOME=$HOME/.kaleido echo $KALEIDO_HOME  后面的命令中，我们将使用环境变量$KALEIDO_HOME来表示该目录。
+作为全节点启动 使用以下命令启动一个名为kalnode的全节点，通过参数--testnet使其连接到测试网络。
+docker run -d --name kalnode -p 38883:38883 -p 38883:38883/udp \ -v $KALEIDO_HOME:/root/.ethereum kaleidochain/client --testnet  启动后，该节点会连接上测试网络，下载区块数据。 我们可以通过IPC连上该节点，查看连接上的peer节点数、当前区块高度等。
+docker exec -it kalnode geth --testnet attach &amp;gt; net.peerCount 15 &amp;gt; eth.blockNumber 17568 &amp;gt; exit  如果你想让自己的节点也显示在网络状态页面中，增加参数--ethstats &amp;quot;your-node-name:bpFe9vOevM@stats-testnet.kaleidochain.io:38881&amp;quot;启动即可，其中your-node-name需要使用自己的节点名称来代替。
+docker run -d --name kalnode -p 38883:38883 -p 38883:38883/udp \ -v $KALEIDO_HOME:/root/.ethereum kaleidochain/client --testnet \ --ethstats &amp;quot;your-node-name:bpFe9vOevM@stats-testnet.kaleidochain.io:38881&amp;quot;  作为服务节点启动 如果你有钱包或其它应用，就需要在全节点的基础上，通过--rpc和--ws参数来开启RPC和WS服务，同时映射8545/8546端口到主机。 这里需要注意的是，由于节点运行在docker容器中，所以RPC和WS服务监听的IP必须是0.</description>
+    </item>
+    
+    <item>
+      <title>创建新的账户</title>
+      <link>https://docs.kaleidochain.io/getting-started/creating-new-account/</link>
+      <pubDate>Thu, 23 May 2019 12:08:28 +0800</pubDate>
+      
+      <guid>https://docs.kaleidochain.io/getting-started/creating-new-account/</guid>
+      <description> 如果你还没有账户，可以按照本指引创建一个属于你自己的账户。这里介绍了通过成熟可信的钱包工具生成和命令行生成的方法。
+使用钱包客户端生成账户（推荐） 你可以使用现有的以太坊钱包，连接到kaleido区块链网络后，创建新的账户。
+下面以MetaMask为例，说明连接kaleido测试网络和创建账户的流程。
+在MetaMask中，点击右上角的下拉菜单。在打开的列表中，点击最底部的Custom RPC。在New Network文本框中，点击Show Advanced Options后，显示出4个文本框，分别填写如下信息：
+ New RPC URL: http://testnet.kaleidochain.io:8545 ChainID: 889 Symbol: KAL Nickname: Kaleido Test Network  填写后如下图。
+最后点击旁边的Save按钮。
+当最上方的网络名称栏显示Kaleido Test Network即表示连接成功。
+然后在MetaMask中创建账户即可。一旦你有了token，就可以方便的使用钱包进行转账了。
+使用命令行生成账户 在运行你自己的节点之后，你还可以通过命令行生成一个新账户，具体如下。将其中的your-password替换为你自己的密码即可。
+docker exec -it kalnode geth --testnet attach &amp;gt; personal.newAccount(&#39;your-password&#39;) &amp;quot;0xe40046ef6f0d4a05d90ca62d8ead47e21c886fc1&amp;quot; &amp;gt; eth.accounts [&amp;quot;0xe40046ef6f0d4a05d90ca62d8ead47e21c886fc1&amp;quot;]  </description>
+    </item>
+    
+    <item>
+      <title>获取测试网KAL</title>
+      <link>https://docs.kaleidochain.io/getting-started/getting-testnet-token/</link>
+      <pubDate>Thu, 23 May 2019 12:11:28 +0800</pubDate>
+      
+      <guid>https://docs.kaleidochain.io/getting-started/getting-testnet-token/</guid>
+      <description>我们创建了一个免费领取kaleidochain测试网络KAL Token的页面 ，点击进去，填写自己的账户地址即可领取。</description>
+    </item>
+    
+    <item>
+      <title>测试你的应用</title>
+      <link>https://docs.kaleidochain.io/getting-started/testing-your-dapp/</link>
+      <pubDate>Thu, 23 May 2019 12:13:37 +0800</pubDate>
+      
+      <guid>https://docs.kaleidochain.io/getting-started/testing-your-dapp/</guid>
+      <description>&lt;p&gt;Kaleidochain官方维护了一个测试网络的全节点&lt;code&gt;testnet.kaleidochain.io&lt;/code&gt;，开放了RPC（8545端口）和WS（8546端口）接口，你可以使用命令行或者钱包连接到测试网络，部署和测试你的应用。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

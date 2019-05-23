@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>挖矿 on Kaleido文档</title>
+    <link>https://docs.kaleidochain.io/mining/</link>
+    <description>Recent content in 挖矿 on Kaleido文档</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 23 May 2019 11:58:34 +0800</lastBuildDate>
+    
+	<atom:link href="https://docs.kaleidochain.io/mining/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>创建挖矿凭证</title>
+      <link>https://docs.kaleidochain.io/mining/create-miner-key/</link>
+      <pubDate>Thu, 23 May 2019 11:58:34 +0800</pubDate>
+      
+      <guid>https://docs.kaleidochain.io/mining/create-miner-key/</guid>
+      <description>我们首先需要创建挖矿公私钥对，得到挖矿凭证minerkey。
+假设当前区块高度为12065，通常情况下，你想尽快开始挖矿，那么你应该选择比当前区块高度略大或相等的高度值，这里我们选取12100，来生成从12100高度开始挖矿的minerkey，这个minerkey属于12100高度所在区间。这个开始高度由参数--begin指定。此外，在生成minerkey的时候，还要通过--miner指明矿工账号，--coinbase指明受益人的地址（即接收区块奖励的地址）。
+如下命令就是用来生成一个属于12100高度所在区间的挖矿凭证minerkey，矿工账号miner和受益人coinbase都是0x958DE277Cde7f5808a910dBf6f7854DF52C25833。
+docker run --rm -v $KALEIDO_HOME:/root/.ethereum \ kaleidochain/client --testnet makeminerkey \ --begin 12100 \ --miner 0x958DE277Cde7f5808a910dBf6f7854DF52C25833 \ --coinbase 0x958DE277Cde7f5808a910dBf6f7854DF52C25833  以上命令执行需要一定的时间，完成后输出结果最后内容如下，这里给出了生成的minerkey，其内部包含了受益人coinbase的地址、起始高度begin、区间的结束高度end等信息。
+Using following params: contract address: 0x1000000000000000000000000000000000000002 miner: 0x958DE277Cde7f5808a910dBf6f7854DF52C25833 coinbase: 0x958DE277Cde7f5808a910dBf6f7854DF52C25833 begin: 12100 end: 1000000 Generate minerkey: 0x2c91689a000000000000000000000000958de277cde7f5808a910dbf6f7854df52c258330000000000000000000000000000000000000000000000000000000000000002c0bd0fe9db297d84f28da5ff851e8c7f30dab5f45ee7891311d78d7bbda6e5d878c98aab5aa50746b052e423385c497ba38066c2f6f6dc05c600a5eab6110b02f9e77403c5becfc80251c4d038e50d3a6b99bd1db88ca7547b8abc134e8235610000000000000000000000000000000000000000000000000000000000002f44  以上输出的最后一行中的0x2c9168...就是挖矿凭证minerkey，其作用相当于公钥。对应的私钥数据存储在节点的数据目录$KALEIDO_HOME/testnet/geth/下以ephemeralkey为前缀的目录，该数据通常比较大。</description>
+    </item>
+    
+    <item>
+      <title>注册挖矿凭证</title>
+      <link>https://docs.kaleidochain.io/mining/register-miner-key/</link>
+      <pubDate>Thu, 23 May 2019 17:47:37 +0800</pubDate>
+      
+      <guid>https://docs.kaleidochain.io/mining/register-miner-key/</guid>
+      <description> 要使minerkey可以挖矿，还需要有投票权。这需要使用自己的账户，调用矿工合约0x1000000000000000000000000000000000000002，将自己的矿工账户与挖矿凭证关联起来。这相当于将自己持有的token对应的投票权，委托给了这个minerkey。minerkey只有被委托后，才会具有一定的投票权，才能在挖矿中使用。
+注册矿工本质上是一次合约调用，有两种方式： 1. 通过钱包注册 2. 通过命令行注册
+使用钱包注册（推荐） 在钱包中，用你的账户，向测试链发送一笔交易，接收地址为矿工合约地址0x1000000000000000000000000000000000000002，data填写为上面生成的minerkey内容即可。在某些钱包客户端中，交易页面默认没有Data字段，需要在设置中打开。
+注册一次需要的gas费用大约在200000左右，建议填写gas费用为210000，或者在类似MetaMask的客户端中，选择Fastest来发送。gas太少会导致交易执行失败。
+使用命令行注册 使用命令行向矿工合约地址0x1000000000000000000000000000000000000002发送一笔交易，将data字段填写为上面生成的minerkey即可。
+docker exec -it kalnode geth --testnet attach &amp;gt; myaddr = &#39;0x958DE277Cde7f5808a910dBf6f7854DF52C25833&#39;; &amp;gt; personal.unlockAccount(myaddr, &#39;your-password&#39;); &amp;gt; hash = eth.sendTransaction({ from: myaddr, to: &#39;0x1000000000000000000000000000000000000002&#39;, gas: 200000, gasPrice: 20000000000, data: &#39;0x2c91689a0000000000000000000000001805b7ee5dd340981628b81d5d094c44a027bdc500000000000000000000000000000000000000000000000000000000000000028b259c4c04e61089ce9c0554339fa9dca01f6ef8c7de4f9268add46cd77c6d0fa668a15f6fec02b01d8f37a80a29cf62360aa69b975fa94b23ec6a32d8abf87d3e4c8f41c3c49e6d765aa7449dc510c0cf95a8ba714bd8abecf16e69df9318e200000000000000000000000000000000000000000000000000000000000003e8&#39; }); &amp;gt; admin.sleepBlocks(2); &amp;gt; eth.getTransactionReceipt(hash);  </description>
+    </item>
+    
+    <item>
+      <title>运行挖矿节点</title>
+      <link>https://docs.kaleidochain.io/mining/running-node-as-miner/</link>
+      <pubDate>Thu, 23 May 2019 17:49:25 +0800</pubDate>
+      
+      <guid>https://docs.kaleidochain.io/mining/running-node-as-miner/</guid>
+      <description>一旦注册好矿工合约，将投票权成功委托给了挖矿凭证，那么就可以使用该挖矿凭证挖矿了。加上参数--mine --etherbase &amp;lt;miner addr&amp;gt;重新启动前面的全节点即可。
+注意这里的--etherbase的值，应该写你刚才发起矿工注册的交易的账号地址（而不是收益地址）。挖矿程序会使用该地址，在挖矿合约中查找你注册的挖矿信息。
+docker stop kalnode &amp;amp;&amp;amp; docker rm kalnode docker run -d --name kalnode -v $KALEIDO_HOME:/root/.ethereum \ -p 38883:38883 -p 38883:38883/udp \ kaleidochain/client --testnet \ --mine --etherbase &#39;your-address&#39;  可以使用以下命令查询验证你的节点是否正在挖矿：
+docker exec -it kalnode geth --testnet attach &amp;gt; eth.mining true  如果仍然没有开始挖矿，可能有几个原因：
+ minerkey没有注册成功 节点启动时的参数没有设置，或者没有与minerkey匹配 没有token，或只有少于1个单位的token 区块高度还没有到你注册的区间范围内 minerkey对应的私钥数据目录不存在或不匹配  如有以上问题，可以查阅之前的文档，重新操作一次。或者将相关信息和问题发到社区中寻求帮助。
+持续挖矿 由于挖矿凭证是有区块范围的，区块高度超过相应范围后，之前的挖矿凭证就失效了。你需要提前为下一个区间范围注册好另一个挖矿凭证，以保持持续不间断的挖矿。
+为避免矿工合约数据过大，矿工合约限制了最多能提前注册未来1个区间。 你可以提前为未来1个区间生成minerkey并提前注册，并预估好这几个区间跑完的时间，设置好提醒方式，以提醒你再次注册。 在测试网络中，1个区间大约可以跑24天。你可以设置每2~3周来检查或注册一次。</description>
+    </item>
+    
+    <item>
+      <title>委托池</title>
+      <link>https://docs.kaleidochain.io/mining/delegate-pool/</link>
+      <pubDate>Thu, 23 May 2019 18:27:26 +0800</pubDate>
+      
+      <guid>https://docs.kaleidochain.io/mining/delegate-pool/</guid>
+      <description>除了持有token的外部账户可以参与挖矿外，持有token的合约也可以参与挖矿。这为多种形式的挖矿提供了技术机制。
+委托池的用途 在你初期没有token的时候，你可以部署一个官方提供的委托合约代码，向官方申请委托授权。官方经过审核后，就会为你的合约进行抵押和委托。
+通过委托池挖矿，你也可以实现集中多人的小量token到一起来参与挖矿的功能。你只需要部署自己的委托池合约，并确保合约可以执行（参考合约抵押机制）。发布自己的合约地址，
+最后，你使用自己的委托合约注册矿工，就可以开始挖矿。
+委托池的实现 外部账户注册矿工是通过发起交易的方式，调用系统矿工合约来注册的。合约的注册方式有点不同。合约必须要实现一个调用系统矿工合约进行注册的接口，外部账户或其它合约通过调用该接口来注册矿工。
+在有多层合约嵌套调用时，需要注意以下细节。在注册系统矿工合约时，谁是矿工取决于msg.sender是谁。正常情况下，应该使用call调用系统矿工合约时，来实现将合约自己注册成为矿工。如果是要将调用合约的外部账号注册成为矿工，那么就需要使用delegatecall来调用，以使得msg.sender继承自调用者。具体可参考关于call和delegatecall的区别说明。
+注册成为矿工时可以指定受益人，因此合约提供的注册矿工的接口通常都要做权限管理，限制某些地址才能调用、或者某些地址才能成为受益人，以防止收益人账号被他人修改。最简单的实现是，只要合约的创建人才可调用该接口。
+下面是一个简单但功能完整的委托池的实现：
+import &amp;quot;./lib/SysContract.sol&amp;quot;; import &amp;quot;./lib/math/SafeMath.sol&amp;quot;; contract DelegatePoolDemo { using SafeMath for uint256; mapping(address=&amp;gt;uint256) private _balances; // register self into minerdb function registerMiner(bytes minerkey) public { require(msg.sender == SysContract.creatorOf(address(this))); SysContract.minerRegister(minerkey); } /** * @dev Gets the balance of the specified address. * @param owner The address to query the balance of. * @return A uint256 representing the amount owned by the passed address.</description>
+    </item>
+    
+  </channel>
+</rss>
