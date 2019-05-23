@@ -1,0 +1,34 @@
+baseURL = "https://docs.kaleidochain.io/"
+languageCode = "en-us"
+defaultContentLanguage = "zh"
+title = "Kaleidochain Documentation"
+theme = "learn"
+
+[params]
+themeVariant = "mine"
+
+[outputs]
+home = ["HTML", "RSS", "JSON"]
+
+[[menu.shortcuts]]
+name = "<i class='fas fa-fw fa-home'></i> kaleidochain.io"
+identifier = "home"
+url = "https://kaleidochain.io"
+weight = 1
+
+[[menu.shortcuts]]
+name = "<i class='fab fa-fw fa-github'></i> kaleido Github"
+identifier = "ds"
+url = "https://github.com/kaleidochain/kaleido"
+weight = 3
+
+[Languages.en]
+title = "Documentation for Hugo Learn Theme"
+weight = 1
+languageName = "English"
+
+[Languages.zh]
+title = "Kaleido文档"
+weight = 2
+languageName = "中文"
+
