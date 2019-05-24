@@ -2,7 +2,7 @@
 title: "挖矿"
 date: 2019-05-23T11:58:34+08:00
 weight: 30
-pre: '<i class="fas fa-hammer fa-fw"></i></i> '
+pre: '<i class="fas fa-hammer fa-fw"></i>'
 ---
 
 在Kaleido中，除了账户的公私钥对外，还有另外一种矿工公私钥对`minerkey`。账户通过调用矿工合约`minerdb`注册接口，将自己与矿工公私钥对关联，表示授权该矿工公私钥使用自己持有的token权重进行挖矿。

@@ -10,17 +10,25 @@ themeVariant = "mine"
 [outputs]
 home = ["HTML", "RSS", "JSON"]
 
-[[menu.shortcuts]]
+[[Languages.en.menu.shortcuts]]
+name = "<i class='fas fa-fw fa-home'></i> kaleidochain.io"
+identifier = "home"
+url = "https://kaleidochain.io"
+weight = 1
+[[Languages.zh.menu.shortcuts]]
 name = "<i class='fas fa-fw fa-home'></i> kaleidochain.io"
 identifier = "home"
 url = "https://kaleidochain.io"
 weight = 1
 
-[[menu.shortcuts]]
-name = "<i class='fab fa-fw fa-github'></i> kaleido Github"
-identifier = "ds"
-url = "https://github.com/kaleidochain/kaleido"
-weight = 3
+[[Languages.en.menu.shortcuts]]
+name = "<i class='fas fa-fw fa-file-alt'></i> whitepaper"
+url = "https://kaleidochain.io/docs/whitepaper_en.pdf"
+weight = 9
+[[Languages.zh.menu.shortcuts]]
+name = "<i class='fas fa-fw fa-file-alt'></i> 白皮书"
+url = "https://kaleidochain.io/docs/whitepaper_zh.pdf"
+weight = 9
 
 [Languages.en]
 title = "Documentation for Hugo Learn Theme"

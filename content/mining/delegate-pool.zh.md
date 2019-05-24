@@ -24,7 +24,7 @@ date: 2019-05-23T18:27:26+08:00
 下面是一个简单但功能完整的委托池的实现：
 
 ```solidity
-import "./lib/SysContract.sol";
+import "./lib/kaleido/SysContract.sol";
 import "./lib/math/SafeMath.sol";
 
 contract DelegatePoolDemo {
