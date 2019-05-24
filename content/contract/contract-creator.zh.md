@@ -1,7 +1,7 @@
 ---
 title: "合约创建人"
 date: 2019-05-23T18:29:20+08:00
-weight: 1
+weight: 10
 ---
 
 在Kaleido Chain中，系统内置了一个系统合约，记录了所有合约的创建人地址。创建人地址就是部署合约的外部账号地址。如果一个合约A是由另一个合约B部署的，合约A的创建人地址就自动继承合约B的创建人地址。
@@ -11,7 +11,7 @@ weight: 1
 要在Solidity中获取一个合约的创建人，需要使用以下代码：
 
 ```solidity
-import 'lib/syscontract.sol';
+import 'lib/kaleido/SysContract.sol';
 
 contract Demo {
     // WithDraw - only creator can get the token
