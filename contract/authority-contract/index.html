@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>安装运行节点 :: Kaleido文档</title>
+    <title>权限管理合约 :: Kaleido文档</title>
 
     
     <link href="/css/nucleus.css?1558668447" rel="stylesheet">
@@ -41,7 +41,7 @@
 </style>
 
   </head>
-  <body class="" data-url="/getting-started/installing-node/">
+  <body class="" data-url="/contract/authority-contract/">
     <nav id="sidebar" class="">
 
 
@@ -108,7 +108,7 @@
   
     
     <li data-nav-id="/getting-started/" title="开始" class="dd-item 
-        parent
+        
         
         
         ">
@@ -132,7 +132,7 @@
  
   
     
-      <li data-nav-id="/getting-started/installing-node/" title="安装运行节点" class="dd-item active">
+      <li data-nav-id="/getting-started/installing-node/" title="安装运行节点" class="dd-item ">
         <a href="/getting-started/installing-node/">
         安装运行节点
         
@@ -324,7 +324,7 @@
   
     
     <li data-nav-id="/contract/" title="智能合约" class="dd-item 
-        
+        parent
         
         
         ">
@@ -386,7 +386,7 @@
  
   
     
-      <li data-nav-id="/contract/authority-contract/" title="权限管理合约" class="dd-item ">
+      <li data-nav-id="/contract/authority-contract/" title="权限管理合约" class="dd-item active">
         <a href="/contract/authority-contract/">
         权限管理合约
         
@@ -517,7 +517,7 @@
                   
                     
                     
-                      <option id="zh" value="https://docs.kaleidochain.io/getting-started/installing-node/" selected>中文</option>
+                      <option id="zh" value="https://docs.kaleidochain.io/contract/authority-contract/" selected>中文</option>
                     
                   
               
@@ -590,7 +590,7 @@
             
           
           
-            <a href='/'>kaleidochain</a> > <a href='/getting-started/'>开始</a> > 安装运行节点
+            <a href='/'>kaleidochain</a> > <a href='/contract/'>智能合约</a> > 权限管理合约
           
          
           
@@ -609,10 +609,10 @@
 <ul>
 <li>
 <ul>
-<li><a href="#准备运行目录">准备运行目录</a></li>
-<li><a href="#作为全节点启动">作为全节点启动</a></li>
-<li><a href="#作为服务节点启动">作为服务节点启动</a></li>
-<li><a href="#更新版本">更新版本</a></li>
+<li><a href="#环境准备">环境准备</a></li>
+<li><a href="#编写合约">编写合约</a></li>
+<li><a href="#部署合约">部署合约</a></li>
+<li><a href="#测试">测试</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -632,7 +632,7 @@
           
             <h1>
               
-              安装运行节点
+              权限管理合约
             </h1>
           
 
@@ -642,107 +642,248 @@
 
 
 
-<p>我们目前只提供基于docker的二进制版本，仅需要<a href="https://docs.docker.com/install/">安装docker</a>并拉取镜像即可。</p>
+<p>kaleido扩展了合约的权限管理功能。通过权限管理合约，可以实现：</p>
 
-<pre><code class="language-bash">docker pull kaleidochain/client
+<ol>
+<li>用户调用产生的gas消耗由合约支付</li>
+<li>合约调用黑名单，禁止某些用户调用合约</li>
+</ol>
+
+<p>合约创建者可以控制调用权限和每次的调用花费上限。</p>
+
+<p>下面的示例说明这种合约的使用方式。</p>
+
+<h3 id="环境准备">环境准备</h3>
+
+<p>参考<a href="/contract/using-truffle/">使用Truffle开发合约</a>中的内容，配置好开发环境。</p>
+
+<h3 id="编写合约">编写合约</h3>
+
+<p>游戏合约指调用合约的手续费用由合约自己支付，调用者（用户）不需要支付Kal，这样使得游戏能被所有用户都使用。为了达到这个目的需要将游戏合约注册到系统合约里面，系统合约地址为sysytem(0x1000000000000000000000000000000000000001)，当注册到这个系统合约后，该合约就会在调用的时候从合约地址支付，如果合约地址中Kal为0，调用就会失败。
+游戏合约的手续费因为由合约本身支付，所以为了防止无效支付和支付过高手续费用，游戏合约需要和权限合约配合使用，通过权限合约可以控制用户调用的权限，同时通过在权限合约中指定gas_limit和gas_price作为调用合约交易中的上限。权限合约为Authority.sol。
+权限合约可以在多个合约之间共享。
+在实际使用中需要把游戏合约地址和对应的权限合约地址注册到系统合约中。
+system. setAuthContractAddr(address(authority));</p>
+
+<p>在权限合约中设置对应的gas_limit和gas_price：
+authority.setGas(500000000,1000000);</p>
+
+<p>在权限合约中将用户添加到白名单:
+authority.grant(addr);</p>
+
+<p>在权限合约中将用户移除白名单,白名单外的用户调用game合约的交易是不会被区块打包:
+authority.revoke(addr);</p>
+
+<p>便于白名单合约管理,将拥有者权限移交给用户账号:
+authority.changeOwner(msg.sender);</p>
+
+<p>普通逻辑合约Game.sol例子:</p>
+
+<pre><code class="language-solidity">pragma solidity ^0.4.0;
+contract AuthorityInterface{
+	function setPayer() public;
+	function setGas(uint256 price, uint64 gaslimit) public;
+	function grant(address addr)public;
+	function revoke(address addr) public;
+}
+contract AuthIndexInterface{
+	function setAuthContractAddr(address add) public;
+	function getAuthContractAddr(address add) public view returns(address); 
+}
+contract Game{
+	address public creator;
+	string greeting;
+	AuthIndexInterface AuthIndex = AuthIndexInterface(0x1000000000000000000000000000000000000001);
+	AuthorityInterface Authority;
+	function Game(string _greeting) public payable{
+		creator = msg.sender;
+		greeting = _greeting;
+	}
+
+	function () payable {}
+	function setauthority(address addr) returns(bool){
+		require(msg.sender == creator,&quot;not creator&quot;);
+		Authority = AuthorityInterface(addr);
+		AuthIndex.setAuthContractAddr(addr);
+		Authority.setGas(10000000000,1000000);
+		Authority.grant(msg.sender);
+		return true;
+	}
+	function grant(address addr) returns(bool){
+		require(msg.sender == creator,&quot;not creator&quot;);
+		Authority.grant(addr);
+		return true;
+	}
+	function revoke(address addr) returns(bool){
+		require(msg.sender == creator,&quot;not creator&quot;);
+		Authority.revoke(addr);
+		return true;
+	}
+	function greet() constant returns (string){
+		return greeting;
+	}
+	function setGreeting(string _newgreeting){
+		greeting = _newgreeting;
+	}
+	   
+	function kill(){ 
+		require(msg.sender == creator,&quot;not creator&quot;);
+		suicide(creator);
+	}
+}
 </code></pre>
 
-<h3 id="准备运行目录">准备运行目录</h3>
+<p>部署权限管理合约Authority.sol，该合约代码是kaleido内置的，不能随意修改。</p>
 
-<p>首次运行，你需要准备一个数据目录，该目录可以在任意位置，但我们建议使用<code>$HOME/.kaleido</code>。为了后面使用方便，可以将该目录设置为环境变量<code>KALEIDO_HOME</code>。选取的目录将交由kaleido进行使用和管理，因此建议选择的目录下不要存储其它数据和文件。</p>
+<pre><code class="language-solidity">pragma solidity ^0.4.20;
 
-<pre><code class="language-bash">mkdir $HOME/.kaleido
-export KALEIDO_HOME=$HOME/.kaleido
-echo $KALEIDO_HOME
+contract Authority {
+	enum Payer {
+		NOTSET,     
+		SELF        
+	}
+	enum Permission {
+		NOTSET,     
+		PERMIT,     
+		FORBID      
+	}
+	uint    version;   
+	address owner;      
+	address next;       
+	mapping(address =&gt; uint256) addr2opauth;    
+	mapping(address =&gt; uint256) addr2payer;    
+	mapping(address =&gt; uint256) addr2gasprice;  
+	mapping(address =&gt; uint64)  addr2gaslimit;  
+	mapping(address =&gt; uint256) addr2auth;     
+
+	constructor() public {
+		owner = msg.sender;
+		next = address(0);
+		version = 0x01;
+	}
+
+	function changeOwner(address newOwner) public {
+		assert(msg.sender == owner);
+		owner = newOwner;
+	}
+
+	function getOwner() public view returns(address) {
+		return owner;
+	}
+
+	function setNewAuthority(address newNext) public {
+		assert(msg.sender == owner);
+		next = newNext;
+	}
+
+	function getNextAuthority() public view returns(address) {
+		return next;
+	}
+
+	function grantContractAuth(address addr) public {
+		assert(msg.sender == owner);
+
+		addr2opauth[addr] = uint(Permission.PERMIT);
+	}
+
+	function revokeContractAuth(address addr) public {
+		assert(msg.sender == owner);
+
+		addr2opauth[addr] = uint(Permission.FORBID);
+		delete addr2opauth[addr];
+	}
+
+	function setPayer() public {
+		addr2payer[msg.sender] = uint256(Payer.SELF);
+	}
+
+	function getPayer(address contractAddr) public view returns(uint256){
+		return addr2payer[contractAddr];
+	}
+
+	function setGas(uint256 price, uint64 gaslimit) public {
+		addr2payer[msg.sender] = uint(Payer.SELF);
+		addr2gasprice[msg.sender] = price;
+		addr2gaslimit[msg.sender] = gaslimit;
+	}
+
+	function getGas(address contractAddr) public view returns(uint256, uint64){
+		return (addr2gasprice[contractAddr], addr2gaslimit[contractAddr]); 
+	}
+
+	function getContractInfo(address contractAddr) public view returns(uint256, uint256, uint256, uint64){
+		return (addr2opauth[contractAddr], addr2payer[contractAddr], addr2gasprice[contractAddr], addr2gaslimit[contractAddr]);
+	}
+
+	function grant(address addr) public {
+		addr2auth[addr] = uint(Permission.PERMIT);
+	}
+
+	function revoke(address addr) public {
+		require(uint(Permission.PERMIT) == addr2opauth[msg.sender]);
+		addr2auth[addr] = uint(Permission.FORBID);
+		delete addr2auth[addr];
+	}
+
+	function getAuth(address addr) public view returns(uint256) {
+		return addr2auth[addr];
+	}
+}
 </code></pre>
 
-<p>后面的命令中，我们将使用环境变量<code>$KALEIDO_HOME</code>来表示该目录。</p>
+<h3 id="部署合约">部署合约</h3>
 
-<h3 id="作为全节点启动">作为全节点启动</h3>
+<p>编写合约部署脚本2_initial_game.js，其中<code>deployer.deploy(Game,&quot;param1&quot;,{value:100000000000000000})</code>中转入合约的Kal用于合约调用费用。</p>
 
-<p>使用以下命令启动一个名为<code>kalnode</code>的全节点，通过参数<code>--testnet</code>使其连接到测试网络。</p>
-
-<pre><code class="language-bash">docker run -d --name kalnode -p 38883:38883 -p 38883:38883/udp \
--v $KALEIDO_HOME:/root/.ethereum kaleidochain/client --testnet
+<pre><code class="language-javascript">const Game = artifacts.require(&quot;Game&quot;);
+const authority = artifacts.require(&quot;Authority&quot;);
+module.exports = function(deployer){
+var gameToken,authToken;
+deployer.then(function(){
+return deployer.deploy(Game,&quot;param1&quot;,{value:100000000000000000}); 
+}).then(function(result){
+  gameToken = result;
+return deployer.deploy(authority);
+}).then(function(result){
+authToken = result;
+}).then(function(result){
+gameToken.setauthority(authToken.address);
+authToken.grantContractAuth(gameToken.address);
+});
+}
 </code></pre>
 
-<p>启动后，该节点会连接上测试网络，下载区块数据。
-我们可以通过IPC连上该节点，查看连接上的peer节点数、当前区块高度等。</p>
+<p>编译部署：</p>
 
-<pre><code class="language-bash">docker exec -it kalnode geth --testnet attach
-&gt; net.peerCount
-15
-&gt; eth.blockNumber
-17568
-&gt; exit
+<pre><code>truffle migrate --reset
 </code></pre>
 
-<p>如果你想让自己的节点也显示在<a href="http://stats-testnet.kaleidochain.io">网络状态页面</a>中，增加参数<code>--ethstats &quot;your-node-name:bpFe9vOevM@stats-testnet.kaleidochain.io:38881&quot;</code>启动即可，其中<code>your-node-name</code>需要使用自己的节点名称来代替。</p>
+<h3 id="测试">测试</h3>
 
-<pre><code class="language-bash">docker run -d --name kalnode -p 38883:38883 -p 38883:38883/udp \
--v $KALEIDO_HOME:/root/.ethereum kaleidochain/client --testnet \
---ethstats &quot;your-node-name:bpFe9vOevM@stats-testnet.kaleidochain.io:38881&quot;
-</code></pre>
+<p>使用命令行连接到测试节点，执行以下代码：</p>
 
-<h3 id="作为服务节点启动">作为服务节点启动</h3>
+<pre><code class="language-javascript">var gameabi = [{&quot;constant&quot;:true,&quot;inputs&quot;:[],&quot;name&quot;:&quot;creator&quot;,&quot;outputs&quot;:[{&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;address&quot;}],&quot;payable&quot;:false,&quot;stateMutability&quot;:&quot;view&quot;,&quot;type&quot;:&quot;function&quot;},{&quot;constant&quot;:false,&quot;inputs&quot;:[{&quot;name&quot;:&quot;addr&quot;,&quot;type&quot;:&quot;address&quot;}],&quot;name&quot;:&quot;grant&quot;,&quot;outputs&quot;:[{&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;bool&quot;}],&quot;payable&quot;:false,&quot;stateMutability&quot;:&quot;nonpayable&quot;,&quot;type&quot;:&quot;function&quot;},{&quot;constant&quot;:false,&quot;inputs&quot;:[{&quot;name&quot;:&quot;addr&quot;,&quot;type&quot;:&quot;address&quot;}],&quot;name&quot;:&quot;revoke&quot;,&quot;outputs&quot;:[{&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;bool&quot;}],&quot;payable&quot;:false,&quot;stateMutability&quot;:&quot;nonpayable&quot;,&quot;type&quot;:&quot;function&quot;},{&quot;constant&quot;:true,&quot;inputs&quot;:[],&quot;name&quot;:&quot;greet&quot;,&quot;outputs&quot;:[{&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;string&quot;}],&quot;payable&quot;:false,&quot;stateMutability&quot;:&quot;view&quot;,&quot;type&quot;:&quot;function&quot;},{&quot;constant&quot;:false,&quot;inputs&quot;:[{&quot;name&quot;:&quot;_newgreeting&quot;,&quot;type&quot;:&quot;string&quot;}],&quot;name&quot;:&quot;setGreeting&quot;,&quot;outputs&quot;:[],&quot;payable&quot;:false,&quot;stateMutability&quot;:&quot;nonpayable&quot;,&quot;type&quot;:&quot;function&quot;}];
+var game= web3.eth.contract(gameabi).at(&quot;game合约地址&quot;);
+//只读函数都能成功返回
+game.greet({from:eth.accounts[0]});
+game.greet({from:eth.accounts[1]});
 
-<p>如果你有钱包或其它应用，就需要在全节点的基础上，通过<code>--rpc</code>和<code>--ws</code>参数来开启RPC和WS服务，同时映射8545/8546端口到主机。
-这里需要注意的是，由于节点运行在docker容器中，所以RPC和WS服务监听的IP必须是<code>0.0.0.0</code>。</p>
+//success
+game.setGreeting(&quot;test&quot;,{from:game.creator()});
 
-<pre><code class="language-bash">docker stop kalnode &amp;&amp; docker rm kalnode
+//failure:contract permission denied.
+game.setGreeting(&quot;test&quot;,{from:eth.accounts[1]});
 
-docker run -d --name kalnode \
--p 38883:38883 -p 38883:38883/udp -p 8545:8545 -p 8546:8546 \
--v $KALEIDO_HOME:/root/.ethereum \
-kaleidochain/client --testnet \
---rpc --rpcaddr 0.0.0.0 --rpcvhosts '*' \
---ws --wsaddr 0.0.0.0 --wsorigins '*'
-</code></pre>
+//加入白名单
+game.grant(eth.accounts[1],{from:game.creator()});
 
-<p>我们也可以使用如下命令，直接连接RPC和WS服务来使用。</p>
+//success
+game.setGreeting(&quot;test&quot;,{from:eth.accounts[1]});
+//移除白名单
+game.revoke(eth.accounts[1],{from:game.creator()});
 
-<pre><code class="language-bash">docker exec -it kalnode geth attach http://127.0.0.1:8545
-&gt; eth.blockNumber
-17568
-&gt; exit
-
-docker exec -it kalnode geth attach http://127.0.0.1:8546
-&gt; eth.blockNumber
-17568
-&gt; exit
-</code></pre>
-
-<p>接下来，你的钱包应用就可以选择连接上你自己的全节点了。</p>
-
-<p>如果需要查看详细日志，我们可以带上日志参数<code>--vmodule 'p2p/discv5/*=3,p2p/discover/*=3,*=5'</code>重新启动全节点，然后就可以使用<code>docker logs</code>命令查看到详细日志。</p>
-
-<pre><code class="language-bash">docker stop kalnode &amp;&amp; docker rm kalnode
-
-docker run -d --name kalnode \
--p 38883:38883 -p 38883:38883/udp -p 8545:8545 -p 8546:8546 \
--v $KALEIDO_HOME:/root/.ethereum \
-kaleidochain/client --testnet \
---rpc --rpcaddr 0.0.0.0 --rpcvhosts '*' \
---ws --wsaddr 0.0.0.0 --wsorigins '*' \
---vmodule 'p2p/discv5/*=3,p2p/discover/*=3,*=5'
-
-docker logs --tail=100 -f kalnode
-</code></pre>
-
-<h3 id="更新版本">更新版本</h3>
-
-<p>如有新版本，只需要更新docker镜像，删除之前的容器，重新创建新的容器即可。</p>
-
-<pre><code class="language-bash">docker pull kaleidochain/client
-
-docker stop kalnode &amp;&amp; docker rm kalnode
-
-docker run -d --name kalnode \
--p 38883:38883 -p 38883:38883/udp \
--v $KALEIDO_HOME:/root/.ethereum \
-kaleidochain/client --testnet
-
-docker logs --tail=100 -f kalnode
+//failure:contract permission denied.
+game.setGreeting(&quot;test&quot;,{from:eth.accounts[1]});
 </code></pre>
 
 
@@ -801,91 +942,6 @@ docker logs --tail=100 -f kalnode
             
                 
                     
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
                 
                 
 
@@ -1026,6 +1082,94 @@ docker logs --tail=100 -f kalnode
             
             
                 
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
                     
                 
                 
@@ -1082,10 +1226,10 @@ docker logs --tail=100 -f kalnode
 	 
 	 
 		
-			<a class="nav nav-prev" href="/getting-started/" title="开始"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/contract/using-truffle/" title="使用Truffle开发合约"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/getting-started/creating-new-account/" title="创建新的账户" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/contract/contract-creator/" title="合约创建人" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>

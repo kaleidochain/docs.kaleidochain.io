@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>安装运行节点 :: Kaleido文档</title>
+    <title>使用Truffle开发合约 :: Kaleido文档</title>
 
     
     <link href="/css/nucleus.css?1558668447" rel="stylesheet">
@@ -41,7 +41,7 @@
 </style>
 
   </head>
-  <body class="" data-url="/getting-started/installing-node/">
+  <body class="" data-url="/contract/using-truffle/">
     <nav id="sidebar" class="">
 
 
@@ -108,7 +108,7 @@
   
     
     <li data-nav-id="/getting-started/" title="开始" class="dd-item 
-        parent
+        
         
         
         ">
@@ -132,7 +132,7 @@
  
   
     
-      <li data-nav-id="/getting-started/installing-node/" title="安装运行节点" class="dd-item active">
+      <li data-nav-id="/getting-started/installing-node/" title="安装运行节点" class="dd-item ">
         <a href="/getting-started/installing-node/">
         安装运行节点
         
@@ -324,7 +324,7 @@
   
     
     <li data-nav-id="/contract/" title="智能合约" class="dd-item 
-        
+        parent
         
         
         ">
@@ -367,7 +367,7 @@
  
   
     
-      <li data-nav-id="/contract/using-truffle/" title="使用Truffle开发合约" class="dd-item ">
+      <li data-nav-id="/contract/using-truffle/" title="使用Truffle开发合约" class="dd-item active">
         <a href="/contract/using-truffle/">
         使用Truffle开发合约
         
@@ -517,7 +517,7 @@
                   
                     
                     
-                      <option id="zh" value="https://docs.kaleidochain.io/getting-started/installing-node/" selected>中文</option>
+                      <option id="zh" value="https://docs.kaleidochain.io/contract/using-truffle/" selected>中文</option>
                     
                   
               
@@ -590,7 +590,7 @@
             
           
           
-            <a href='/'>kaleidochain</a> > <a href='/getting-started/'>开始</a> > 安装运行节点
+            <a href='/'>kaleidochain</a> > <a href='/contract/'>智能合约</a> > 使用Truffle开发合约
           
          
           
@@ -603,20 +603,7 @@
                 
                     <div class="progress">
     <div class="wrapper">
-<nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#准备运行目录">准备运行目录</a></li>
-<li><a href="#作为全节点启动">作为全节点启动</a></li>
-<li><a href="#作为服务节点启动">作为服务节点启动</a></li>
-<li><a href="#更新版本">更新版本</a></li>
-</ul></li>
-</ul></li>
-</ul>
-</nav>
+
     </div>
 </div>
 
@@ -632,7 +619,7 @@
           
             <h1>
               
-              安装运行节点
+              使用Truffle开发合约
             </h1>
           
 
@@ -640,109 +627,72 @@
 
 
 
+<p>除了通过geth命令行进行部署外也可以通过truffle环境进行部署。</p>
 
+<p>首先安装truffle：</p>
 
-<p>我们目前只提供基于docker的二进制版本，仅需要<a href="https://docs.docker.com/install/">安装docker</a>并拉取镜像即可。</p>
-
-<pre><code class="language-bash">docker pull kaleidochain/client
+<pre><code class="language-bash">npm install –g truffle@4.1.14
 </code></pre>
 
-<h3 id="准备运行目录">准备运行目录</h3>
+<p>初始化truffle项目：</p>
 
-<p>首次运行，你需要准备一个数据目录，该目录可以在任意位置，但我们建议使用<code>$HOME/.kaleido</code>。为了后面使用方便，可以将该目录设置为环境变量<code>KALEIDO_HOME</code>。选取的目录将交由kaleido进行使用和管理，因此建议选择的目录下不要存储其它数据和文件。</p>
-
-<pre><code class="language-bash">mkdir $HOME/.kaleido
-export KALEIDO_HOME=$HOME/.kaleido
-echo $KALEIDO_HOME
+<pre><code class="language-bash">mkdir bare-box
+cd bare-box
+truffle init
 </code></pre>
 
-<p>后面的命令中，我们将使用环境变量<code>$KALEIDO_HOME</code>来表示该目录。</p>
+<p>并配置节点信息：</p>
 
-<h3 id="作为全节点启动">作为全节点启动</h3>
+<p>在 truffle-config.js文件找到development,删除注释,配置节点ip,port为你要连接的节点的信息。</p>
 
-<p>使用以下命令启动一个名为<code>kalnode</code>的全节点，通过参数<code>--testnet</code>使其连接到测试网络。</p>
-
-<pre><code class="language-bash">docker run -d --name kalnode -p 38883:38883 -p 38883:38883/udp \
--v $KALEIDO_HOME:/root/.ethereum kaleidochain/client --testnet
+<pre><code>development: {
+    host: &quot;127.0.0.1&quot;,     // Localhost (default: none)
+    port: 8545,            // Standard Ethereum port (default: none)
+    network_id: &quot;*&quot;,       // Any network (default: none)
+},
 </code></pre>
 
-<p>启动后，该节点会连接上测试网络，下载区块数据。
-我们可以通过IPC连上该节点，查看连接上的peer节点数、当前区块高度等。</p>
+<p>在目录<code>contracts</code>下撰写合约文件<code>Game.sol</code>（注: 文件名称必须与合约名称相同），示例合约内容如下：</p>
 
-<pre><code class="language-bash">docker exec -it kalnode geth --testnet attach
-&gt; net.peerCount
-15
-&gt; eth.blockNumber
-17568
-&gt; exit
+<pre><code class="language-solidity">pragma solidity ^0.4.0;
+
+contract Game
+{
+	address public creator;
+	string greeting;
+
+	function Game(string _greeting) public payable {
+		creator = msg.sender;
+		greeting = _greeting;
+	}
+
+	function greet() constant returns (string){
+		return greeting;
+	}
+
+	function setGreeting(string _newgreeting){
+		greeting = _newgreeting;
+	}
+
+	function kill(){
+		require(msg.sender == creator,&quot;not creator&quot;);
+		suicide(creator);
+	}
+}
 </code></pre>
 
-<p>如果你想让自己的节点也显示在<a href="http://stats-testnet.kaleidochain.io">网络状态页面</a>中，增加参数<code>--ethstats &quot;your-node-name:bpFe9vOevM@stats-testnet.kaleidochain.io:38881&quot;</code>启动即可，其中<code>your-node-name</code>需要使用自己的节点名称来代替。</p>
+<p>在目录<code>migrations</code>下编写合约部署脚本<code>2_initial_game.js</code>，示例内容如下：</p>
 
-<pre><code class="language-bash">docker run -d --name kalnode -p 38883:38883 -p 38883:38883/udp \
--v $KALEIDO_HOME:/root/.ethereum kaleidochain/client --testnet \
---ethstats &quot;your-node-name:bpFe9vOevM@stats-testnet.kaleidochain.io:38881&quot;
+<pre><code class="language-javascript">const Game = artifacts.require(&quot;Game&quot;);
+
+module.exports = function(deployer) {
+    deployer.deploy(Game,&quot;Hello world!&quot;);
+};
 </code></pre>
 
-<h3 id="作为服务节点启动">作为服务节点启动</h3>
+<p>最后，调用truffle命令一键编译部署合约:</p>
 
-<p>如果你有钱包或其它应用，就需要在全节点的基础上，通过<code>--rpc</code>和<code>--ws</code>参数来开启RPC和WS服务，同时映射8545/8546端口到主机。
-这里需要注意的是，由于节点运行在docker容器中，所以RPC和WS服务监听的IP必须是<code>0.0.0.0</code>。</p>
-
-<pre><code class="language-bash">docker stop kalnode &amp;&amp; docker rm kalnode
-
-docker run -d --name kalnode \
--p 38883:38883 -p 38883:38883/udp -p 8545:8545 -p 8546:8546 \
--v $KALEIDO_HOME:/root/.ethereum \
-kaleidochain/client --testnet \
---rpc --rpcaddr 0.0.0.0 --rpcvhosts '*' \
---ws --wsaddr 0.0.0.0 --wsorigins '*'
-</code></pre>
-
-<p>我们也可以使用如下命令，直接连接RPC和WS服务来使用。</p>
-
-<pre><code class="language-bash">docker exec -it kalnode geth attach http://127.0.0.1:8545
-&gt; eth.blockNumber
-17568
-&gt; exit
-
-docker exec -it kalnode geth attach http://127.0.0.1:8546
-&gt; eth.blockNumber
-17568
-&gt; exit
-</code></pre>
-
-<p>接下来，你的钱包应用就可以选择连接上你自己的全节点了。</p>
-
-<p>如果需要查看详细日志，我们可以带上日志参数<code>--vmodule 'p2p/discv5/*=3,p2p/discover/*=3,*=5'</code>重新启动全节点，然后就可以使用<code>docker logs</code>命令查看到详细日志。</p>
-
-<pre><code class="language-bash">docker stop kalnode &amp;&amp; docker rm kalnode
-
-docker run -d --name kalnode \
--p 38883:38883 -p 38883:38883/udp -p 8545:8545 -p 8546:8546 \
--v $KALEIDO_HOME:/root/.ethereum \
-kaleidochain/client --testnet \
---rpc --rpcaddr 0.0.0.0 --rpcvhosts '*' \
---ws --wsaddr 0.0.0.0 --wsorigins '*' \
---vmodule 'p2p/discv5/*=3,p2p/discover/*=3,*=5'
-
-docker logs --tail=100 -f kalnode
-</code></pre>
-
-<h3 id="更新版本">更新版本</h3>
-
-<p>如有新版本，只需要更新docker镜像，删除之前的容器，重新创建新的容器即可。</p>
-
-<pre><code class="language-bash">docker pull kaleidochain/client
-
-docker stop kalnode &amp;&amp; docker rm kalnode
-
-docker run -d --name kalnode \
--p 38883:38883 -p 38883:38883/udp \
--v $KALEIDO_HOME:/root/.ethereum \
-kaleidochain/client --testnet
-
-docker logs --tail=100 -f kalnode
+<pre><code class="language-bash">truffle migrate --reset;
 </code></pre>
 
 
@@ -801,91 +751,6 @@ docker logs --tail=100 -f kalnode
             
                 
                     
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
                 
                 
 
@@ -1010,6 +875,94 @@ docker logs --tail=100 -f kalnode
             
             
                 
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
                     
                 
                 
@@ -1082,10 +1035,10 @@ docker logs --tail=100 -f kalnode
 	 
 	 
 		
-			<a class="nav nav-prev" href="/getting-started/" title="开始"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/contract/quick-start/" title="快速开始"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/getting-started/creating-new-account/" title="创建新的账户" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/contract/authority-contract/" title="权限管理合约" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>

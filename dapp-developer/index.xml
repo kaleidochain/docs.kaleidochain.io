@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>DApp开发 on Kaleido文档</title>
+    <link>https://docs.kaleidochain.io/dapp-developer/</link>
+    <description>Recent content in DApp开发 on Kaleido文档</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 23 May 2019 11:58:34 +0800</lastBuildDate>
+    
+	<atom:link href="https://docs.kaleidochain.io/dapp-developer/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>开发资源</title>
+      <link>https://docs.kaleidochain.io/dapp-developer/resources/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://docs.kaleidochain.io/dapp-developer/resources/</guid>
+      <description> 斗地主Demo   斗地主Demo源码   斗地主Demo APK  SDK下载   iOS版本的预编译SDK   Android版本的预编译SDK  </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>安装运行节点 :: Kaleido文档</title>
+    <title>DApp开发 :: Kaleido文档</title>
 
     
     <link href="/css/nucleus.css?1558668447" rel="stylesheet">
@@ -41,7 +41,7 @@
 </style>
 
   </head>
-  <body class="" data-url="/getting-started/installing-node/">
+  <body class="" data-url="/dapp-developer/">
     <nav id="sidebar" class="">
 
 
@@ -108,7 +108,7 @@
   
     
     <li data-nav-id="/getting-started/" title="开始" class="dd-item 
-        parent
+        
         
         
         ">
@@ -132,7 +132,7 @@
  
   
     
-      <li data-nav-id="/getting-started/installing-node/" title="安装运行节点" class="dd-item active">
+      <li data-nav-id="/getting-started/installing-node/" title="安装运行节点" class="dd-item ">
         <a href="/getting-started/installing-node/">
         安装运行节点
         
@@ -432,8 +432,8 @@
   
     
     <li data-nav-id="/dapp-developer/" title="DApp开发" class="dd-item 
-        
-        
+        parent
+        active
         
         ">
       <a href="/dapp-developer/">
@@ -517,7 +517,7 @@
                   
                     
                     
-                      <option id="zh" value="https://docs.kaleidochain.io/getting-started/installing-node/" selected>中文</option>
+                      <option id="zh" value="https://docs.kaleidochain.io/dapp-developer/" selected>中文</option>
                     
                   
               
@@ -586,13 +586,7 @@
             
           
           
-            
-            
-          
-          
-            <a href='/'>kaleidochain</a> > <a href='/getting-started/'>开始</a> > 安装运行节点
-          
-         
+            <a href='/'>kaleidochain</a> > DApp开发
           
          
           
@@ -603,20 +597,7 @@
                 
                     <div class="progress">
     <div class="wrapper">
-<nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#准备运行目录">准备运行目录</a></li>
-<li><a href="#作为全节点启动">作为全节点启动</a></li>
-<li><a href="#作为服务节点启动">作为服务节点启动</a></li>
-<li><a href="#更新版本">更新版本</a></li>
-</ul></li>
-</ul></li>
-</ul>
-</nav>
+
     </div>
 </div>
 
@@ -632,7 +613,7 @@
           
             <h1>
               
-              安装运行节点
+              DApp开发
             </h1>
           
 
@@ -641,115 +622,54 @@
 
 
 
+	<p>Kaleido链除了可以开发以太坊上基于Solidity的智能合约外，还能开发结合链上智能合约的纯P2P的分布式应用。Kaleido对去中心化的、可验证的应用开发做了全面的支持，包括提升了链的性能，对虚拟机做了功能扩展，提供了开发SDK和相关demo等资源。DApp可以通过链上的分布式账本结合P2P网络的通信机制来完成复杂的P2P应用。</p>
 
-<p>我们目前只提供基于docker的二进制版本，仅需要<a href="https://docs.docker.com/install/">安装docker</a>并拉取镜像即可。</p>
+<p>一个完整的基于kaleido的P2P应用开发由三个部分组成：</p>
 
-<pre><code class="language-bash">docker pull kaleidochain/client
-</code></pre>
+<ol>
+<li>链上的合约代码，负责应用的结算和公共共识部分，一般以基于ERC20的Token合约实现。</li>
+<li>lua脚本部分，这块是游戏和核心逻辑，通过交易形式存在链上合约中，在游戏运行时从链上下载下来在本地轻节点的lua虚拟机中执行。</li>
+<li>前端js代码负责界面的交互和与lua脚本的通信。</li>
+</ol>
 
-<h3 id="准备运行目录">准备运行目录</h3>
+<p>下面的内容主要对基于Kaleido进行DApp应用开发的方法进行说明。</p>
 
-<p>首次运行，你需要准备一个数据目录，该目录可以在任意位置，但我们建议使用<code>$HOME/.kaleido</code>。为了后面使用方便，可以将该目录设置为环境变量<code>KALEIDO_HOME</code>。选取的目录将交由kaleido进行使用和管理，因此建议选择的目录下不要存储其它数据和文件。</p>
+<ul class="children children-li">
+    
 
-<pre><code class="language-bash">mkdir $HOME/.kaleido
-export KALEIDO_HOME=$HOME/.kaleido
-echo $KALEIDO_HOME
-</code></pre>
+    
+        
+    
+    
+    
 
-<p>后面的命令中，我们将使用环境变量<code>$KALEIDO_HOME</code>来表示该目录。</p>
+    
+        
+    
+        
+            
+                
+<li>
+<a href="/dapp-developer/resources/" >开发资源</a>
+</li>
+                
 
-<h3 id="作为全节点启动">作为全节点启动</h3>
+                
+            
+            
+        
+    
 
-<p>使用以下命令启动一个名为<code>kalnode</code>的全节点，通过参数<code>--testnet</code>使其连接到测试网络。</p>
+    
+</ul>
 
-<pre><code class="language-bash">docker run -d --name kalnode -p 38883:38883 -p 38883:38883/udp \
--v $KALEIDO_HOME:/root/.ethereum kaleidochain/client --testnet
-</code></pre>
 
-<p>启动后，该节点会连接上测试网络，下载区块数据。
-我们可以通过IPC连上该节点，查看连接上的peer节点数、当前区块高度等。</p>
 
-<pre><code class="language-bash">docker exec -it kalnode geth --testnet attach
-&gt; net.peerCount
-15
-&gt; eth.blockNumber
-17568
-&gt; exit
-</code></pre>
-
-<p>如果你想让自己的节点也显示在<a href="http://stats-testnet.kaleidochain.io">网络状态页面</a>中，增加参数<code>--ethstats &quot;your-node-name:bpFe9vOevM@stats-testnet.kaleidochain.io:38881&quot;</code>启动即可，其中<code>your-node-name</code>需要使用自己的节点名称来代替。</p>
-
-<pre><code class="language-bash">docker run -d --name kalnode -p 38883:38883 -p 38883:38883/udp \
--v $KALEIDO_HOME:/root/.ethereum kaleidochain/client --testnet \
---ethstats &quot;your-node-name:bpFe9vOevM@stats-testnet.kaleidochain.io:38881&quot;
-</code></pre>
-
-<h3 id="作为服务节点启动">作为服务节点启动</h3>
-
-<p>如果你有钱包或其它应用，就需要在全节点的基础上，通过<code>--rpc</code>和<code>--ws</code>参数来开启RPC和WS服务，同时映射8545/8546端口到主机。
-这里需要注意的是，由于节点运行在docker容器中，所以RPC和WS服务监听的IP必须是<code>0.0.0.0</code>。</p>
-
-<pre><code class="language-bash">docker stop kalnode &amp;&amp; docker rm kalnode
-
-docker run -d --name kalnode \
--p 38883:38883 -p 38883:38883/udp -p 8545:8545 -p 8546:8546 \
--v $KALEIDO_HOME:/root/.ethereum \
-kaleidochain/client --testnet \
---rpc --rpcaddr 0.0.0.0 --rpcvhosts '*' \
---ws --wsaddr 0.0.0.0 --wsorigins '*'
-</code></pre>
-
-<p>我们也可以使用如下命令，直接连接RPC和WS服务来使用。</p>
-
-<pre><code class="language-bash">docker exec -it kalnode geth attach http://127.0.0.1:8545
-&gt; eth.blockNumber
-17568
-&gt; exit
-
-docker exec -it kalnode geth attach http://127.0.0.1:8546
-&gt; eth.blockNumber
-17568
-&gt; exit
-</code></pre>
-
-<p>接下来，你的钱包应用就可以选择连接上你自己的全节点了。</p>
-
-<p>如果需要查看详细日志，我们可以带上日志参数<code>--vmodule 'p2p/discv5/*=3,p2p/discover/*=3,*=5'</code>重新启动全节点，然后就可以使用<code>docker logs</code>命令查看到详细日志。</p>
-
-<pre><code class="language-bash">docker stop kalnode &amp;&amp; docker rm kalnode
-
-docker run -d --name kalnode \
--p 38883:38883 -p 38883:38883/udp -p 8545:8545 -p 8546:8546 \
--v $KALEIDO_HOME:/root/.ethereum \
-kaleidochain/client --testnet \
---rpc --rpcaddr 0.0.0.0 --rpcvhosts '*' \
---ws --wsaddr 0.0.0.0 --wsorigins '*' \
---vmodule 'p2p/discv5/*=3,p2p/discover/*=3,*=5'
-
-docker logs --tail=100 -f kalnode
-</code></pre>
-
-<h3 id="更新版本">更新版本</h3>
-
-<p>如有新版本，只需要更新docker镜像，删除之前的容器，重新创建新的容器即可。</p>
-
-<pre><code class="language-bash">docker pull kaleidochain/client
-
-docker stop kalnode &amp;&amp; docker rm kalnode
-
-docker run -d --name kalnode \
--p 38883:38883 -p 38883:38883/udp \
--v $KALEIDO_HOME:/root/.ethereum \
-kaleidochain/client --testnet
-
-docker logs --tail=100 -f kalnode
-</code></pre>
 
 
 <footer class=" footline" >
 	
 </footer>
-
 
         
         </div> 
@@ -801,7 +721,6 @@ docker logs --tail=100 -f kalnode
             
                 
                     
-                    
                 
                 
 
@@ -814,7 +733,6 @@ docker logs --tail=100 -f kalnode
             
             
                 
-                    
                     
                 
                 
@@ -831,9 +749,6 @@ docker logs --tail=100 -f kalnode
             
             
                 
-                    
-                        
-                        
                     
                 
                 
@@ -1046,6 +961,7 @@ docker logs --tail=100 -f kalnode
             
                 
                     
+                    
                 
                 
 
@@ -1058,6 +974,9 @@ docker logs --tail=100 -f kalnode
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1082,10 +1001,10 @@ docker logs --tail=100 -f kalnode
 	 
 	 
 		
-			<a class="nav nav-prev" href="/getting-started/" title="开始"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/contract/contract-creator/" title="合约创建人"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/getting-started/creating-new-account/" title="创建新的账户" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/dapp-developer/resources/" title="开发资源" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1116,4 +1035,3 @@ docker logs --tail=100 -f kalnode
 
   </body>
 </html>
-
