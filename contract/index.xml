@@ -29,7 +29,7 @@ pragma solidity ^0.4.0; contract Game { address public creator; string greeting;
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://docs.kaleidochain.io/contract/using-truffle/</guid>
-      <description>除了通过geth命令行进行部署外也可以通过truffle环境进行部署。
+      <description>除了通过kalgo命令行进行部署外也可以通过truffle环境进行部署。
 首先安装truffle：
 npm install –g truffle@4.1.14  初始化truffle项目：
 mkdir bare-box cd bare-box truffle init  并配置节点信息：

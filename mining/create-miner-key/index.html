@@ -12,20 +12,20 @@
     <title>创建挖矿凭证 :: Kaleido文档</title>
 
     
-    <link href="/css/nucleus.css?1560398197" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1560398197" rel="stylesheet">
-    <link href="/css/hybrid.css?1560398197" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1560398197" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1560398197" rel="stylesheet">
-    <link href="/css/auto-complete.css?1560398197" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1560398197" rel="stylesheet">
-    <link href="/css/theme.css?1560398197" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1560398197" rel="stylesheet">
+    <link href="/css/nucleus.css?1560414578" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1560414578" rel="stylesheet">
+    <link href="/css/hybrid.css?1560414578" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1560414578" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1560414578" rel="stylesheet">
+    <link href="/css/auto-complete.css?1560414578" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1560414578" rel="stylesheet">
+    <link href="/css/theme.css?1560414578" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1560414578" rel="stylesheet">
     
-      <link href="/css/theme-mine.css?1560398197" rel="stylesheet">
+      <link href="/css/theme-mine.css?1560414578" rel="stylesheet">
     
 
-    <script src="/js/jquery-3.3.1.min.js?1560398197"></script>
+    <script src="/js/jquery-3.3.1.min.js?1560414578"></script>
 
     <style type="text/css">
       :root #header + #content > #left > #rlblock_left{
@@ -62,14 +62,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1560398197"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1560398197"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1560414578"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1560414578"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/docs.kaleidochain.io\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1560398197"></script>
+<script type="text/javascript" src="/js/search.js?1560414578"></script>
 
     
   </div>
@@ -633,7 +633,7 @@
 
 <p>如下命令就是用来生成一个属于<code>12100</code>高度所在区间的挖矿凭证minerkey，矿工账号<code>miner</code>和受益人<code>coinbase</code>都是<code>0x958DE277Cde7f5808a910dBf6f7854DF52C25833</code>。</p>
 
-<pre><code class="language-bash">docker run --rm -v $KALEIDO_HOME:/root/.ethereum \
+<pre><code class="language-bash">docker run --rm -v $KALEIDO_HOME:/root/.kaleido \
 kaleidochain/kalgo --testnet makeminerkey \
 --begin 12100 \
 --miner 0x958DE277Cde7f5808a910dBf6f7854DF52C25833 \
@@ -651,7 +651,7 @@ kaleidochain/kalgo --testnet makeminerkey \
 	Generate minerkey: 0x2c91689a000000000000000000000000958de277cde7f5808a910dbf6f7854df52c258330000000000000000000000000000000000000000000000000000000000000002c0bd0fe9db297d84f28da5ff851e8c7f30dab5f45ee7891311d78d7bbda6e5d878c98aab5aa50746b052e423385c497ba38066c2f6f6dc05c600a5eab6110b02f9e77403c5becfc80251c4d038e50d3a6b99bd1db88ca7547b8abc134e8235610000000000000000000000000000000000000000000000000000000000002f44
 </code></pre>
 
-<p>以上输出的最后一行中的<code>0x2c9168...</code>就是挖矿凭证<code>minerkey</code>，其作用相当于公钥。对应的私钥数据存储在节点的数据目录<code>$KALEIDO_HOME/testnet/geth/</code>下以<code>ephemeralkey</code>为前缀的目录，该数据通常比较大。</p>
+<p>以上输出的最后一行中的<code>0x2c9168...</code>就是挖矿凭证<code>minerkey</code>，其作用相当于公钥。对应的私钥数据存储在节点的数据目录<code>$KALEIDO_HOME/testnet/kalgo/</code>下以<code>ephemeralkey</code>为前缀的目录，该数据通常比较大。</p>
 
 
 <footer class=" footline" >
@@ -1003,20 +1003,20 @@ kaleidochain/kalgo --testnet makeminerkey \
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1560398197"></script>
-    <script src="/js/perfect-scrollbar.min.js?1560398197"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1560398197"></script>
-    <script src="/js/jquery.sticky.js?1560398197"></script>
-    <script src="/js/featherlight.min.js?1560398197"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1560398197"></script>
-    <script src="/js/highlight.pack.js?1560398197"></script>
+    <script src="/js/clipboard.min.js?1560414578"></script>
+    <script src="/js/perfect-scrollbar.min.js?1560414578"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1560414578"></script>
+    <script src="/js/jquery.sticky.js?1560414578"></script>
+    <script src="/js/featherlight.min.js?1560414578"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1560414578"></script>
+    <script src="/js/highlight.pack.js?1560414578"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1560398197"></script>
-    <script src="/js/learn.js?1560398197"></script>
-    <script src="/js/hugo-learn.js?1560398197"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1560414578"></script>
+    <script src="/js/learn.js?1560414578"></script>
+    <script src="/js/hugo-learn.js?1560414578"></script>
 
-    <link href="/mermaid/mermaid.css?1560398197" type="text/css" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1560398197"></script>
+    <link href="/mermaid/mermaid.css?1560414578" type="text/css" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1560414578"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
