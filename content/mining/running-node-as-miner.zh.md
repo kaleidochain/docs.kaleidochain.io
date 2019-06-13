@@ -13,7 +13,7 @@ docker stop kalnode && docker rm kalnode
 
 docker run -d --name kalnode -v $KALEIDO_HOME:/root/.ethereum \
 -p 38883:38883 -p 38883:38883/udp \
-kaleidochain/client --testnet \
+kaleidochain/kalgo --testnet \
 --mine --etherbase 'your-address'
 ```
 

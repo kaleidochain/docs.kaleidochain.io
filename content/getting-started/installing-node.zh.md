@@ -7,7 +7,7 @@ weight: 1
 我们目前只提供基于docker的二进制版本，仅需要[安装docker](https://docs.docker.com/install/)并拉取镜像即可。
 
 ```bash
-docker pull kaleidochain/client
+docker pull kaleidochain/kalgo
 ```
 
 ### 准备运行目录
@@ -28,7 +28,7 @@ echo $KALEIDO_HOME
 
 ```bash
 docker run -d --name kalnode -p 38883:38883 -p 38883:38883/udp \
--v $KALEIDO_HOME:/root/.ethereum kaleidochain/client --testnet
+-v $KALEIDO_HOME:/root/.ethereum kaleidochain/kalgo --testnet
 ```
 
 启动后，该节点会连接上测试网络，下载区块数据。
@@ -47,7 +47,7 @@ docker exec -it kalnode geth --testnet attach
 
 ```bash
 docker run -d --name kalnode -p 38883:38883 -p 38883:38883/udp \
--v $KALEIDO_HOME:/root/.ethereum kaleidochain/client --testnet \
+-v $KALEIDO_HOME:/root/.ethereum kaleidochain/kalgo --testnet \
 --ethstats "your-node-name:bpFe9vOevM@stats-testnet.kaleidochain.io:38881"
 ```
 
@@ -62,7 +62,7 @@ docker stop kalnode && docker rm kalnode
 docker run -d --name kalnode \
 -p 38883:38883 -p 38883:38883/udp -p 8545:8545 -p 8546:8546 \
 -v $KALEIDO_HOME:/root/.ethereum \
-kaleidochain/client --testnet \
+kaleidochain/kalgo --testnet \
 --rpc --rpcaddr 0.0.0.0 --rpcvhosts '*' \
 --ws --wsaddr 0.0.0.0 --wsorigins '*'
 ```
@@ -91,7 +91,7 @@ docker stop kalnode && docker rm kalnode
 docker run -d --name kalnode \
 -p 38883:38883 -p 38883:38883/udp -p 8545:8545 -p 8546:8546 \
 -v $KALEIDO_HOME:/root/.ethereum \
-kaleidochain/client --testnet \
+kaleidochain/kalgo --testnet \
 --rpc --rpcaddr 0.0.0.0 --rpcvhosts '*' \
 --ws --wsaddr 0.0.0.0 --wsorigins '*' \
 --vmodule 'p2p/discv5/*=3,p2p/discover/*=3,*=5'
@@ -104,14 +104,14 @@ docker logs --tail=100 -f kalnode
 如有新版本，只需要更新docker镜像，删除之前的容器，重新创建新的容器即可。
 
 ```bash
-docker pull kaleidochain/client
+docker pull kaleidochain/kalgo
 
 docker stop kalnode && docker rm kalnode
 
 docker run -d --name kalnode \
 -p 38883:38883 -p 38883:38883/udp \
 -v $KALEIDO_HOME:/root/.ethereum \
-kaleidochain/client --testnet
+kaleidochain/kalgo --testnet
 
 docker logs --tail=100 -f kalnode
 ```

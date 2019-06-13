@@ -12,7 +12,7 @@ weight: 1
 
 ```bash
 docker run --rm -v $KALEIDO_HOME:/root/.ethereum \
-kaleidochain/client --testnet makeminerkey \
+kaleidochain/kalgo --testnet makeminerkey \
 --begin 12100 \
 --miner 0x958DE277Cde7f5808a910dBf6f7854DF52C25833 \
 --coinbase 0x958DE277Cde7f5808a910dBf6f7854DF52C25833
