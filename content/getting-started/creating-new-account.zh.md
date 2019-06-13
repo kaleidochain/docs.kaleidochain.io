@@ -32,7 +32,7 @@ weight: 2
 在运行你自己的节点之后，你还可以通过命令行生成一个新账户，具体如下。将其中的`your-password`替换为你自己的密码即可。
 
 ```bash
-docker exec -it kalnode geth --testnet attach
+docker exec -it kalnode kalgo --testnet attach
 > personal.newAccount('your-password')
 "0xe40046ef6f0d4a05d90ca62d8ead47e21c886fc1"
 > eth.accounts

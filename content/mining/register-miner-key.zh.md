@@ -21,7 +21,7 @@ weight: 2
 使用命令行向矿工合约地址`0x1000000000000000000000000000000000000002`发送一笔交易，将data字段填写为上面生成的minerkey即可。
 
 ```bash
-docker exec -it kalnode geth --testnet attach
+docker exec -it kalnode kalgo --testnet attach
 > myaddr = '0x958DE277Cde7f5808a910dBf6f7854DF52C25833';
 > personal.unlockAccount(myaddr, 'your-password');
 > hash = eth.sendTransaction({

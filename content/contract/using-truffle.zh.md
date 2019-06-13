@@ -3,7 +3,7 @@ title: "使用Truffle开发合约"
 weight: 3
 ---
 
-除了通过geth命令行进行部署外也可以通过truffle环境进行部署。
+除了通过kalgo命令行进行部署外也可以通过truffle环境进行部署。
 
 首先安装truffle：
 

@@ -11,7 +11,7 @@ weight: 3
 ```bash
 docker stop kalnode && docker rm kalnode
 
-docker run -d --name kalnode -v $KALEIDO_HOME:/root/.ethereum \
+docker run -d --name kalnode -v $KALEIDO_HOME:/root/.kaleido \
 -p 38883:38883 -p 38883:38883/udp \
 kaleidochain/kalgo --testnet \
 --mine --etherbase 'your-address'
@@ -20,7 +20,7 @@ kaleidochain/kalgo --testnet \
 可以使用以下命令查询验证你的节点是否正在挖矿：
 
 ```bash
-docker exec -it kalnode geth --testnet attach
+docker exec -it kalnode kalgo --testnet attach
 > eth.mining
 true
 ```

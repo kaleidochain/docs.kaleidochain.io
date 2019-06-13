@@ -60,7 +60,7 @@ solcjs –abi –bin Game.sol
 
 接下来使用命令行连接节点部署合约。
 
-这里假设你在本地运行了一个节点，并开启了8545端口，你需要使用命令`geth attach http://127.0.0.1:8545`连接到你的节点。如果没有，你可以使用测试网络的公开服务节点来代替`geth attach http://testnet.kaleidochain.io:8545`
+这里假设你在本地运行了一个节点，并开启了8545端口，你需要使用命令`kalgo attach http://127.0.0.1:8545`连接到你的节点。如果没有，你可以使用测试网络的公开服务节点来代替`kalgo attach http://testnet.kaleidochain.io:8545`
 
 在打开的终端命令行中，执行以下代码：
 
