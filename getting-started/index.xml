@@ -18,12 +18,12 @@
       
       <guid>https://docs.kaleidochain.io/getting-started/installing-node/</guid>
       <description>我们目前只提供基于docker的二进制版本，仅需要安装docker并拉取镜像即可。
-docker pull kaleidochain/client  准备运行目录 首次运行，你需要准备一个数据目录，该目录可以在任意位置，但我们建议使用$HOME/.kaleido。为了后面使用方便，可以将该目录设置为环境变量KALEIDO_HOME。选取的目录将交由kaleido进行使用和管理，因此建议选择的目录下不要存储其它数据和文件。
+docker pull kaleidochain/kalgo  准备运行目录 首次运行，你需要准备一个数据目录，该目录可以在任意位置，但我们建议使用$HOME/.kaleido。为了后面使用方便，可以将该目录设置为环境变量KALEIDO_HOME。选取的目录将交由kaleido进行使用和管理，因此建议选择的目录下不要存储其它数据和文件。
 mkdir $HOME/.kaleido export KALEIDO_HOME=$HOME/.kaleido echo $KALEIDO_HOME  后面的命令中，我们将使用环境变量$KALEIDO_HOME来表示该目录。
 作为全节点启动 使用以下命令启动一个名为kalnode的全节点，通过参数--testnet使其连接到测试网络。
-docker run -d --name kalnode -p 38883:38883 -p 38883:38883/udp \ -v $KALEIDO_HOME:/root/.ethereum kaleidochain/client --testnet  启动后，该节点会连接上测试网络，下载区块数据。 我们可以通过IPC连上该节点，查看连接上的peer节点数、当前区块高度等。
+docker run -d --name kalnode -p 38883:38883 -p 38883:38883/udp \ -v $KALEIDO_HOME:/root/.ethereum kaleidochain/kalgo --testnet  启动后，该节点会连接上测试网络，下载区块数据。 我们可以通过IPC连上该节点，查看连接上的peer节点数、当前区块高度等。
 docker exec -it kalnode geth --testnet attach &amp;gt; net.peerCount 15 &amp;gt; eth.blockNumber 17568 &amp;gt; exit  如果你想让自己的节点也显示在网络状态页面中，增加参数--ethstats &amp;quot;your-node-name:bpFe9vOevM@stats-testnet.kaleidochain.io:38881&amp;quot;启动即可，其中your-node-name需要使用自己的节点名称来代替。
-docker run -d --name kalnode -p 38883:38883 -p 38883:38883/udp \ -v $KALEIDO_HOME:/root/.ethereum kaleidochain/client --testnet \ --ethstats &amp;quot;your-node-name:bpFe9vOevM@stats-testnet.kaleidochain.io:38881&amp;quot;  作为服务节点启动 如果你有钱包或其它应用，就需要在全节点的基础上，通过--rpc和--ws参数来开启RPC和WS服务，同时映射8545/8546端口到主机。 这里需要注意的是，由于节点运行在docker容器中，所以RPC和WS服务监听的IP必须是0.</description>
+docker run -d --name kalnode -p 38883:38883 -p 38883:38883/udp \ -v $KALEIDO_HOME:/root/.ethereum kaleidochain/kalgo --testnet \ --ethstats &amp;quot;your-node-name:bpFe9vOevM@stats-testnet.kaleidochain.io:38881&amp;quot;  作为服务节点启动 如果你有钱包或其它应用，就需要在全节点的基础上，通过--rpc和--ws参数来开启RPC和WS服务，同时映射8545/8546端口到主机。 这里需要注意的是，由于节点运行在docker容器中，所以RPC和WS服务监听的IP必须是0.</description>
     </item>
     
     <item>

@@ -20,7 +20,7 @@
       <description>我们首先需要创建挖矿公私钥对，得到挖矿凭证minerkey。
 假设当前区块高度为12065，通常情况下，你想尽快开始挖矿，那么你应该选择比当前区块高度略大或相等的高度值，这里我们选取12100，来生成从12100高度开始挖矿的minerkey，这个minerkey属于12100高度所在区间。这个开始高度由参数--begin指定。此外，在生成minerkey的时候，还要通过--miner指明矿工账号，--coinbase指明受益人的地址（即接收区块奖励的地址）。
 如下命令就是用来生成一个属于12100高度所在区间的挖矿凭证minerkey，矿工账号miner和受益人coinbase都是0x958DE277Cde7f5808a910dBf6f7854DF52C25833。
-docker run --rm -v $KALEIDO_HOME:/root/.ethereum \ kaleidochain/client --testnet makeminerkey \ --begin 12100 \ --miner 0x958DE277Cde7f5808a910dBf6f7854DF52C25833 \ --coinbase 0x958DE277Cde7f5808a910dBf6f7854DF52C25833  以上命令执行需要一定的时间，完成后输出结果最后内容如下，这里给出了生成的minerkey，其内部包含了受益人coinbase的地址、起始高度begin、区间的结束高度end等信息。
+docker run --rm -v $KALEIDO_HOME:/root/.ethereum \ kaleidochain/kalgo --testnet makeminerkey \ --begin 12100 \ --miner 0x958DE277Cde7f5808a910dBf6f7854DF52C25833 \ --coinbase 0x958DE277Cde7f5808a910dBf6f7854DF52C25833  以上命令执行需要一定的时间，完成后输出结果最后内容如下，这里给出了生成的minerkey，其内部包含了受益人coinbase的地址、起始高度begin、区间的结束高度end等信息。
 Using following params: contract address: 0x1000000000000000000000000000000000000002 miner: 0x958DE277Cde7f5808a910dBf6f7854DF52C25833 coinbase: 0x958DE277Cde7f5808a910dBf6f7854DF52C25833 begin: 12100 end: 1000000 Generate minerkey: 0x2c91689a000000000000000000000000958de277cde7f5808a910dbf6f7854df52c258330000000000000000000000000000000000000000000000000000000000000002c0bd0fe9db297d84f28da5ff851e8c7f30dab5f45ee7891311d78d7bbda6e5d878c98aab5aa50746b052e423385c497ba38066c2f6f6dc05c600a5eab6110b02f9e77403c5becfc80251c4d038e50d3a6b99bd1db88ca7547b8abc134e8235610000000000000000000000000000000000000000000000000000000000002f44  以上输出的最后一行中的0x2c9168...就是挖矿凭证minerkey，其作用相当于公钥。对应的私钥数据存储在节点的数据目录$KALEIDO_HOME/testnet/geth/下以ephemeralkey为前缀的目录，该数据通常比较大。</description>
     </item>
     
@@ -46,7 +46,7 @@ docker exec -it kalnode geth --testnet attach &amp;gt; myaddr = &#39;0x958DE277C
       <guid>https://docs.kaleidochain.io/mining/running-node-as-miner/</guid>
       <description>一旦注册好矿工合约，将投票权成功委托给了挖矿凭证，那么就可以使用该挖矿凭证挖矿了。加上参数--mine --etherbase &amp;lt;miner addr&amp;gt;重新启动前面的全节点即可。
 注意这里的--etherbase的值，应该写你刚才发起矿工注册的交易的账号地址（而不是收益地址）。挖矿程序会使用该地址，在挖矿合约中查找你注册的挖矿信息。
-docker stop kalnode &amp;amp;&amp;amp; docker rm kalnode docker run -d --name kalnode -v $KALEIDO_HOME:/root/.ethereum \ -p 38883:38883 -p 38883:38883/udp \ kaleidochain/client --testnet \ --mine --etherbase &#39;your-address&#39;  可以使用以下命令查询验证你的节点是否正在挖矿：
+docker stop kalnode &amp;amp;&amp;amp; docker rm kalnode docker run -d --name kalnode -v $KALEIDO_HOME:/root/.ethereum \ -p 38883:38883 -p 38883:38883/udp \ kaleidochain/kalgo --testnet \ --mine --etherbase &#39;your-address&#39;  可以使用以下命令查询验证你的节点是否正在挖矿：
 docker exec -it kalnode geth --testnet attach &amp;gt; eth.mining true  如果仍然没有开始挖矿，可能有几个原因：
  minerkey没有注册成功 节点启动时的参数没有设置，或者没有与minerkey匹配 没有token，或只有少于1个单位的token 区块高度还没有到你注册的区间范围内 minerkey对应的私钥数据目录不存在或不匹配  如有以上问题，可以查阅之前的文档，重新操作一次。或者将相关信息和问题发到社区中寻求帮助。
 持续挖矿 由于挖矿凭证是有区块范围的，区块高度超过相应范围后，之前的挖矿凭证就失效了。你需要提前为下一个区间范围注册好另一个挖矿凭证，以保持持续不间断的挖矿。

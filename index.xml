@@ -18,12 +18,12 @@
       
       <guid>https://docs.kaleidochain.io/getting-started/installing-node/</guid>
       <description>我们目前只提供基于docker的二进制版本，仅需要安装docker并拉取镜像即可。
-docker pull kaleidochain/client  准备运行目录 首次运行，你需要准备一个数据目录，该目录可以在任意位置，但我们建议使用$HOME/.kaleido。为了后面使用方便，可以将该目录设置为环境变量KALEIDO_HOME。选取的目录将交由kaleido进行使用和管理，因此建议选择的目录下不要存储其它数据和文件。
+docker pull kaleidochain/kalgo  准备运行目录 首次运行，你需要准备一个数据目录，该目录可以在任意位置，但我们建议使用$HOME/.kaleido。为了后面使用方便，可以将该目录设置为环境变量KALEIDO_HOME。选取的目录将交由kaleido进行使用和管理，因此建议选择的目录下不要存储其它数据和文件。
 mkdir $HOME/.kaleido export KALEIDO_HOME=$HOME/.kaleido echo $KALEIDO_HOME  后面的命令中，我们将使用环境变量$KALEIDO_HOME来表示该目录。
 作为全节点启动 使用以下命令启动一个名为kalnode的全节点，通过参数--testnet使其连接到测试网络。
-docker run -d --name kalnode -p 38883:38883 -p 38883:38883/udp \ -v $KALEIDO_HOME:/root/.ethereum kaleidochain/client --testnet  启动后，该节点会连接上测试网络，下载区块数据。 我们可以通过IPC连上该节点，查看连接上的peer节点数、当前区块高度等。
+docker run -d --name kalnode -p 38883:38883 -p 38883:38883/udp \ -v $KALEIDO_HOME:/root/.ethereum kaleidochain/kalgo --testnet  启动后，该节点会连接上测试网络，下载区块数据。 我们可以通过IPC连上该节点，查看连接上的peer节点数、当前区块高度等。
 docker exec -it kalnode geth --testnet attach &amp;gt; net.peerCount 15 &amp;gt; eth.blockNumber 17568 &amp;gt; exit  如果你想让自己的节点也显示在网络状态页面中，增加参数--ethstats &amp;quot;your-node-name:bpFe9vOevM@stats-testnet.kaleidochain.io:38881&amp;quot;启动即可，其中your-node-name需要使用自己的节点名称来代替。
-docker run -d --name kalnode -p 38883:38883 -p 38883:38883/udp \ -v $KALEIDO_HOME:/root/.ethereum kaleidochain/client --testnet \ --ethstats &amp;quot;your-node-name:bpFe9vOevM@stats-testnet.kaleidochain.io:38881&amp;quot;  作为服务节点启动 如果你有钱包或其它应用，就需要在全节点的基础上，通过--rpc和--ws参数来开启RPC和WS服务，同时映射8545/8546端口到主机。 这里需要注意的是，由于节点运行在docker容器中，所以RPC和WS服务监听的IP必须是0.</description>
+docker run -d --name kalnode -p 38883:38883 -p 38883:38883/udp \ -v $KALEIDO_HOME:/root/.ethereum kaleidochain/kalgo --testnet \ --ethstats &amp;quot;your-node-name:bpFe9vOevM@stats-testnet.kaleidochain.io:38881&amp;quot;  作为服务节点启动 如果你有钱包或其它应用，就需要在全节点的基础上，通过--rpc和--ws参数来开启RPC和WS服务，同时映射8545/8546端口到主机。 这里需要注意的是，由于节点运行在docker容器中，所以RPC和WS服务监听的IP必须是0.</description>
     </item>
     
     <item>
@@ -35,7 +35,7 @@ docker run -d --name kalnode -p 38883:38883 -p 38883:38883/udp \ -v $KALEIDO_HOM
       <description>我们首先需要创建挖矿公私钥对，得到挖矿凭证minerkey。
 假设当前区块高度为12065，通常情况下，你想尽快开始挖矿，那么你应该选择比当前区块高度略大或相等的高度值，这里我们选取12100，来生成从12100高度开始挖矿的minerkey，这个minerkey属于12100高度所在区间。这个开始高度由参数--begin指定。此外，在生成minerkey的时候，还要通过--miner指明矿工账号，--coinbase指明受益人的地址（即接收区块奖励的地址）。
 如下命令就是用来生成一个属于12100高度所在区间的挖矿凭证minerkey，矿工账号miner和受益人coinbase都是0x958DE277Cde7f5808a910dBf6f7854DF52C25833。
-docker run --rm -v $KALEIDO_HOME:/root/.ethereum \ kaleidochain/client --testnet makeminerkey \ --begin 12100 \ --miner 0x958DE277Cde7f5808a910dBf6f7854DF52C25833 \ --coinbase 0x958DE277Cde7f5808a910dBf6f7854DF52C25833  以上命令执行需要一定的时间，完成后输出结果最后内容如下，这里给出了生成的minerkey，其内部包含了受益人coinbase的地址、起始高度begin、区间的结束高度end等信息。
+docker run --rm -v $KALEIDO_HOME:/root/.ethereum \ kaleidochain/kalgo --testnet makeminerkey \ --begin 12100 \ --miner 0x958DE277Cde7f5808a910dBf6f7854DF52C25833 \ --coinbase 0x958DE277Cde7f5808a910dBf6f7854DF52C25833  以上命令执行需要一定的时间，完成后输出结果最后内容如下，这里给出了生成的minerkey，其内部包含了受益人coinbase的地址、起始高度begin、区间的结束高度end等信息。
 Using following params: contract address: 0x1000000000000000000000000000000000000002 miner: 0x958DE277Cde7f5808a910dBf6f7854DF52C25833 coinbase: 0x958DE277Cde7f5808a910dBf6f7854DF52C25833 begin: 12100 end: 1000000 Generate minerkey: 0x2c91689a000000000000000000000000958de277cde7f5808a910dbf6f7854df52c258330000000000000000000000000000000000000000000000000000000000000002c0bd0fe9db297d84f28da5ff851e8c7f30dab5f45ee7891311d78d7bbda6e5d878c98aab5aa50746b052e423385c497ba38066c2f6f6dc05c600a5eab6110b02f9e77403c5becfc80251c4d038e50d3a6b99bd1db88ca7547b8abc134e8235610000000000000000000000000000000000000000000000000000000000002f44  以上输出的最后一行中的0x2c9168...就是挖矿凭证minerkey，其作用相当于公钥。对应的私钥数据存储在节点的数据目录$KALEIDO_HOME/testnet/geth/下以ephemeralkey为前缀的目录，该数据通常比较大。</description>
     </item>
     
@@ -100,7 +100,7 @@ docker exec -it kalnode geth --testnet attach &amp;gt; personal.newAccount(&#39;
       <guid>https://docs.kaleidochain.io/mining/running-node-as-miner/</guid>
       <description>一旦注册好矿工合约，将投票权成功委托给了挖矿凭证，那么就可以使用该挖矿凭证挖矿了。加上参数--mine --etherbase &amp;lt;miner addr&amp;gt;重新启动前面的全节点即可。
 注意这里的--etherbase的值，应该写你刚才发起矿工注册的交易的账号地址（而不是收益地址）。挖矿程序会使用该地址，在挖矿合约中查找你注册的挖矿信息。
-docker stop kalnode &amp;amp;&amp;amp; docker rm kalnode docker run -d --name kalnode -v $KALEIDO_HOME:/root/.ethereum \ -p 38883:38883 -p 38883:38883/udp \ kaleidochain/client --testnet \ --mine --etherbase &#39;your-address&#39;  可以使用以下命令查询验证你的节点是否正在挖矿：
+docker stop kalnode &amp;amp;&amp;amp; docker rm kalnode docker run -d --name kalnode -v $KALEIDO_HOME:/root/.ethereum \ -p 38883:38883 -p 38883:38883/udp \ kaleidochain/kalgo --testnet \ --mine --etherbase &#39;your-address&#39;  可以使用以下命令查询验证你的节点是否正在挖矿：
 docker exec -it kalnode geth --testnet attach &amp;gt; eth.mining true  如果仍然没有开始挖矿，可能有几个原因：
  minerkey没有注册成功 节点启动时的参数没有设置，或者没有与minerkey匹配 没有token，或只有少于1个单位的token 区块高度还没有到你注册的区间范围内 minerkey对应的私钥数据目录不存在或不匹配  如有以上问题，可以查阅之前的文档，重新操作一次。或者将相关信息和问题发到社区中寻求帮助。
 持续挖矿 由于挖矿凭证是有区块范围的，区块高度超过相应范围后，之前的挖矿凭证就失效了。你需要提前为下一个区间范围注册好另一个挖矿凭证，以保持持续不间断的挖矿。
@@ -165,10 +165,10 @@ pragma solidity ^0.4.0; contract AuthorityInterface{ function setPayer() public;
       <pubDate>Thu, 23 May 2019 18:29:20 +0800</pubDate>
       
       <guid>https://docs.kaleidochain.io/contract/contract-creator/</guid>
-      <description>在Kaleido Chain中，系统内置了一个系统合约，记录了所有合约的创建人地址。创建人地址就是部署合约的外部账号地址。如果一个合约A是由另一个合约B部署的，合约A的创建人地址就自动继承合约B的创建人地址。
+      <description>在Kaleido Chain中，系统内置了一个系统合约，记录了所有合约的创建人地址。创建人地址就是部署合约的外部账号地址。如果一个合约A是由另一个合约B部署的，合约A的创建人地址就自动继承合约B的创建人地址。该创建人地址在合约的构造函数中也可以成功获取。
 合约创建人有多种用途。第一种用途就是合约抵押机制。合约要可执行，需要先抵押一定量的token到其创建人账户中。系统自动识别合约的创建人抵押量，来计算合约可被调用的次数。第二种用途就是权限管理。很多情况下，一个合约都需要与一个超级管理员关联，以限制部分接口的调用权限。合约创建人机制默认提供了一直超级管理员的可选项，简化了相关合约的开发。
 要在Solidity中获取一个合约的创建人，需要使用以下代码：
-import &#39;lib/kaleido/SysContract.sol&#39;; contract Demo { // WithDraw - only creator can get the token function WithDraw(uint amount) public { require(msg.sender == SysContract.creatorOf(address(this))); msg.sender.transfer(amount); } }  </description>
+import &#39;lib/kaleido/SysContract.sol&#39;; contract Demo { // WithDraw - only creator can get the token function WithDraw(uint amount) public { require(msg.sender == SysContract.getCreator(address(this))); msg.sender.transfer(amount); } }  </description>
     </item>
     
     <item>

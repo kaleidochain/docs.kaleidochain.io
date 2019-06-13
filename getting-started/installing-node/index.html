@@ -12,20 +12,20 @@
     <title>安装运行节点 :: Kaleido文档</title>
 
     
-    <link href="/css/nucleus.css?1558668447" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1558668447" rel="stylesheet">
-    <link href="/css/hybrid.css?1558668447" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1558668447" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1558668447" rel="stylesheet">
-    <link href="/css/auto-complete.css?1558668447" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1558668447" rel="stylesheet">
-    <link href="/css/theme.css?1558668447" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1558668447" rel="stylesheet">
+    <link href="/css/nucleus.css?1560398197" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1560398197" rel="stylesheet">
+    <link href="/css/hybrid.css?1560398197" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1560398197" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1560398197" rel="stylesheet">
+    <link href="/css/auto-complete.css?1560398197" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1560398197" rel="stylesheet">
+    <link href="/css/theme.css?1560398197" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1560398197" rel="stylesheet">
     
-      <link href="/css/theme-mine.css?1558668447" rel="stylesheet">
+      <link href="/css/theme-mine.css?1560398197" rel="stylesheet">
     
 
-    <script src="/js/jquery-3.3.1.min.js?1558668447"></script>
+    <script src="/js/jquery-3.3.1.min.js?1560398197"></script>
 
     <style type="text/css">
       :root #header + #content > #left > #rlblock_left{
@@ -62,14 +62,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1558668447"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1558668447"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1560398197"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1560398197"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/docs.kaleidochain.io\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1558668447"></script>
+<script type="text/javascript" src="/js/search.js?1560398197"></script>
 
     
   </div>
@@ -644,7 +644,7 @@
 
 <p>我们目前只提供基于docker的二进制版本，仅需要<a href="https://docs.docker.com/install/">安装docker</a>并拉取镜像即可。</p>
 
-<pre><code class="language-bash">docker pull kaleidochain/client
+<pre><code class="language-bash">docker pull kaleidochain/kalgo
 </code></pre>
 
 <h3 id="准备运行目录">准备运行目录</h3>
@@ -663,7 +663,7 @@ echo $KALEIDO_HOME
 <p>使用以下命令启动一个名为<code>kalnode</code>的全节点，通过参数<code>--testnet</code>使其连接到测试网络。</p>
 
 <pre><code class="language-bash">docker run -d --name kalnode -p 38883:38883 -p 38883:38883/udp \
--v $KALEIDO_HOME:/root/.ethereum kaleidochain/client --testnet
+-v $KALEIDO_HOME:/root/.ethereum kaleidochain/kalgo --testnet
 </code></pre>
 
 <p>启动后，该节点会连接上测试网络，下载区块数据。
@@ -680,7 +680,7 @@ echo $KALEIDO_HOME
 <p>如果你想让自己的节点也显示在<a href="http://stats-testnet.kaleidochain.io">网络状态页面</a>中，增加参数<code>--ethstats &quot;your-node-name:bpFe9vOevM@stats-testnet.kaleidochain.io:38881&quot;</code>启动即可，其中<code>your-node-name</code>需要使用自己的节点名称来代替。</p>
 
 <pre><code class="language-bash">docker run -d --name kalnode -p 38883:38883 -p 38883:38883/udp \
--v $KALEIDO_HOME:/root/.ethereum kaleidochain/client --testnet \
+-v $KALEIDO_HOME:/root/.ethereum kaleidochain/kalgo --testnet \
 --ethstats &quot;your-node-name:bpFe9vOevM@stats-testnet.kaleidochain.io:38881&quot;
 </code></pre>
 
@@ -694,7 +694,7 @@ echo $KALEIDO_HOME
 docker run -d --name kalnode \
 -p 38883:38883 -p 38883:38883/udp -p 8545:8545 -p 8546:8546 \
 -v $KALEIDO_HOME:/root/.ethereum \
-kaleidochain/client --testnet \
+kaleidochain/kalgo --testnet \
 --rpc --rpcaddr 0.0.0.0 --rpcvhosts '*' \
 --ws --wsaddr 0.0.0.0 --wsorigins '*'
 </code></pre>
@@ -721,7 +721,7 @@ docker exec -it kalnode geth attach http://127.0.0.1:8546
 docker run -d --name kalnode \
 -p 38883:38883 -p 38883:38883/udp -p 8545:8545 -p 8546:8546 \
 -v $KALEIDO_HOME:/root/.ethereum \
-kaleidochain/client --testnet \
+kaleidochain/kalgo --testnet \
 --rpc --rpcaddr 0.0.0.0 --rpcvhosts '*' \
 --ws --wsaddr 0.0.0.0 --wsorigins '*' \
 --vmodule 'p2p/discv5/*=3,p2p/discover/*=3,*=5'
@@ -733,14 +733,14 @@ docker logs --tail=100 -f kalnode
 
 <p>如有新版本，只需要更新docker镜像，删除之前的容器，重新创建新的容器即可。</p>
 
-<pre><code class="language-bash">docker pull kaleidochain/client
+<pre><code class="language-bash">docker pull kaleidochain/kalgo
 
 docker stop kalnode &amp;&amp; docker rm kalnode
 
 docker run -d --name kalnode \
 -p 38883:38883 -p 38883:38883/udp \
 -v $KALEIDO_HOME:/root/.ethereum \
-kaleidochain/client --testnet
+kaleidochain/kalgo --testnet
 
 docker logs --tail=100 -f kalnode
 </code></pre>
@@ -1095,20 +1095,20 @@ docker logs --tail=100 -f kalnode
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1558668447"></script>
-    <script src="/js/perfect-scrollbar.min.js?1558668447"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1558668447"></script>
-    <script src="/js/jquery.sticky.js?1558668447"></script>
-    <script src="/js/featherlight.min.js?1558668447"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1558668447"></script>
-    <script src="/js/highlight.pack.js?1558668447"></script>
+    <script src="/js/clipboard.min.js?1560398197"></script>
+    <script src="/js/perfect-scrollbar.min.js?1560398197"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1560398197"></script>
+    <script src="/js/jquery.sticky.js?1560398197"></script>
+    <script src="/js/featherlight.min.js?1560398197"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1560398197"></script>
+    <script src="/js/highlight.pack.js?1560398197"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1558668447"></script>
-    <script src="/js/learn.js?1558668447"></script>
-    <script src="/js/hugo-learn.js?1558668447"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1560398197"></script>
+    <script src="/js/learn.js?1560398197"></script>
+    <script src="/js/hugo-learn.js?1560398197"></script>
 
-    <link href="/mermaid/mermaid.css?1558668447" type="text/css" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1558668447"></script>
+    <link href="/mermaid/mermaid.css?1560398197" type="text/css" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1560398197"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
