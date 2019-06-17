@@ -86,12 +86,20 @@
   </url>
   
   <url>
+    <loc>https://docs.kaleidochain.io/dapp-developer/ios-build/</loc>
+  </url>
+  
+  <url>
     <loc>https://docs.kaleidochain.io/contract/using-truffle/</loc>
   </url>
   
   <url>
     <loc>https://docs.kaleidochain.io/getting-started/testing-your-dapp/</loc>
     <lastmod>2019-05-23T12:13:37+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://docs.kaleidochain.io/dapp-developer/android-build/</loc>
   </url>
   
   <url>

@@ -32,7 +32,7 @@
 	"title": "开发资源",
 	"tags": [],
 	"description": "",
-	"content": " 斗地主Demo   斗地主Demo源码   斗地主Demo APK  SDK下载   iOS版本的预编译SDK   Android版本的预编译SDK  "
+	"content": " 斗地主Demo   斗地主Demo源码   斗地主Demo APK  SDK下载   iOS版本的预编译SDK   Android版本的预编译SDK  编译环境说明  本Demo使用Cocos Creator V2.1.0开发与编译，可使用Mac版本或Windows版本进行构建与编译。下面以Mac版本的Cocos Creator为例对如何编译生成iOS版和Android版本的APP进行说明。 "
 },
 {
 	"uri": "https://docs.kaleidochain.io/contract/quick-start/",
@@ -77,6 +77,13 @@
 	"content": "我们创建了一个免费领取kaleidochain测试网络KAL Token的页面 ，点击进去，填写自己的账户地址即可领取。\n"
 },
 {
+	"uri": "https://docs.kaleidochain.io/dapp-developer/ios-build/",
+	"title": "iOS版本编译",
+	"tags": [],
+	"description": "",
+	"content": " 环境准备 可参阅Cocos Creator官方文档《安装配置原生开发环境》安装XCode。\n构建  Demo源代码下载并解压后，点击Cocos Creator菜单栏的 项目 -\u0026gt; 构建发布 -\u0026gt; 构建，Cocos Creator将自动生成iOS版本与Android版本的相关工程文件与代码。\n 将build_kaleido/jsb-link/frameworks/runtime-src/proj.ios_mac/ios/NativeGengine.h、build_kaleido/jsb-link/frameworks/runtime-src/proj.ios_mac/ios/NativeGengine.m和build_kaleido/jsb-link/frameworks/runtime-src/proj.ios_mac/ios/RootViewController.mm修改拷贝至build/jsb-link/frameworks/runtime-src/proj.android-studio/ios目录中，并拖动至XCode开发环境中的ios目录。\n 将 Gengine.framework 拷贝至build/jsb-link/frameworks/runtime-src/proj.ios_mac/目录中，并拖动至XCode开发环境中的Frameworks目录。\n 点击工程设置中 Build Phases -\u0026gt; Compile Sources ，在RootViewController.mm后面的Compiler Flags中添加 -fmodules -fcxx-modules 来消除Use of \u0026lsquo;@import\u0026rsquo; when modules are disabled的报错。\n 点击工程设置中 Build Settings，在搜索框中输入CLang，Apple Clang - Language - Modules -\u0026gt; Enable Modules (C and Objective-C) 更改为 Yes 来消除build/jsb-link/frameworks/runtime-src/proj.ios_mac/Gengine.framework/Headers/Universe.objc.h:20:37: No type or protocol named \u0026lsquo;goSeqRefInterface\u0026rsquo;的报错。\n 上述2至6修改后的工程文件可参考 build_kaleido/jsb-link/frameworks/runtime-src/proj.ios_mac/KaleidoDoudizhuDemo.xcodeproj/project.pbxproj\n  编译与运行 1. iOS Simulator运行 点击Cocos Creator菜单栏的 项目 -\u0026gt; 构建发布 -\u0026gt; 编译，编译完成后点击 运行\n2. 真机运行 构建完成后使用XCode打开 ./build/jsb-link/frameworks/runtime-src/proj.ios_mac/KaleidoDoudizhuDemo.xcodeproj，修改 Bundle Identifier 与 Signing，选择已连接至Mac上的手机后点击XCode中的 运行 按钮即可。\n"
+},
+{
 	"uri": "https://docs.kaleidochain.io/contract/using-truffle/",
 	"title": "使用Truffle开发合约",
 	"tags": [],
@@ -89,6 +96,13 @@
 	"tags": [],
 	"description": "",
 	"content": "Kaleidochain官方维护了一个测试网络的全节点testnet.kaleidochain.io，开放了RPC（8545端口）和WS（8546端口）接口，你可以使用命令行或者钱包连接到测试网络，部署和测试你的应用。\n部署时所需要的token，可以通过测试网络KAL分发页面免费领取。\n此外，你也可以启动一个测试网节点，待区块数据同步好后(可能需要数小时时间)，即可开始测试。\n"
+},
+{
+	"uri": "https://docs.kaleidochain.io/dapp-developer/android-build/",
+	"title": "安卓版本编译",
+	"tags": [],
+	"description": "",
+	"content": " 环境准备 可参阅Cocos Creator官方文档《安装配置原生开发环境》安装Android SDK和Android NDK并在Cocos Creator中配置。\n构建  Demo源代码下载并解压后，点击Cocos Creator菜单栏的 项目 -\u0026gt; 构建发布 -\u0026gt; 构建，Cocos Creator将自动生成iOS版本与Android版本的相关工程文件与代码。\n build_kaleido/jsb-link/frameworks/runtime-src/proj.android-studio目录中一些项目文件的内容供开发者们参考，开发者需要根据自己的实际情况进行修改。\n 将build_kaleido/jsb-link/frameworks/runtime-src/proj.android-studio/app/src/org/cocos2dx/javascript/AppActivity.java中的修改拷贝至build/jsb-link/frameworks/runtime-src/proj.android-studio/app/src/org/cocos2dx/javascript/AppActivity.java\n 将build_kaleido/jsb-link/frameworks/runtime-src/proj.android-studio/app/src/io整个目录拷贝至build/jsb-link/frameworks/runtime-src/proj.android-studio/app/src/\n 在build/jsb-link/frameworks/runtime-src/proj.android-studio/app/中创建libs目录，并将 gengine.aar 拷贝到libs目录。\n 修改build/jsb-link/frameworks/runtime-src/proj.android-studio/app/build.gradle，将 minifyEnabled 和 shrinkResources 均设置为 false 。\nbuildTypes { release { debuggable false jniDebuggable false renderscriptDebuggable false minifyEnabled false shrinkResources false proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro' if (project.hasProperty(\u0026quot;RELEASE_STORE_FILE\u0026quot;)) { signingConfig signingConfigs.release } ... } }  修改build/jsb-link/frameworks/runtime-src/proj.android-studio/app/proguard-rules.pro，在文件最后添加\n# keep kaleido for release. -keep public class io.kaleidochain.** { *; } -dontwarn io.kaleidochain.**   编译与运行 点击Cocos Creator菜单栏的 项目 -\u0026gt; 构建发布 -\u0026gt; 编译，最后使用 adb install 进行安装运行。\n"
 },
 {
 	"uri": "https://docs.kaleidochain.io/contract/authority-contract/",
@@ -123,7 +137,7 @@
 	"title": "DApp开发",
 	"tags": [],
 	"description": "",
-	"content": "Kaleido链除了可以开发以太坊上基于Solidity的智能合约外，还能开发结合链上智能合约的纯P2P的分布式应用。Kaleido对去中心化的、可验证的应用开发做了全面的支持，包括提升了链的性能，对虚拟机做了功能扩展，提供了开发SDK和相关demo等资源。DApp可以通过链上的分布式账本结合P2P网络的通信机制来完成复杂的P2P应用。\n一个完整的基于kaleido的P2P应用开发由三个部分组成：\n 链上的合约代码，负责应用的结算和公共共识部分，一般以基于ERC20的Token合约实现。 lua脚本部分，这块是游戏和核心逻辑，通过交易形式存在链上合约中，在游戏运行时从链上下载下来在本地轻节点的lua虚拟机中执行。 前端js代码负责界面的交互和与lua脚本的通信。  下面的内容主要对基于Kaleido进行DApp应用开发的方法进行说明。\n 开发资源   "
+	"content": "Kaleido链除了可以开发以太坊上基于Solidity的智能合约外，还能开发结合链上智能合约的纯P2P的分布式应用。Kaleido对去中心化的、可验证的应用开发做了全面的支持，包括提升了链的性能，对虚拟机做了功能扩展，提供了开发SDK和相关demo等资源。DApp可以通过链上的分布式账本结合P2P网络的通信机制来完成复杂的P2P应用。\n一个完整的基于kaleido的P2P应用开发由三个部分组成：\n 链上的合约代码，负责应用的结算和公共共识部分，一般以基于ERC20的Token合约实现。 lua脚本部分，这块是游戏和核心逻辑，通过交易形式存在链上合约中，在游戏运行时从链上下载下来在本地轻节点的lua虚拟机中执行。 前端js代码负责界面的交互和与lua脚本的通信。  下面的内容主要对基于Kaleido进行DApp应用开发的方法进行说明。\n 开发资源   iOS版本编译   安卓版本编译   "
 },
 {
 	"uri": "https://docs.kaleidochain.io/mining/delegate-pool/",

@@ -17,7 +17,40 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://docs.kaleidochain.io/dapp-developer/resources/</guid>
-      <description> 斗地主Demo   斗地主Demo源码   斗地主Demo APK  SDK下载   iOS版本的预编译SDK   Android版本的预编译SDK  </description>
+      <description> 斗地主Demo   斗地主Demo源码   斗地主Demo APK  SDK下载   iOS版本的预编译SDK   Android版本的预编译SDK  编译环境说明  本Demo使用Cocos Creator V2.1.0开发与编译，可使用Mac版本或Windows版本进行构建与编译。下面以Mac版本的Cocos Creator为例对如何编译生成iOS版和Android版本的APP进行说明。 </description>
+    </item>
+    
+    <item>
+      <title>iOS版本编译</title>
+      <link>https://docs.kaleidochain.io/dapp-developer/ios-build/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://docs.kaleidochain.io/dapp-developer/ios-build/</guid>
+      <description>环境准备 可参阅Cocos Creator官方文档《安装配置原生开发环境》安装XCode。
+构建  Demo源代码下载并解压后，点击Cocos Creator菜单栏的 项目 -&amp;gt; 构建发布 -&amp;gt; 构建，Cocos Creator将自动生成iOS版本与Android版本的相关工程文件与代码。
+ 将build_kaleido/jsb-link/frameworks/runtime-src/proj.ios_mac/ios/NativeGengine.h、build_kaleido/jsb-link/frameworks/runtime-src/proj.ios_mac/ios/NativeGengine.m和build_kaleido/jsb-link/frameworks/runtime-src/proj.ios_mac/ios/RootViewController.mm修改拷贝至build/jsb-link/frameworks/runtime-src/proj.android-studio/ios目录中，并拖动至XCode开发环境中的ios目录。
+ 将 Gengine.framework 拷贝至build/jsb-link/frameworks/runtime-src/proj.ios_mac/目录中，并拖动至XCode开发环境中的Frameworks目录。
+ 点击工程设置中 Build Phases -&amp;gt; Compile Sources ，在RootViewController.mm后面的Compiler Flags中添加 -fmodules -fcxx-modules 来消除Use of &amp;lsquo;@import&amp;rsquo; when modules are disabled的报错。
+ 点击工程设置中 Build Settings，在搜索框中输入CLang，Apple Clang - Language - Modules -&amp;gt; Enable Modules (C and Objective-C) 更改为 Yes 来消除build/jsb-link/frameworks/runtime-src/proj.ios_mac/Gengine.framework/Headers/Universe.objc.h:20:37: No type or protocol named &amp;lsquo;goSeqRefInterface&amp;rsquo;的报错。
+ 上述2至6修改后的工程文件可参考 build_kaleido/jsb-link/frameworks/runtime-src/proj.ios_mac/KaleidoDoudizhuDemo.xcodeproj/project.pbxproj
+  编译与运行 1. iOS Simulator运行 点击Cocos Creator菜单栏的 项目 -&amp;gt; 构建发布 -&amp;gt; 编译，编译完成后点击 运行</description>
+    </item>
+    
+    <item>
+      <title>安卓版本编译</title>
+      <link>https://docs.kaleidochain.io/dapp-developer/android-build/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://docs.kaleidochain.io/dapp-developer/android-build/</guid>
+      <description>环境准备 可参阅Cocos Creator官方文档《安装配置原生开发环境》安装Android SDK和Android NDK并在Cocos Creator中配置。
+构建  Demo源代码下载并解压后，点击Cocos Creator菜单栏的 项目 -&amp;gt; 构建发布 -&amp;gt; 构建，Cocos Creator将自动生成iOS版本与Android版本的相关工程文件与代码。
+ build_kaleido/jsb-link/frameworks/runtime-src/proj.android-studio目录中一些项目文件的内容供开发者们参考，开发者需要根据自己的实际情况进行修改。
+ 将build_kaleido/jsb-link/frameworks/runtime-src/proj.android-studio/app/src/org/cocos2dx/javascript/AppActivity.java中的修改拷贝至build/jsb-link/frameworks/runtime-src/proj.android-studio/app/src/org/cocos2dx/javascript/AppActivity.java
+ 将build_kaleido/jsb-link/frameworks/runtime-src/proj.android-studio/app/src/io整个目录拷贝至build/jsb-link/frameworks/runtime-src/proj.android-studio/app/src/
+ 在build/jsb-link/frameworks/runtime-src/proj.android-studio/app/中创建libs目录，并将 gengine.aar 拷贝到libs目录。
+ 修改build/jsb-link/frameworks/runtime-src/proj.android-studio/app/build.gradle，将 minifyEnabled 和 shrinkResources 均设置为 false 。
+buildTypes { release { debuggable false jniDebuggable false renderscriptDebuggable false minifyEnabled false shrinkResources false proguardFiles getDefaultProguardFile(&#39;proguard-android.txt&#39;), &#39;proguard-rules.pro&#39; if (project.hasProperty(&amp;quot;RELEASE_STORE_FILE&amp;quot;)) { signingConfig signingConfigs.release } ... } }  修改build/jsb-link/frameworks/runtime-src/proj.android-studio/app/proguard-rules.pro，在文件最后添加
+# keep kaleido for release. -keep public class io.</description>
     </item>
     
   </channel>
