@@ -35,3 +35,8 @@ Android版本的预编译SDK
 </p>
 
 
+### 编译环境说明
+
+<p>
+本Demo使用Cocos Creator V2.1.0开发与编译，可使用<a href="http://download.cocos.com/CocosCreator/v2.1.0/CocosCreator_v2.1.0_20181127_mac.dmg">Mac版本</a>或<a href="http://download.cocos.com/CocosCreator/v2.1.0/CocosCreator_v2.1.0_20181127_win.7z">Windows版本</a>进行构建与编译。下面以Mac版本的Cocos Creator为例对如何编译生成iOS版和Android版本的APP进行说明。
+</p>
