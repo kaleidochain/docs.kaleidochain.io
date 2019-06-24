@@ -11,11 +11,13 @@ weight: 3
 
 1. Demo源代码下载并解压后，点击Cocos Creator菜单栏的 <b>项目</b> -> <b>构建发布</b> -> <b>构建</b>，Cocos Creator将自动生成iOS版本与Android版本的相关工程文件与代码。
 
-2. 将build_kaleido/jsb-link/frameworks/runtime-src/proj.ios_mac/ios/NativeGengine.h、build_kaleido/jsb-link/frameworks/runtime-src/proj.ios_mac/ios/NativeGengine.m和build_kaleido/jsb-link/frameworks/runtime-src/proj.ios_mac/ios/RootViewController.mm修改拷贝至build/jsb-link/frameworks/runtime-src/proj.android-studio/ios目录中，并拖动至XCode开发环境中的ios目录。
+2. 将build_kaleido/jsb-link/frameworks/runtime-src/proj.ios_mac/ios/NativeGengine.h、build_kaleido/jsb-link/frameworks/runtime-src/proj.ios_mac/ios/NativeGengine.m和build_kaleido/jsb-link/frameworks/runtime-src/proj.ios_mac/ios/RootViewController.mm拷贝至build/jsb-link/frameworks/runtime-src/proj.android-studio/ios目录中，并拖动至XCode开发环境中的ios目录。
 
-3. 将 <a href="https://github.com/kaleidochain/doudizhu/raw/master/KaleidoDoudizhuDemo/build_kaleido/jsb-link/frameworks/runtime-src/proj.ios_mac/Gengine.framework.zip">Gengine.framework</a> 拷贝至build/jsb-link/frameworks/runtime-src/proj.ios_mac/目录中，并拖动至XCode开发环境中的Frameworks目录。
+3. 将build_kaleido/jsb-link/frameworks/runtime-src/proj.ios_mac/ios/portal.lua.h拷贝至build/jsb-link/frameworks/runtime-src/proj.android-studio/ios目录中，并拖动至XCode开发环境中的Resources目录。
 
-4. 点击工程设置中 <b>Build Phases</b> -> <b>Compile Sources</b> ，在RootViewController.mm后面的Compiler Flags中添加 <b>-fmodules -fcxx-modules</b> 来消除<font color="red">Use of '@import' when modules are disabled</font>的报错。
+4. 将 <a href="https://github.com/kaleidochain/doudizhu/raw/master/KaleidoDoudizhuDemo/build_kaleido/jsb-link/frameworks/runtime-src/proj.ios_mac/Gengine.framework.zip">Gengine.framework</a> 拷贝至build/jsb-link/frameworks/runtime-src/proj.ios_mac/目录中，并拖动至XCode开发环境中的Frameworks目录。
+
+5. 点击工程设置中 <b>Build Phases</b> -> <b>Compile Sources</b> ，在RootViewController.mm后面的Compiler Flags中添加 <b>-fmodules -fcxx-modules</b> 来消除<font color="red">Use of '@import' when modules are disabled</font>的报错。
 
 6. 点击工程设置中 <b>Build Settings</b>，在搜索框中输入CLang，<b>Apple Clang - Language - Modules</b> -> <b>Enable Modules (C and Objective-C)</b> 更改为 <b>Yes</b> 来消除<font color="red">build/jsb-link/frameworks/runtime-src/proj.ios_mac/Gengine.framework/Headers/Universe.objc.h:20:37: No type or protocol named 'goSeqRefInterface'</font>的报错。
 

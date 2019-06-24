@@ -17,9 +17,11 @@ weight: 5
 
 4. 将build_kaleido/jsb-link/frameworks/runtime-src/proj.android-studio/app/src/io整个目录拷贝至build/jsb-link/frameworks/runtime-src/proj.android-studio/app/src/
 
-5. 在build/jsb-link/frameworks/runtime-src/proj.android-studio/app/中创建libs目录，并将 <a href="https://github.com/kaleidochain/doudizhu/raw/master/KaleidoDoudizhuDemo/build_kaleido/jsb-link/frameworks/runtime-src/proj.android-studio/app/libs/gengine.aar">gengine.aar</a> 拷贝到libs目录。
+5. 将build_kaleido/jsb-link/frameworks/runtime-src/proj.android-studio/app/res/raw整个目录拷贝至build/jsb-link/frameworks/runtime-src/proj.android-studio/app/res/
 
-6. 修改build/jsb-link/frameworks/runtime-src/proj.android-studio/app/build.gradle，将 <b>minifyEnabled</b> 和 <b>shrinkResources</b> 均设置为 <b>false</b> 。
+6. 在build/jsb-link/frameworks/runtime-src/proj.android-studio/app/中创建libs目录，并将 <a href="https://github.com/kaleidochain/doudizhu/raw/master/KaleidoDoudizhuDemo/build_kaleido/jsb-link/frameworks/runtime-src/proj.android-studio/app/libs/gengine.aar">gengine.aar</a> 拷贝到libs目录。
+
+7. 修改build/jsb-link/frameworks/runtime-src/proj.android-studio/app/build.gradle，将 <b>minifyEnabled</b> 和 <b>shrinkResources</b> 均设置为 <b>false</b> 。
 ```
 buildTypes {
         release {
@@ -38,7 +40,7 @@ buildTypes {
 }
 ```
 
-7. 修改build/jsb-link/frameworks/runtime-src/proj.android-studio/app/proguard-rules.pro，在文件最后添加
+8. 修改build/jsb-link/frameworks/runtime-src/proj.android-studio/app/proguard-rules.pro，在文件最后添加
 ```
 # keep kaleido for release.
 -keep public class io.kaleidochain.** { *; }
