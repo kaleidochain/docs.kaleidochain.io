@@ -4,7 +4,7 @@ date: 2019-05-23T17:49:25+08:00
 weight: 3
 ---
 
-一旦注册好矿工合约，将投票权成功委托给了挖矿凭证，那么就可以使用该挖矿凭证挖矿了。加上参数`--mine --etherbase <miner addr>`重新启动前面的全节点即可。
+一旦注册好矿工合约，将投票权成功委托给了挖矿凭证，那么就可以使用该挖矿凭证挖矿了。加上参数`--mine --miner.stakeowner <miner addr>`重新启动前面的全节点即可。
 
 注意这里的`--etherbase`的值，应该写你刚才发起矿工注册的交易的账号地址（而不是收益地址）。挖矿程序会使用该地址，在挖矿合约中查找你注册的挖矿信息。
 
@@ -14,7 +14,7 @@ docker stop kalnode && docker rm kalnode
 docker run -d --name kalnode -v $KALEIDO_HOME:/root/.kaleido \
 -p 38883:38883 -p 38883:38883/udp \
 kaleidochain/kalgo --testnet \
---mine --etherbase 'your-address'
+--mine --miner.stakeowner 'your-address'
 ```
 
 可以使用以下命令查询验证你的节点是否正在挖矿：
