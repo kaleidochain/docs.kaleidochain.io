@@ -11,15 +11,26 @@ themeVariant = "mine"
 home = ["HTML", "RSS", "JSON"]
 
 [[Languages.en.menu.shortcuts]]
-name = "<i class='fas fa-fw fa-home'></i> kaleidochain.io"
+name = "<i class='fas fa-fw fa-home'></i> Kaleidochain.io"
 identifier = "home"
 url = "https://kaleidochain.io"
 weight = 1
 [[Languages.zh.menu.shortcuts]]
-name = "<i class='fas fa-fw fa-home'></i> kaleidochain.io"
+name = "<i class='fas fa-fw fa-home'></i> Kaleidochain.io"
 identifier = "home"
 url = "https://kaleidochain.io"
 weight = 1
+
+[[Languages.en.menu.shortcuts]]
+name = "<i class='fab fa-fw fa-github'></i> GitHub"
+identifier = "github"
+url = "https://github.com/kaleidochain"
+weight = 3
+[[Languages.zh.menu.shortcuts]]
+name = "<i class='fab fa-fw fa-github'></i> GitHub"
+identifier = "github"
+url = "https://github.com/kaleidochain"
+weight = 3
 
 [[Languages.en.menu.shortcuts]]
 name = "<i class='fas fa-fw fa-file-alt'></i> whitepaper"
