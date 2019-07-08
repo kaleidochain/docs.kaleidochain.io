@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>kaleidochain :: Kaleido文档</title>
+    <title>概览 :: Kaleido文档</title>
 
     
     <link href="/css/nucleus.css?1562586634" rel="stylesheet">
@@ -41,7 +41,7 @@
 </style>
 
   </head>
-  <body class="" data-url="/">
+  <body class="" data-url="/contract/over-view/">
     <nav id="sidebar" class="">
 
 
@@ -324,7 +324,7 @@
   
     
     <li data-nav-id="/contract/" title="智能合约" class="dd-item 
-        
+        parent
         
         
         ">
@@ -348,7 +348,7 @@
  
   
     
-      <li data-nav-id="/contract/over-view/" title="概览" class="dd-item ">
+      <li data-nav-id="/contract/over-view/" title="概览" class="dd-item active">
         <a href="/contract/over-view/">
         概览
         
@@ -612,23 +612,11 @@
               
               
                   
-                    
-                    
-                      <option id="en" value="https://docs.kaleidochain.io/en/">English</option>
-                    
-                  
-              
-                  
-              
-          
-              
-              
-                  
               
                   
                     
                     
-                      <option id="zh" value="https://docs.kaleidochain.io/" selected>中文</option>
+                      <option id="zh" value="https://docs.kaleidochain.io/contract/over-view/" selected>中文</option>
                     
                   
               
@@ -674,36 +662,92 @@
         <div id="overlay"></div>
         <div class="padding highlightable">
               
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'>kaleidochain</a> > <a href='/contract/'>智能合约</a> > 概览
+          
+         
+          
+         
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
         <div id="head-tags">
         
         </div>
         
-          <div id="chapter">
-        
         <div id="body-inner">
+          
+            <h1>
+              
+              概览
+            </h1>
           
 
         
 
 
-<span id="sidebar-toggle-span">
-<a href="#" id="sidebar-toggle" data-sidebar-toggle=""><i class="fas fa-bars"></i> navigation</a>
-</span>
-
- 
-
-
-<h1 id="kaleidochain">Kaleidochain</h1>
-
-<p>欢迎查看Kaleidochain文档</p>
 
 <blockquote>
-<p><i class="fas fa-fw fa-info"></i> 本文档正在频繁更新，请及时查看最新内容。</p>
+<p><strong>前言</strong>: Kaleido是基于Algorand共识算法的公链，系统结构和以太坊相同，采用的是账户模型和基于EVM虚拟机的智能合约系统，完全兼容以太坊的环境，智能合约开发语言采用的是Solidity。链上合约的部署和以太坊相同，也是采用gas机制，链上结算单位为Kal。kaleido智能合约编写和部署完全兼容以太坊合约,在使用时与以太坊不同之处在合约使用前需要抵押一部分Token获得链24小时周期的使用权，所以在合约部署完成之后需要执行一个抵押操作。除了这些还提供了更丰富的功能,权限控制、链上随机数等:</p>
 </blockquote>
+
+<p><strong>抵押机制</strong>:kaleido通过合约抵押机制分配合约执行权限,合约创建后,合约创建者必须有Kal抵押,合约才能被用户使用,(抵押额度=创建者账户Kal+抵押合约Kal),抵押额度关系着24小时内合约可以被调交易次数,创建者可以通过抵押合约来接受别人抵押增加合约调用次数.用户随时将账户Kal抵押给指定的合约创建者,也可以任意时候取出抵押额度，抵押的Kal只能由抵押者自己取出;</p>
+
+<p><strong>权限控制</strong>:kaleido为降低用户使用门槛,提供给合约的功能模块,合约创建者可以通过权限控制合约为自己合约用户代扣合约交易手续费,实现用户零门槛接入;相应的为了防止代扣手续费交易泛滥,系统合约提供了2种权限控制模式:白名单模式和黑名单模式.</p>
+
+<ul>
+<li>白名单模式,只有加入白名单列表用户才能发起代扣手续费交易,其他用户只能发送普通交易（由调用者付手续费用）;</li>
+<li>黑名单模式,加入了黑名单列表用户不能发起代扣手续费交易;</li>
+<li>注意同一个创建者的所有合约共享黑白名单数据;</li>
+<li>创建者还能通过权限控制指定用户代扣手续费交易的gasLimit,gasPrice上限,防止账户Kal被大量消耗;
+用户在调用合约时只需将交易中gasLimit(tx.gas)置为0,指定交易为合约创建者代扣手续费,这样用户即使在账户没有Kal的情况下也能使用合约;</li>
+</ul>
+
+
+<footer class=" footline" >
 	
-  
-        
-            </div> 
+</footer>
+
+
         
         </div> 
         
@@ -914,6 +958,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -926,6 +971,7 @@
             
             
                 
+                    
                     
                 
                 
@@ -942,6 +988,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1110,8 +1159,10 @@
 	 
 	 
 		
+			<a class="nav nav-prev" href="/contract/" title="智能合约"> <i class="fa fa-chevron-left"></i></a>
 		
-			<a class="nav nav-next" href="/introduction/" title="介绍" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+			<a class="nav nav-next" href="/contract/quick-start/" title="快速开始" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>

@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>kaleidochain :: Kaleido文档</title>
+    <title>获取随机数 :: Kaleido文档</title>
 
     
     <link href="/css/nucleus.css?1562586634" rel="stylesheet">
@@ -41,7 +41,7 @@
 </style>
 
   </head>
-  <body class="" data-url="/">
+  <body class="" data-url="/contract/solidity-rand/">
     <nav id="sidebar" class="">
 
 
@@ -324,7 +324,7 @@
   
     
     <li data-nav-id="/contract/" title="智能合约" class="dd-item 
-        
+        parent
         
         
         ">
@@ -462,7 +462,7 @@
  
   
     
-      <li data-nav-id="/contract/solidity-rand/" title="获取随机数" class="dd-item ">
+      <li data-nav-id="/contract/solidity-rand/" title="获取随机数" class="dd-item active">
         <a href="/contract/solidity-rand/">
         获取随机数
         
@@ -612,23 +612,11 @@
               
               
                   
-                    
-                    
-                      <option id="en" value="https://docs.kaleidochain.io/en/">English</option>
-                    
-                  
-              
-                  
-              
-          
-              
-              
-                  
               
                   
                     
                     
-                      <option id="zh" value="https://docs.kaleidochain.io/" selected>中文</option>
+                      <option id="zh" value="https://docs.kaleidochain.io/contract/solidity-rand/" selected>中文</option>
                     
                   
               
@@ -674,36 +662,119 @@
         <div id="overlay"></div>
         <div class="padding highlightable">
               
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'>kaleidochain</a> > <a href='/contract/'>智能合约</a> > 获取随机数
+          
+         
+          
+         
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
         <div id="head-tags">
         
         </div>
         
-          <div id="chapter">
-        
         <div id="body-inner">
+          
+            <h1>
+              
+              获取随机数
+            </h1>
           
 
         
 
 
-<span id="sidebar-toggle-span">
-<a href="#" id="sidebar-toggle" data-sidebar-toggle=""><i class="fas fa-bars"></i> navigation</a>
-</span>
 
- 
+<p>区块链上的合约经常会需要产生随机值，目前的区块链一般采用交易hash或者区块hash产生随机值，但是这些都不是完全独立的随机值，可以被矿工或者交易发起者进行攻击或者利用。</p>
+
+<p>Kaleido提供了真正不可预测的安全可靠的随机数机制。Kaleido的随机性主要有以下几个来源：</p>
+
+<ol>
+<li><strong>区块种子</strong> 受益于VRF算法和Algorand共识算法机制，每个区块中的随机数种子是无法被任何人（包括提案人自己）提前预测的</li>
+<li><strong>交易Hash</strong> 发起获取随机数的交易hash</li>
+<li><strong>内部序列号</strong> 区块内部使用种子的次数，除了区块构造者，其他人无法提取预测</li>
+<li><strong>用户数据</strong> 由调用者传入的任意数据，可选</li>
+</ol>
+
+<p>因此，Kaleido所产生的随机数，是一个真正不可预测的安全可靠的随机数。</p>
+
+<p>你可以通过内置函数直接获取随机数，代码如下：</p>
+
+<pre><code class="language-solidity">function random() public view returns(uint256) {
+    uint256[1] memory output;
+    assembly {
+        if iszero(staticcall(not(0), 101, 0x0, 0x0, output, 0x20)) {
+            revert(0, 0)
+        }
+    }
+    return output[0];
+}
+</code></pre>
+
+<p>也可以获取过去某个区块的随机种子（限制最多能取到最近2048个区块）：</p>
+
+<pre><code class="language-solidity">function getSeed(uint height) public view returns(uint256) {
+    uint256[1] memory input;
+    uint256[1] memory output;
+	input[0] = height;
+    assembly {
+        if iszero(staticcall(not(0), 100, input, 0x20, output, 0x20)) {
+            revert(0, 0)
+        }
+    }
+    return output[0];
+}
+</code></pre>
+
+<p>以上函数已经在有封装好的函数库可以直接调用，具体可参考<code>SysContract.sol</code>。</p>
 
 
-<h1 id="kaleidochain">Kaleidochain</h1>
-
-<p>欢迎查看Kaleidochain文档</p>
-
-<blockquote>
-<p><i class="fas fa-fw fa-info"></i> 本文档正在频繁更新，请及时查看最新内容。</p>
-</blockquote>
+<footer class=" footline" >
 	
-  
-        
-            </div> 
+</footer>
+
+
         
         </div> 
         
@@ -914,6 +985,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -926,6 +998,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1023,6 +1098,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -1041,6 +1117,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1110,8 +1189,10 @@
 	 
 	 
 		
+			<a class="nav nav-prev" href="/contract/contract-creator/" title="合约创建人"> <i class="fa fa-chevron-left"></i></a>
 		
-			<a class="nav nav-next" href="/introduction/" title="介绍" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+			<a class="nav nav-next" href="/dapp-developer/" title="DApp开发" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>

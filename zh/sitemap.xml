@@ -18,6 +18,11 @@
   </url>
   
   <url>
+    <loc>https://docs.kaleidochain.io/contract/over-view/</loc>
+    <lastmod>2019-05-23T18:29:20+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://docs.kaleidochain.io/introduction/</loc>
     <lastmod>2019-05-23T13:12:00+08:00</lastmod>
     <xhtml:link
@@ -44,10 +49,6 @@
   
   <url>
     <loc>https://docs.kaleidochain.io/dapp-developer/resources/</loc>
-  </url>
-  
-  <url>
-    <loc>https://docs.kaleidochain.io/contract/quick-start/</loc>
   </url>
   
   <url>
@@ -90,10 +91,6 @@
   </url>
   
   <url>
-    <loc>https://docs.kaleidochain.io/contract/using-truffle/</loc>
-  </url>
-  
-  <url>
     <loc>https://docs.kaleidochain.io/getting-started/testing-your-dapp/</loc>
     <lastmod>2019-05-23T12:13:37+08:00</lastmod>
   </url>
@@ -103,12 +100,7 @@
   </url>
   
   <url>
-    <loc>https://docs.kaleidochain.io/contract/authority-contract/</loc>
-  </url>
-  
-  <url>
-    <loc>https://docs.kaleidochain.io/contract/contract-creator/</loc>
-    <lastmod>2019-05-23T18:29:20+08:00</lastmod>
+    <loc>https://docs.kaleidochain.io/contract/quick-start/</loc>
   </url>
   
   <url>
@@ -127,13 +119,34 @@
   </url>
   
   <url>
+    <loc>https://docs.kaleidochain.io/contract/using-truffle/</loc>
+  </url>
+  
+  <url>
     <loc>https://docs.kaleidochain.io/contract/</loc>
     <lastmod>2019-05-23T18:29:20+08:00</lastmod>
   </url>
   
   <url>
+    <loc>https://docs.kaleidochain.io/contract/delegation-contract/</loc>
+  </url>
+  
+  <url>
     <loc>https://docs.kaleidochain.io/dapp-developer/</loc>
     <lastmod>2019-05-23T11:58:34+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://docs.kaleidochain.io/contract/authority-contract/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.kaleidochain.io/contract/contract-creator/</loc>
+    <lastmod>2019-05-23T18:29:20+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://docs.kaleidochain.io/contract/solidity-rand/</loc>
   </url>
   
   <url>

@@ -12,20 +12,20 @@
     <title>创建挖矿凭证 :: Kaleido文档</title>
 
     
-    <link href="/css/nucleus.css?1561383579" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1561383579" rel="stylesheet">
-    <link href="/css/hybrid.css?1561383579" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1561383579" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1561383579" rel="stylesheet">
-    <link href="/css/auto-complete.css?1561383579" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1561383579" rel="stylesheet">
-    <link href="/css/theme.css?1561383579" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1561383579" rel="stylesheet">
+    <link href="/css/nucleus.css?1562586634" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1562586634" rel="stylesheet">
+    <link href="/css/hybrid.css?1562586634" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1562586634" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1562586634" rel="stylesheet">
+    <link href="/css/auto-complete.css?1562586634" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1562586634" rel="stylesheet">
+    <link href="/css/theme.css?1562586634" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1562586634" rel="stylesheet">
     
-      <link href="/css/theme-mine.css?1561383579" rel="stylesheet">
+      <link href="/css/theme-mine.css?1562586634" rel="stylesheet">
     
 
-    <script src="/js/jquery-3.3.1.min.js?1561383579"></script>
+    <script src="/js/jquery-3.3.1.min.js?1562586634"></script>
 
     <style type="text/css">
       :root #header + #content > #left > #rlblock_left{
@@ -62,14 +62,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1561383579"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1561383579"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1562586634"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1562586634"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/docs.kaleidochain.io\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1561383579"></script>
+<script type="text/javascript" src="/js/search.js?1562586634"></script>
 
     
   </div>
@@ -348,6 +348,25 @@
  
   
     
+      <li data-nav-id="/contract/over-view/" title="概览" class="dd-item ">
+        <a href="/contract/over-view/">
+        概览
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
       <li data-nav-id="/contract/quick-start/" title="快速开始" class="dd-item ">
         <a href="/contract/quick-start/">
         快速开始
@@ -386,9 +405,28 @@
  
   
     
-      <li data-nav-id="/contract/authority-contract/" title="权限管理合约" class="dd-item ">
+      <li data-nav-id="/contract/delegation-contract/" title="抵押机制" class="dd-item ">
+        <a href="/contract/delegation-contract/">
+        抵押机制
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/contract/authority-contract/" title="权限控制" class="dd-item ">
         <a href="/contract/authority-contract/">
-        权限管理合约
+        权限控制
         
         </a>
     </li>
@@ -408,6 +446,25 @@
       <li data-nav-id="/contract/contract-creator/" title="合约创建人" class="dd-item ">
         <a href="/contract/contract-creator/">
         合约创建人
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/contract/solidity-rand/" title="获取随机数" class="dd-item ">
+        <a href="/contract/solidity-rand/">
+        获取随机数
         
         </a>
     </li>
@@ -524,7 +581,11 @@
         <ul>
           
               <li> 
-                  <a class="padding" href="https://kaleidochain.io"><i class='fas fa-fw fa-home'></i> kaleidochain.io</a>
+                  <a class="padding" href="https://kaleidochain.io"><i class='fas fa-fw fa-home'></i> Kaleidochain.io</a>
+              </li>
+          
+              <li> 
+                  <a class="padding" href="https://github.com/kaleidochain"><i class='fab fa-fw fa-github'></i> GitHub</a>
               </li>
           
               <li> 
@@ -673,23 +734,37 @@
 
 <pre><code class="language-bash">docker run --rm -v $KALEIDO_HOME:/root/.kaleido \
 kaleidochain/kalgo --testnet makeminerkey \
---begin 12100 \
---miner 0x958DE277Cde7f5808a910dBf6f7854DF52C25833 \
---coinbase 0x958DE277Cde7f5808a910dBf6f7854DF52C25833
+--miner.stakeowner 0x958DE277Cde7f5808a910dBf6f7854DF52C25833 \
+--minerkey.coinbase 0x958DE277Cde7f5808a910dBf6f7854DF52C25833 \
+--minerkey.start 12100
 </code></pre>
 
 <p>以上命令执行需要一定的时间，完成后输出结果最后内容如下，这里给出了生成的minerkey，其内部包含了受益人coinbase的地址、起始高度begin、区间的结束高度end等信息。</p>
 
-<pre><code>Using following params:
-	contract address: 0x1000000000000000000000000000000000000002
-	miner: 0x958DE277Cde7f5808a910dBf6f7854DF52C25833
-	coinbase: 0x958DE277Cde7f5808a910dBf6f7854DF52C25833
-	begin: 12100
-	end: 1000000
-	Generate minerkey: 0x2c91689a000000000000000000000000958de277cde7f5808a910dbf6f7854df52c258330000000000000000000000000000000000000000000000000000000000000002c0bd0fe9db297d84f28da5ff851e8c7f30dab5f45ee7891311d78d7bbda6e5d878c98aab5aa50746b052e423385c497ba38066c2f6f6dc05c600a5eab6110b02f9e77403c5becfc80251c4d038e50d3a6b99bd1db88ca7547b8abc134e8235610000000000000000000000000000000000000000000000000000000000002f44
+<pre><code>MinerKey: 0x39fb25e90000000000000000000000000000000000000000000000000000000000002f440000000000000000000000000000000000000000000000000000000000000064000000000000000000000000958de277cde7f5808a910dbf6f7854df52c2583355094cc911dca3b0ff42e63e7d4d627d5131307fcd495b535de4fa627bb999bfb728eed47ed4b7426c46e8b57c4132dc89e4092463267040c7c6769a80e72c69
+Details:
+	miner = 0x958DE277Cde7f5808a910dBf6f7854DF52C25833
+	coinbase = 0x958DE277Cde7f5808a910dBf6f7854DF52C25833
+	start = 12100
+	end = 1000000
+	lifespan = 100
+	vrfVerifier = 0x55094cc911dca3b0ff42e63e7d4d627d5131307fcd495b535de4fa627bb999bf
+	voteVerfier = 0xb728eed47ed4b7426c46e8b57c4132dc89e4092463267040c7c6769a80e72c69
 </code></pre>
 
-<p>以上输出的最后一行中的<code>0x2c9168...</code>就是挖矿凭证<code>minerkey</code>，其作用相当于公钥。对应的私钥数据存储在节点的数据目录<code>$KALEIDO_HOME/testnet/kalgo/</code>下以<code>ephemeralkey</code>为前缀的目录，该数据通常比较大。</p>
+<p>以上输出中的<code>0x39fb25...</code>就是挖矿凭证<code>minerkey</code>，其作用相当于公钥。对应的私钥数据存储在节点的数据目录<code>$KALEIDO_HOME/testnet/kalgo/minerkeys</code>下，注意不要公开或泄露该私钥数据。</p>
+
+<p>生成minerkey有以下几点需要注意：</p>
+
+<ol>
+<li>必须提前100个区块注册：你如果想生成start=H的minerkey，就必须在H-100区块高度之前，完成注册</li>
+<li>区块高度一旦到达你注册区间起始位置的100个区块以内，minerkey就无法修改</li>
+<li>受益人<code>Coinbase</code>是可以随时修改，并在修改成功的下个区块立即生效，不受第2点的限制</li>
+<li>更新minerkey时，新生成的区间的起始位置必须与要修改的minerkey一致，否则无法更新成功</li>
+<li>你最多只能提前注册一个区间，即<code>minerkey.start</code>必须小于当前区块高度+1000000</li>
+</ol>
+
+<p>如果私钥不慎遗失，并且此时minerkey无法修改，你可以将钱转入新的地址后，重新注册成为矿工即可。</p>
 
 
 <footer class=" footline" >
@@ -984,6 +1059,54 @@ kaleidochain/kalgo --testnet makeminerkey \
             
         
                     
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
             
         
                     
@@ -1073,20 +1196,20 @@ kaleidochain/kalgo --testnet makeminerkey \
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1561383579"></script>
-    <script src="/js/perfect-scrollbar.min.js?1561383579"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1561383579"></script>
-    <script src="/js/jquery.sticky.js?1561383579"></script>
-    <script src="/js/featherlight.min.js?1561383579"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1561383579"></script>
-    <script src="/js/highlight.pack.js?1561383579"></script>
+    <script src="/js/clipboard.min.js?1562586634"></script>
+    <script src="/js/perfect-scrollbar.min.js?1562586634"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1562586634"></script>
+    <script src="/js/jquery.sticky.js?1562586634"></script>
+    <script src="/js/featherlight.min.js?1562586634"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1562586634"></script>
+    <script src="/js/highlight.pack.js?1562586634"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1561383579"></script>
-    <script src="/js/learn.js?1561383579"></script>
-    <script src="/js/hugo-learn.js?1561383579"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1562586634"></script>
+    <script src="/js/learn.js?1562586634"></script>
+    <script src="/js/hugo-learn.js?1562586634"></script>
 
-    <link href="/mermaid/mermaid.css?1561383579" type="text/css" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1561383579"></script>
+    <link href="/mermaid/mermaid.css?1562586634" type="text/css" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1562586634"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

@@ -12,20 +12,20 @@
     <title>使用Truffle开发合约 :: Kaleido文档</title>
 
     
-    <link href="/css/nucleus.css?1561383579" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1561383579" rel="stylesheet">
-    <link href="/css/hybrid.css?1561383579" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1561383579" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1561383579" rel="stylesheet">
-    <link href="/css/auto-complete.css?1561383579" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1561383579" rel="stylesheet">
-    <link href="/css/theme.css?1561383579" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1561383579" rel="stylesheet">
+    <link href="/css/nucleus.css?1562586634" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1562586634" rel="stylesheet">
+    <link href="/css/hybrid.css?1562586634" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1562586634" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1562586634" rel="stylesheet">
+    <link href="/css/auto-complete.css?1562586634" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1562586634" rel="stylesheet">
+    <link href="/css/theme.css?1562586634" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1562586634" rel="stylesheet">
     
-      <link href="/css/theme-mine.css?1561383579" rel="stylesheet">
+      <link href="/css/theme-mine.css?1562586634" rel="stylesheet">
     
 
-    <script src="/js/jquery-3.3.1.min.js?1561383579"></script>
+    <script src="/js/jquery-3.3.1.min.js?1562586634"></script>
 
     <style type="text/css">
       :root #header + #content > #left > #rlblock_left{
@@ -62,14 +62,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1561383579"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1561383579"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1562586634"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1562586634"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/docs.kaleidochain.io\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1561383579"></script>
+<script type="text/javascript" src="/js/search.js?1562586634"></script>
 
     
   </div>
@@ -348,6 +348,25 @@
  
   
     
+      <li data-nav-id="/contract/over-view/" title="概览" class="dd-item ">
+        <a href="/contract/over-view/">
+        概览
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
       <li data-nav-id="/contract/quick-start/" title="快速开始" class="dd-item ">
         <a href="/contract/quick-start/">
         快速开始
@@ -386,9 +405,28 @@
  
   
     
-      <li data-nav-id="/contract/authority-contract/" title="权限管理合约" class="dd-item ">
+      <li data-nav-id="/contract/delegation-contract/" title="抵押机制" class="dd-item ">
+        <a href="/contract/delegation-contract/">
+        抵押机制
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/contract/authority-contract/" title="权限控制" class="dd-item ">
         <a href="/contract/authority-contract/">
-        权限管理合约
+        权限控制
         
         </a>
     </li>
@@ -408,6 +446,25 @@
       <li data-nav-id="/contract/contract-creator/" title="合约创建人" class="dd-item ">
         <a href="/contract/contract-creator/">
         合约创建人
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/contract/solidity-rand/" title="获取随机数" class="dd-item ">
+        <a href="/contract/solidity-rand/">
+        获取随机数
         
         </a>
     </li>
@@ -524,7 +581,11 @@
         <ul>
           
               <li> 
-                  <a class="padding" href="https://kaleidochain.io"><i class='fas fa-fw fa-home'></i> kaleidochain.io</a>
+                  <a class="padding" href="https://kaleidochain.io"><i class='fas fa-fw fa-home'></i> Kaleidochain.io</a>
+              </li>
+          
+              <li> 
+                  <a class="padding" href="https://github.com/kaleidochain"><i class='fab fa-fw fa-github'></i> GitHub</a>
               </li>
           
               <li> 
@@ -641,7 +702,28 @@
                 
                     <div class="progress">
     <div class="wrapper">
-
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#合约开发与部署">合约开发与部署</a></li>
+<li><a href="#1-环境安装">1 环境安装</a></li>
+<li><a href="#2-truffle项目初始化">2 truffle项目初始化</a></li>
+<li><a href="#3-项目配置节点">3 项目配置节点</a></li>
+<li><a href="#4-写入合约代码">4 写入合约代码</a></li>
+<li><a href="#5-新建合约部署脚本">5 新建合约部署脚本</a></li>
+<li><a href="#6-合约部署">6 合约部署</a></li>
+<li><a href="#7-kalgo控制台测试">7 kalgo控制台测试</a></li>
+<li><a href="#8-合约创建者">8 合约创建者</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
     </div>
 </div>
 
@@ -665,73 +747,122 @@
 
 
 
-<p>除了通过kalgo命令行进行部署外也可以通过truffle环境进行部署。</p>
 
-<p>首先安装truffle：</p>
 
-<pre><code class="language-bash">npm install –g truffle@4.1.14
+<h4 id="合约开发与部署">合约开发与部署</h4>
+
+<p>kaleido合约开发部署完全兼容以太坊,并有更丰富的功能模块,合约开发部署推荐使用truffle框架。</p>
+
+<h4 id="1-环境安装">1 环境安装</h4>
+
+<pre><code class="language-js">//nodejs 8.12.0+版本安装
+略
+//truffle框架4.1.14版本安装
+npm install -g truffle@4.1.14
 </code></pre>
 
-<p>初始化truffle项目：</p>
+<h4 id="2-truffle项目初始化">2 truffle项目初始化</h4>
 
-<pre><code class="language-bash">mkdir bare-box
-cd bare-box
-truffle init
+<pre><code>git clone https://github.com/truffle-box/bare-box.git
 </code></pre>
 
-<p>并配置节点信息：</p>
+<h4 id="3-项目配置节点">3 项目配置节点</h4>
 
-<p>在 truffle-config.js文件找到development,删除注释,配置节点ip,port为你要连接的节点的信息。</p>
+<p>在 truffle-config.js文件找到development,删除注释,配置节点ip,port:</p>
 
-<pre><code>development: {
-    host: &quot;127.0.0.1&quot;,     // Localhost (default: none)
-    port: 8545,            // Standard Ethereum port (default: none)
-    network_id: &quot;*&quot;,       // Any network (default: none)
-},
+<pre><code>// development: {
+    //  host: &quot;127.0.0.1&quot;,     // kaleido节点ip,可以使用:106.75.184.214公共节点,也可以是自己搭建的节点)
+    //  port: 8545,            // 节点rcp服务端口(默认为:8545)
+    //  network_id: &quot;*&quot;,       // 网络id,默认即可
+    // },
 </code></pre>
 
-<p>在目录<code>contracts</code>下撰写合约文件<code>Game.sol</code>（注: 文件名称必须与合约名称相同），示例合约内容如下：</p>
+<h4 id="4-写入合约代码">4 写入合约代码</h4>
 
-<pre><code class="language-solidity">pragma solidity ^0.4.0;
+<p>cd contracts/;vim Game.sol;</p>
+
+<pre><code class="language-js">pragma solidity ^0.4.0;
 
 contract Game
 {
-	address public creator;
-	string greeting;
+    address public creator;
+    string greeting;
 
-	function Game(string _greeting) public payable {
-		creator = msg.sender;
-		greeting = _greeting;
-	}
+    function Game(string _greeting) public payable {
+        creator = msg.sender;
+        greeting = _greeting;
+    }
 
-	function greet() constant returns (string){
-		return greeting;
-	}
+    function greet() constant returns (string){
+        return greeting;
+    }
 
-	function setGreeting(string _newgreeting){
-		greeting = _newgreeting;
-	}
-
-	function kill(){
-		require(msg.sender == creator,&quot;not creator&quot;);
-		suicide(creator);
-	}
+    function setGreeting(string _newgreeting){
+        greeting = _newgreeting;
+    }
+    function kill(){
+        require(msg.sender == creator,&quot;not creator&quot;);
+        suicide(creator);  
+    }
 }
+
 </code></pre>
 
-<p>在目录<code>migrations</code>下编写合约部署脚本<code>2_initial_game.js</code>，示例内容如下：</p>
+<h4 id="5-新建合约部署脚本">5 新建合约部署脚本</h4>
 
-<pre><code class="language-javascript">const Game = artifacts.require(&quot;Game&quot;);
+<p>cd migrations;vim 2_initial_game.js;</p>
 
+<pre><code class="language-js">const Game = artifacts.require(&quot;Game&quot;);
 module.exports = function(deployer) {
-    deployer.deploy(Game,&quot;Hello world!&quot;);
+    deployer.deploy(Game,&quot;构造函数参数1&quot;);
 };
+    
 </code></pre>
 
-<p>最后，调用truffle命令一键编译部署合约:</p>
+<h4 id="6-合约部署">6 合约部署</h4>
 
-<pre><code class="language-bash">truffle migrate --reset;
+<pre><code>truffle migrate --reset --network development
 </code></pre>
+
+<h4 id="7-kalgo控制台测试">7 kalgo控制台测试</h4>
+
+<p>调用合约前需要确认合约创建者是否有足够抵押(创建者账户上Kal+抵押合约创建者Kal),否则合约不能被调用,抵押步骤见第2节。
+在build/contracts/Game.json拷贝abi,使用kalgo客户端连上节点:</p>
+
+<p>kalgo attach <a href="http://127.0.0.1:8545">http://127.0.0.1:8545</a>;</p>
+
+<pre><code class="language-js">var gameabi = [{&quot;constant&quot;:true,&quot;inputs&quot;:[],&quot;name&quot;:&quot;creator&quot;,&quot;outputs&quot;:[{&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;address&quot;}],&quot;payable&quot;:false,&quot;stateMutability&quot;:&quot;view&quot;,&quot;type&quot;:&quot;function&quot;},{&quot;constant&quot;:false,&quot;inputs&quot;:[],&quot;name&quot;:&quot;kill&quot;,&quot;outputs&quot;:[],&quot;payable&quot;:false,&quot;stateMutability&quot;:&quot;nonpayable&quot;,&quot;type&quot;:&quot;function&quot;},{&quot;constant&quot;:false,&quot;inputs&quot;:[{&quot;name&quot;:&quot;_newgreeting&quot;,&quot;type&quot;:&quot;string&quot;}],&quot;name&quot;:&quot;setGreeting&quot;,&quot;outputs&quot;:[],&quot;payable&quot;:false,&quot;stateMutability&quot;:&quot;nonpayable&quot;,&quot;type&quot;:&quot;function&quot;},{&quot;constant&quot;:true,&quot;inputs&quot;:[],&quot;name&quot;:&quot;greet&quot;,&quot;outputs&quot;:[{&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;string&quot;}],&quot;payable&quot;:false,&quot;stateMutability&quot;:&quot;view&quot;,&quot;type&quot;:&quot;function&quot;},{&quot;inputs&quot;:[{&quot;name&quot;:&quot;_greeting&quot;,&quot;type&quot;:&quot;string&quot;}],&quot;payable&quot;:false,&quot;stateMutability&quot;:&quot;nonpayable&quot;,&quot;type&quot;:&quot;constructor&quot;}];
+var gameContract= web3.eth.contract(gameabi).at(gameAddress);
+
+//显示:构造函数参数1
+game.greet();
+</code></pre>
+
+<h4 id="8-合约创建者">8 合约创建者</h4>
+
+<p>与以太坊不一样处在kaleido链上,每个合约的创建者都会被记录在系统合约ConCreator(&ldquo;0x1000&hellip;.0001&rdquo;);有两种方式可以获取合约的创建者</p>
+
+<blockquote>
+<p>8.1 在kalgo控制台,通过系统合约可以查询合约创建者:</p>
+
+<pre><code class="language-js">var concreatorabi = [{&quot;constant&quot;:true,&quot;inputs&quot;:[{&quot;name&quot;:&quot;conAddr&quot;,&quot;type&quot;:&quot;address&quot;}],&quot;name&quot;:&quot;get&quot;,&quot;outputs&quot;:[{&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;address&quot;}],&quot;payable&quot;:false,&quot;stateMutability&quot;:&quot;view&quot;,&quot;type&quot;:&quot;function&quot;}];
+var concreator = web3.eth.contract(concreatorabi).at(&quot;0x1000000000000000000000000000000000000001&quot;);
+
+//查询合约(contractAddress)创建者
+concreator.get(contractAddress);
+</code></pre>
+
+<p>8.2 在solidity合约中查询合约创建者</p>
+
+<pre><code class="language-js">contract ConCreatorInterface {
+	function get(address conAddr) public view returns(address);
+}
+ConCreatorInterface concreator = ConCreatorInterface(0x1000000000000000000000000000000000000001);
+
+//查询合约(contractAddress)创建者
+concreator.get(contractAddress);
+</code></pre>
+</blockquote>
 
 
 <footer class=" footline" >
@@ -982,6 +1113,22 @@ module.exports = function(deployer) {
             
                 
                     
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
                     
                 
                 
@@ -1001,6 +1148,38 @@ module.exports = function(deployer) {
                     
                         
                         
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
                     
                 
                 
@@ -1108,7 +1287,7 @@ module.exports = function(deployer) {
 			<a class="nav nav-prev" href="/contract/quick-start/" title="快速开始"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/contract/authority-contract/" title="权限管理合约" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/contract/delegation-contract/" title="抵押机制" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1118,20 +1297,20 @@ module.exports = function(deployer) {
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1561383579"></script>
-    <script src="/js/perfect-scrollbar.min.js?1561383579"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1561383579"></script>
-    <script src="/js/jquery.sticky.js?1561383579"></script>
-    <script src="/js/featherlight.min.js?1561383579"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1561383579"></script>
-    <script src="/js/highlight.pack.js?1561383579"></script>
+    <script src="/js/clipboard.min.js?1562586634"></script>
+    <script src="/js/perfect-scrollbar.min.js?1562586634"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1562586634"></script>
+    <script src="/js/jquery.sticky.js?1562586634"></script>
+    <script src="/js/featherlight.min.js?1562586634"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1562586634"></script>
+    <script src="/js/highlight.pack.js?1562586634"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1561383579"></script>
-    <script src="/js/learn.js?1561383579"></script>
-    <script src="/js/hugo-learn.js?1561383579"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1562586634"></script>
+    <script src="/js/learn.js?1562586634"></script>
+    <script src="/js/hugo-learn.js?1562586634"></script>
 
-    <link href="/mermaid/mermaid.css?1561383579" type="text/css" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1561383579"></script>
+    <link href="/mermaid/mermaid.css?1562586634" type="text/css" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1562586634"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

@@ -12,6 +12,18 @@
     
     
     <item>
+      <title>概览</title>
+      <link>https://docs.kaleidochain.io/contract/over-view/</link>
+      <pubDate>Thu, 23 May 2019 18:29:20 +0800</pubDate>
+      
+      <guid>https://docs.kaleidochain.io/contract/over-view/</guid>
+      <description> 前言: Kaleido是基于Algorand共识算法的公链，系统结构和以太坊相同，采用的是账户模型和基于EVM虚拟机的智能合约系统，完全兼容以太坊的环境，智能合约开发语言采用的是Solidity。链上合约的部署和以太坊相同，也是采用gas机制，链上结算单位为Kal。kaleido智能合约编写和部署完全兼容以太坊合约,在使用时与以太坊不同之处在合约使用前需要抵押一部分Token获得链24小时周期的使用权，所以在合约部署完成之后需要执行一个抵押操作。除了这些还提供了更丰富的功能,权限控制、链上随机数等:
+ 抵押机制:kaleido通过合约抵押机制分配合约执行权限,合约创建后,合约创建者必须有Kal抵押,合约才能被用户使用,(抵押额度=创建者账户Kal+抵押合约Kal),抵押额度关系着24小时内合约可以被调交易次数,创建者可以通过抵押合约来接受别人抵押增加合约调用次数.用户随时将账户Kal抵押给指定的合约创建者,也可以任意时候取出抵押额度，抵押的Kal只能由抵押者自己取出;
+权限控制:kaleido为降低用户使用门槛,提供给合约的功能模块,合约创建者可以通过权限控制合约为自己合约用户代扣合约交易手续费,实现用户零门槛接入;相应的为了防止代扣手续费交易泛滥,系统合约提供了2种权限控制模式:白名单模式和黑名单模式.
+ 白名单模式,只有加入白名单列表用户才能发起代扣手续费交易,其他用户只能发送普通交易（由调用者付手续费用）; 黑名单模式,加入了黑名单列表用户不能发起代扣手续费交易; 注意同一个创建者的所有合约共享黑白名单数据; 创建者还能通过权限控制指定用户代扣手续费交易的gasLimit,gasPrice上限,防止账户Kal被大量消耗; 用户在调用合约时只需将交易中gasLimit(tx.gas)置为0,指定交易为合约创建者代扣手续费,这样用户即使在账户没有Kal的情况下也能使用合约;  </description>
+    </item>
+    
+    <item>
       <title>快速开始</title>
       <link>https://docs.kaleidochain.io/contract/quick-start/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -29,32 +41,34 @@ pragma solidity ^0.4.0; contract Game { address public creator; string greeting;
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://docs.kaleidochain.io/contract/using-truffle/</guid>
-      <description>除了通过kalgo命令行进行部署外也可以通过truffle环境进行部署。
-首先安装truffle：
-npm install –g truffle@4.1.14  初始化truffle项目：
-mkdir bare-box cd bare-box truffle init  并配置节点信息：
-在 truffle-config.js文件找到development,删除注释,配置节点ip,port为你要连接的节点的信息。
-development: { host: &amp;quot;127.0.0.1&amp;quot;, // Localhost (default: none) port: 8545, // Standard Ethereum port (default: none) network_id: &amp;quot;*&amp;quot;, // Any network (default: none) },  在目录contracts下撰写合约文件Game.sol（注: 文件名称必须与合约名称相同），示例合约内容如下：
+      <description>合约开发与部署 kaleido合约开发部署完全兼容以太坊,并有更丰富的功能模块,合约开发部署推荐使用truffle框架。
+1 环境安装 //nodejs 8.12.0+版本安装 略 //truffle框架4.1.14版本安装 npm install -g truffle@4.1.14  2 truffle项目初始化 git clone https://github.com/truffle-box/bare-box.git  3 项目配置节点 在 truffle-config.js文件找到development,删除注释,配置节点ip,port:
+// development: { // host: &amp;quot;127.0.0.1&amp;quot;, // kaleido节点ip,可以使用:106.75.184.214公共节点,也可以是自己搭建的节点) // port: 8545, // 节点rcp服务端口(默认为:8545) // network_id: &amp;quot;*&amp;quot;, // 网络id,默认即可 // },  4 写入合约代码 cd contracts/;vim Game.sol;
 pragma solidity ^0.4.0; contract Game { address public creator; string greeting; function Game(string _greeting) public payable { creator = msg.sender; greeting = _greeting; } function greet() constant returns (string){ return greeting; } function setGreeting(string _newgreeting){ greeting = _newgreeting; } function kill(){ require(msg.</description>
     </item>
     
     <item>
-      <title>权限管理合约</title>
+      <title>抵押机制</title>
+      <link>https://docs.kaleidochain.io/contract/delegation-contract/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://docs.kaleidochain.io/contract/delegation-contract/</guid>
+      <description>kaleido使用抵押机制分配合约交易次数,防止用户恶意调用代扣费合约,堵塞网络;24小时内同一创建者的所有合约交易量不能超过创建者(以下称creator)抵押额度值,抵押额度由2个部分组成:创建者账户上Kal额度,以及系统抵押合约上其他用户为creator抵押的Kal额度;用户可以将账户上Kal通过系统抵押合约(Delegation(&amp;ldquo;0x1000&amp;hellip;0004&amp;rdquo;))抵押给其他creator,以增加其合约24小时调用交易次数;
+每个交易需要抵押的Kal与gasPrice成正比，目前抵押需要量计算公式为: + 抵押量 = 单次交易抵押量 * 交易次数 + 单次交易抵押量 = gasPrice * C = 1e9 * 2e6 = 2e15 = 0.002 Kal gasPrice 默认值为1e9 Wei
+1 solidity合约实例化系统抵押合约 // 系统抵押合约接口 contract DelegationInterface { //用户为creatorAddress抵押Kal function delegate(address creatorAddress) public payable; //取回creatorAddress的抵押 function withdraw(address creatorAddress, uint amount) public; //查询creatorAddress接受到的抵押 function totalReceivedToken(address creatorAddress) public view returns(uint); //查询userAddress为其他creator抵押的额度 function totalDelegatedToken(address userAddress) public view returns(uint) //查询userAddress给 creatorAddress抵押的额度 function getAmount(address userAddress, address creatorAddress) public view returns(uint) } DelegationInterface Delegation = DelegationInterface(0x1000000000000000000000000000000000000004);  2 kalgo控制台中实例化系统合约 kalgo attach http://127.</description>
+    </item>
+    
+    <item>
+      <title>权限控制</title>
       <link>https://docs.kaleidochain.io/contract/authority-contract/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://docs.kaleidochain.io/contract/authority-contract/</guid>
-      <description>kaleido扩展了合约的权限管理功能。通过权限管理合约，可以实现：
- 用户调用产生的gas消耗由合约支付 合约调用黑名单，禁止某些用户调用合约  合约创建者可以控制调用权限和每次的调用花费上限。
-下面的示例说明这种合约的使用方式。
-环境准备 参考使用Truffle开发合约中的内容，配置好开发环境。
-编写合约 游戏合约指调用合约的手续费用由合约自己支付，调用者（用户）不需要支付Kal，这样使得游戏能被所有用户都使用。为了达到这个目的需要将游戏合约注册到系统合约里面，系统合约地址为sysytem(0x1000000000000000000000000000000000000001)，当注册到这个系统合约后，该合约就会在调用的时候从合约地址支付，如果合约地址中Kal为0，调用就会失败。 游戏合约的手续费因为由合约本身支付，所以为了防止无效支付和支付过高手续费用，游戏合约需要和权限合约配合使用，通过权限合约可以控制用户调用的权限，同时通过在权限合约中指定gas_limit和gas_price作为调用合约交易中的上限。权限合约为Authority.sol。 权限合约可以在多个合约之间共享。 在实际使用中需要把游戏合约地址和对应的权限合约地址注册到系统合约中。 system. setAuthContractAddr(address(authority));
-在权限合约中设置对应的gas_limit和gas_price： authority.setGas(500000000,1000000);
-在权限合约中将用户添加到白名单: authority.grant(addr);
-在权限合约中将用户移除白名单,白名单外的用户调用game合约的交易是不会被区块打包: authority.revoke(addr);
-便于白名单合约管理,将拥有者权限移交给用户账号: authority.changeOwner(msg.sender);
-普通逻辑合约Game.sol例子:
-pragma solidity ^0.4.0; contract AuthorityInterface{ function setPayer() public; function setGas(uint256 price, uint64 gaslimit) public; function grant(address addr)public; function revoke(address addr) public; } contract AuthIndexInterface{ function setAuthContractAddr(address add) public; function getAuthContractAddr(address add) public view returns(address); } contract Game{ address public creator; string greeting; AuthIndexInterface AuthIndex = AuthIndexInterface(0x1000000000000000000000000000000000000001); AuthorityInterface Authority; function Game(string _greeting) public payable{ creator = msg.</description>
+      <description>权限控制是kaleido为降低用户使用门槛提供的功能模块,通过权限合约功能，合约的创建者(以下称creator)除了支付合约部署费用,还可以为调用合约的交易代扣手续费,合约调用者(tx.from)无需Kal,就可以使用合约。 creator可以通过系统权限控制合约Authority(0x1000…0003)控制用户代扣费权限,以及代扣收付费交易gasPrice,gasLimit上限。  权限控制合约有2种权限模式; 0-白名单模式(默认),只有加入白名单列表的用户才能发送代扣费交易,其他用户只能发送普通交易调用合约; 1-黑名单模式,加入了黑名单列表的用户不能发送代扣费交易,但仍可以发送普通交易调用合约;
+ 注:同一creator下的所有合约共享黑/白名单数据列表;
+ 如果需要使用权限控制合约，需要将合约的创建者调用权限控制合约进行设置，设置属性有代扣费交易允许的最大gasLimit和代扣费交易允许的最大gasPrice 针对每个合约可以单独设置gasLimit和gasPrice，对合约还可以设置一个Mode（白名单还是黑名单） 一个合约Creator共用白名单和黑名单数据，合约单独设置具体采用的模式 合约的gasLimit和gasPrice在没有设置的情况下会继承合约创建者设置的gasLimit和gasPrice 当合约创建者没有通过权限合约进行设置操作时，合约就是普通合约，需要由调用者支持gas费用 即使合约创建者和合约通过权限合约进行了设置操作，用户调用合约时通过指定gaslimit&amp;gt;0和gasPrice&amp;gt;0 时，该交易也可以强制用户付费调用，如果用户账户kal足够调用成功，如果余额不足则调用失败 在合约创建者或合约设置gasLimit和gasPrice情况下，白名单用户或者黑名单中不在的用户在调用合约交易时设置gasLimit=0时，该交易由合约创建者付费，此时gasPrice必须小于或等于合约或者合约创建者设置的gasPrice，否则该交易无效，不会被打包 当合约创建者或者合约需要改变付费模式时可以通过设置gasLimit是否为0进行改变，当gasLimit=0 则合约所有调用者都是调用者付费 合约的白名单模式和黑名单模式可以随时改变 当合约创建者账户余额不足以支付交易费用时，设置为合约付费(gasLimit=0)的交易会失败，此时如果用户可以通过设置交易中gasLimit&amp;gt;0 来强制调用合约   注:给abigen自动生成的代码，也增加了一个函数 TransactExact,这个函数不会自动设置gasLimit,用于发起合约付费交易.
+1 权限控制合约使用  solidity合约中实例化权限控制合约
+contract AuthorityInterface { //设置用户代扣手续费交易gasPrice上限,合约没设置继承creator function setMaxGasPrice(address creatorOrcontract, uint _price) public returns(bool); //设置用户代扣手续费交易gasLimit上限,合约没设置继承creator function setGasLimit(address creatorOrcontract, uint64 _gas) public returns(bool); //设置权限模式,0-表面的模式(默认),1-黑名单模式，只对合约有效 function setModel(address contract, uint _model) public returns(bool); //查询合约 MaxGasPrice,GasPrice,Mode三项的设置 function getAll(address contractAddress) public view returns(uint price,uint64 gas,uint mod); //添加用户memberAddress到自己黑名单列表 function addBlack(address memberAddress ) public returns(bool); //添加用户memberAddress到自己白名单列表 function addWhite(address memberAddress ) public returns(bool); //将用户memberAddress从自己黑名单列表移除 function removeBlack(address memberAddress ) public returns(bool); //将用户memberAddress从自己白名单列表移除 function removeWhite(address memberAddress ) public returns(bool); //用户memberAddress是否在合约contractAddress的黑名单 function isBlack(address contractAddress,address memberAddress ) public view returns(bool); //用户memberAddress是否在合约contractAddress的白名单 function isWhite(address contractAddress,address memberAddress ) public view returns(bool); } AuthorityInterface Authority = AuthorityInterface(0x1000000000000000000000000000000000000003);  kalgo控制台实例化权限控制合约</description>
     </item>
     
     <item>
@@ -67,6 +81,20 @@ pragma solidity ^0.4.0; contract AuthorityInterface{ function setPayer() public;
 合约创建人有多种用途。第一种用途就是合约抵押机制。合约要可执行，需要先抵押一定量的token到其创建人账户中。系统自动识别合约的创建人抵押量，来计算合约可被调用的次数。第二种用途就是权限管理。很多情况下，一个合约都需要与一个超级管理员关联，以限制部分接口的调用权限。合约创建人机制默认提供了一直超级管理员的可选项，简化了相关合约的开发。
 要在Solidity中获取一个合约的创建人，需要使用以下代码：
 import &#39;lib/kaleido/SysContract.sol&#39;; contract Demo { // WithDraw - only creator can get the token function WithDraw(uint amount) public { require(msg.sender == SysContract.getCreator(address(this))); msg.sender.transfer(amount); } }  </description>
+    </item>
+    
+    <item>
+      <title>获取随机数</title>
+      <link>https://docs.kaleidochain.io/contract/solidity-rand/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://docs.kaleidochain.io/contract/solidity-rand/</guid>
+      <description>区块链上的合约经常会需要产生随机值，目前的区块链一般采用交易hash或者区块hash产生随机值，但是这些都不是完全独立的随机值，可以被矿工或者交易发起者进行攻击或者利用。
+Kaleido提供了真正不可预测的安全可靠的随机数机制。Kaleido的随机性主要有以下几个来源：
+ 区块种子 受益于VRF算法和Algorand共识算法机制，每个区块中的随机数种子是无法被任何人（包括提案人自己）提前预测的 交易Hash 发起获取随机数的交易hash 内部序列号 区块内部使用种子的次数，除了区块构造者，其他人无法提取预测 用户数据 由调用者传入的任意数据，可选  因此，Kaleido所产生的随机数，是一个真正不可预测的安全可靠的随机数。
+你可以通过内置函数直接获取随机数，代码如下：
+function random() public view returns(uint256) { uint256[1] memory output; assembly { if iszero(staticcall(not(0), 101, 0x0, 0x0, output, 0x20)) { revert(0, 0) } } return output[0]; }  也可以获取过去某个区块的随机种子（限制最多能取到最近2048个区块）：
+function getSeed(uint height) public view returns(uint256) { uint256[1] memory input; uint256[1] memory output; input[0] = height; assembly { if iszero(staticcall(not(0), 100, input, 0x20, output, 0x20)) { revert(0, 0) } } return output[0]; }  以上函数已经在有封装好的函数库可以直接调用，具体可参考SysContract.</description>
     </item>
     
   </channel>

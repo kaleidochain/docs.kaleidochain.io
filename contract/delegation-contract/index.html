@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>kaleidochain :: Kaleido文档</title>
+    <title>抵押机制 :: Kaleido文档</title>
 
     
     <link href="/css/nucleus.css?1562586634" rel="stylesheet">
@@ -41,7 +41,7 @@
 </style>
 
   </head>
-  <body class="" data-url="/">
+  <body class="" data-url="/contract/delegation-contract/">
     <nav id="sidebar" class="">
 
 
@@ -324,7 +324,7 @@
   
     
     <li data-nav-id="/contract/" title="智能合约" class="dd-item 
-        
+        parent
         
         
         ">
@@ -405,7 +405,7 @@
  
   
     
-      <li data-nav-id="/contract/delegation-contract/" title="抵押机制" class="dd-item ">
+      <li data-nav-id="/contract/delegation-contract/" title="抵押机制" class="dd-item active">
         <a href="/contract/delegation-contract/">
         抵押机制
         
@@ -612,23 +612,11 @@
               
               
                   
-                    
-                    
-                      <option id="en" value="https://docs.kaleidochain.io/en/">English</option>
-                    
-                  
-              
-                  
-              
-          
-              
-              
-                  
               
                   
                     
                     
-                      <option id="zh" value="https://docs.kaleidochain.io/" selected>中文</option>
+                      <option id="zh" value="https://docs.kaleidochain.io/contract/delegation-contract/" selected>中文</option>
                     
                   
               
@@ -674,36 +662,153 @@
         <div id="overlay"></div>
         <div class="padding highlightable">
               
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'>kaleidochain</a> > <a href='/contract/'>智能合约</a> > 抵押机制
+          
+         
+          
+         
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#1-solidity合约实例化系统抵押合约">1 solidity合约实例化系统抵押合约</a></li>
+<li><a href="#2-kalgo控制台中实例化系统合约">2 kalgo控制台中实例化系统合约</a></li>
+<li><a href="#3-用户没有自己的合约-可以将kal抵押给其他creator-抵押的kal可以随时取出-并且只能由自己取出">3 用户没有自己的合约,可以将Kal抵押给其他creator,抵押的Kal可以随时取出,并且只能由自己取出。</a></li>
+<li><a href="#4-其他用户为自己-creator-的抵押">4 其他用户为自己(creator)的抵押</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
         <div id="head-tags">
         
         </div>
         
-          <div id="chapter">
-        
         <div id="body-inner">
+          
+            <h1>
+              
+              抵押机制
+            </h1>
           
 
         
 
 
-<span id="sidebar-toggle-span">
-<a href="#" id="sidebar-toggle" data-sidebar-toggle=""><i class="fas fa-bars"></i> navigation</a>
-</span>
-
- 
 
 
-<h1 id="kaleidochain">Kaleidochain</h1>
 
-<p>欢迎查看Kaleidochain文档</p>
+<p>kaleido使用抵押机制分配合约交易次数,防止用户恶意调用代扣费合约,堵塞网络;24小时内同一创建者的所有合约交易量不能超过创建者(以下称creator)抵押额度值,抵押额度由2个部分组成:创建者账户上Kal额度,以及系统抵押合约上其他用户为creator抵押的Kal额度;用户可以将账户上Kal通过系统抵押合约(Delegation(&ldquo;0x1000&hellip;0004&rdquo;))抵押给其他creator,以增加其合约24小时调用交易次数;</p>
 
-<blockquote>
-<p><i class="fas fa-fw fa-info"></i> 本文档正在频繁更新，请及时查看最新内容。</p>
-</blockquote>
+<p>每个交易需要抵押的Kal与gasPrice成正比，目前抵押需要量计算公式为:
++ 抵押量 = 单次交易抵押量 * 交易次数
++ 单次交易抵押量 =  gasPrice * C = 1e9 * 2e6 = 2e15 = 0.002 Kal
+   gasPrice 默认值为1e9 Wei</p>
+
+<h3 id="1-solidity合约实例化系统抵押合约">1 solidity合约实例化系统抵押合约</h3>
+
+<pre><code class="language-solidity">// 系统抵押合约接口
+contract DelegationInterface {
+	//用户为creatorAddress抵押Kal
+	function delegate(address creatorAddress) public payable;
+	//取回creatorAddress的抵押
+	function withdraw(address creatorAddress, uint amount) public;
+	//查询creatorAddress接受到的抵押
+	function totalReceivedToken(address creatorAddress) public view returns(uint);
+	//查询userAddress为其他creator抵押的额度
+	function totalDelegatedToken(address userAddress) public view returns(uint)
+	//查询userAddress给 creatorAddress抵押的额度
+	function getAmount(address userAddress, address creatorAddress) public view returns(uint)
+}
+
+DelegationInterface Delegation = DelegationInterface(0x1000000000000000000000000000000000000004);
+</code></pre>
+
+<h3 id="2-kalgo控制台中实例化系统合约">2 kalgo控制台中实例化系统合约</h3>
+
+<pre><code>kalgo attach http://127.0.0.1:8545;
+
+
+var delegationabi = [{&quot;constant&quot;:false,&quot;inputs&quot;:[{&quot;name&quot;:&quot;to&quot;,&quot;type&quot;:&quot;address&quot;}],&quot;name&quot;:&quot;delegate&quot;,&quot;outputs&quot;:[],&quot;payable&quot;:true,&quot;stateMutability&quot;:&quot;payable&quot;,&quot;type&quot;:&quot;function&quot;},{&quot;constant&quot;:false,&quot;inputs&quot;:[{&quot;name&quot;:&quot;addr&quot;,&quot;type&quot;:&quot;address&quot;},{&quot;name&quot;:&quot;amount&quot;,&quot;type&quot;:&quot;uint256&quot;}],&quot;name&quot;:&quot;withdraw&quot;,&quot;outputs&quot;:[],&quot;payable&quot;:false,&quot;stateMutability&quot;:&quot;nonpayable&quot;,&quot;type&quot;:&quot;function&quot;},{&quot;constant&quot;:true,&quot;inputs&quot;:[{&quot;name&quot;:&quot;addr&quot;,&quot;type&quot;:&quot;address&quot;}],&quot;name&quot;:&quot;totalReceivedToken&quot;,&quot;outputs&quot;:[{&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;uint256&quot;}],&quot;payable&quot;:false,&quot;stateMutability&quot;:&quot;view&quot;,&quot;type&quot;:&quot;function&quot;},{&quot;constant&quot;:true,&quot;inputs&quot;:[{&quot;name&quot;:&quot;addr&quot;,&quot;type&quot;:&quot;address&quot;}],&quot;name&quot;:&quot;totalDelegatedToken&quot;,&quot;outputs&quot;:[{&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;uint256&quot;}],&quot;payable&quot;:false,&quot;stateMutability&quot;:&quot;view&quot;,&quot;type&quot;:&quot;function&quot;},{&quot;constant&quot;:true,&quot;inputs&quot;:[{&quot;name&quot;:&quot;from&quot;,&quot;type&quot;:&quot;address&quot;},{&quot;name&quot;:&quot;to&quot;,&quot;type&quot;:&quot;address&quot;}],&quot;name&quot;:&quot;getAmount&quot;,&quot;outputs&quot;:[{&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;uint256&quot;}],&quot;payable&quot;:false,&quot;stateMutability&quot;:&quot;view&quot;,&quot;type&quot;:&quot;function&quot;}];
+var Delegation = web3.eth.contract(delegationabi).at(&quot;0x1000000000000000000000000000000000000004&quot;);
+</code></pre>
+
+<h3 id="3-用户没有自己的合约-可以将kal抵押给其他creator-抵押的kal可以随时取出-并且只能由自己取出">3 用户没有自己的合约,可以将Kal抵押给其他creator,抵押的Kal可以随时取出,并且只能由自己取出。</h3>
+
+<pre><code class="language-js">//抵押1e18个kal给其他creator
+//creatorAddress-其他合约创建者账户地址
+//eth.acccounts[0]-用户账户地址
+Delegation.delegate(creatorAddress,{from:eth.acccounts[0],value:1e18});
+
+//查询自己已抵押给creator的额度
+Delegation.getAmount(eth.accounts[0],creatorAddress);
+
+//查询自己所有抵押出去的额度
+Delegation.totalDelegatedToken(eth.acccounts[0]);
+
+//用户随时取出自己抵押给creator的额度
+Delegation.withdraw(creatorAddress,value,{from:eth.accounts[0]});
+</code></pre>
+
+<h3 id="4-其他用户为自己-creator-的抵押">4 其他用户为自己(creator)的抵押</h3>
+
+<pre><code class="language-js">//查询某个用户为自己(creator)抵押的额度
+//userAddress-抵押给自己额度的用户地址
+//creatorAddress-合约创建者账户地址
+Delegation.getAmount(userAddress,creatorAddress);
+//查询自己(creator)收到的所有抵押额度
+Delegation.totalReceivedToken(creatorAddress);
+</code></pre>
+
+
+<footer class=" footline" >
 	
-  
-        
-            </div> 
+</footer>
+
+
         
         </div> 
         
@@ -914,6 +1019,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -926,6 +1032,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -975,6 +1084,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -990,6 +1100,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1110,8 +1223,10 @@
 	 
 	 
 		
+			<a class="nav nav-prev" href="/contract/using-truffle/" title="使用Truffle开发合约"> <i class="fa fa-chevron-left"></i></a>
 		
-			<a class="nav nav-next" href="/introduction/" title="介绍" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+			<a class="nav nav-next" href="/contract/authority-contract/" title="权限控制" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
