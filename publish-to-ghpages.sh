@@ -28,5 +28,5 @@ hugo
 printf "docs.kaleidochain.io" > public/CNAME
 
 echo "Updating gh-pages branch"
-cd public && git add --all && git status && git commit -m "Publishing to gh-pages by publish-to-ghpages.sh"
+cd public && git add --all && git status && git commit -m "Publishing to gh-pages by publish-to-ghpages.sh" && git push
 
