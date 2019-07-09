@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>钱包 on Kaleido文档</title>
+    <link>https://docs.kaleidochain.io/wallet/</link>
+    <description>Recent content in 钱包 on Kaleido文档</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="https://docs.kaleidochain.io/wallet/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>配置MetaMask钱包</title>
+      <link>https://docs.kaleidochain.io/wallet/metamask/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://docs.kaleidochain.io/wallet/metamask/</guid>
+      <description>配置MetaMask MetaMask通过网络设置来支持KAL，你只需一步配置，即可在MetaMask中使用KAL。如果你还没有安装MetaMask，可以参考下面的安装MetaMask。
+打开MetaMask，点击右上角下拉框打开网络配置界面，点击最后一项。如下图：
+根据Kaleidochain网络配置信息，选择主网络或测试网络，填写网络配置项，然后点击保存，并关闭配置界面。如下图：
+此时，主界面显示已经连上Kaleido主网络，你可以在这里查看自己的KAL余额或发送交易，最近发送的交易也会显示在这里。
+注意：配置或切换网络后，可能会出现按钮点击无反应的情况，此时只需要重启浏览器即可。这是MetaMask的问题，官方正在解决中。
+安装MetaMask 请务必确保从浏览器官方渠道（Chrome Firefox Opera）下载安装MetaMask钱包。
+安装后，你可以新建一个账户，或导入原有的助记词来恢复账户。如下图：
+然后设置MetaMask钱包的打开密码。如下图：
+完成后，你会看到MetaMask钱包的主界面。如下图：
+现在，你可以配置MetaMask来使用KAL了。</description>
+    </item>
+    
+    <item>
+      <title>Kaleidochain网络配置</title>
+      <link>https://docs.kaleidochain.io/wallet/network/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://docs.kaleidochain.io/wallet/network/</guid>
+      <description>Kaleidochain生态目前运营有主网络和测试网络。主网络用于正式使用，测试网络用于开发测试使用。
+    主网络 测试网络     Network Name Kaleido Main Network Kaleido Test Network   RPC URL https://api.kalscan.io https://api-testnet.kalscan.io   ChainID 888 889   Symbol KAL KAL   Block Explorer https://kalscan.io https://testnet.kalscan.io   Buy KAL Buy KAL with Digifinex Get it Free    Kaleidochain生态由社区共同构建和维护，感谢kalscan.io提供免费的API服务和浏览器支持。</description>
+    </item>
+    
+  </channel>
+</rss>

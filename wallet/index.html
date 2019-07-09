@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>DApp开发 :: Kaleido文档</title>
+    <title>钱包 :: Kaleido文档</title>
 
     
     <link href="/css/nucleus.css?1562663273" rel="stylesheet">
@@ -41,7 +41,7 @@
 </style>
 
   </head>
-  <body class="" data-url="/dapp-developer/">
+  <body class="" data-url="/wallet/">
     <nav id="sidebar" class="">
 
 
@@ -216,8 +216,8 @@
   
     
     <li data-nav-id="/wallet/" title="钱包" class="dd-item 
-        
-        
+        parent
+        active
         
         ">
       <a href="/wallet/">
@@ -559,8 +559,8 @@
   
     
     <li data-nav-id="/dapp-developer/" title="DApp开发" class="dd-item 
-        parent
-        active
+        
+        
         
         ">
       <a href="/dapp-developer/">
@@ -686,7 +686,7 @@
                   
                     
                     
-                      <option id="zh" value="https://docs.kaleidochain.io/dapp-developer/" selected>中文</option>
+                      <option id="zh" value="https://docs.kaleidochain.io/wallet/" selected>中文</option>
                     
                   
               
@@ -755,7 +755,7 @@
             
           
           
-            <a href='/'>kaleidochain</a> > DApp开发
+            <a href='/'>kaleidochain</a> > 钱包
           
          
           
@@ -782,7 +782,7 @@
           
             <h1>
               
-              DApp开发
+              钱包
             </h1>
           
 
@@ -791,17 +791,9 @@
 
 
 
-	<p>Kaleido链除了可以开发以太坊上基于Solidity的智能合约外，还能开发结合链上智能合约的纯P2P的分布式应用。Kaleido对去中心化的、可验证的应用开发做了全面的支持，包括提升了链的性能，对虚拟机做了功能扩展，提供了开发SDK和相关demo等资源。DApp可以通过链上的分布式账本结合P2P网络的通信机制来完成复杂的P2P应用。</p>
+	<p><a href="https://metamask.io/">MetaMask</a>是最好用的钱包之一，它是开源钱包，安全性很好，用起来也很方便。同时它也支持管理Kaleidochain的KAL。我们推荐初级用户使用MetaMask。</p>
 
-<p>一个完整的基于kaleido的P2P应用开发由三个部分组成：</p>
-
-<ol>
-<li>链上的合约代码，负责应用的结算和公共共识部分，一般以基于ERC20的Token合约实现。</li>
-<li>lua脚本部分，这块是游戏和核心逻辑，通过交易形式存在链上合约中，在游戏运行时从链上下载下来在本地轻节点的lua虚拟机中执行。</li>
-<li>前端js代码负责界面的交互和与lua脚本的通信。</li>
-</ol>
-
-<p>下面的内容主要对基于Kaleido进行DApp应用开发的方法进行说明。</p>
+<p>如果需要更高的安全性，建议配合MetaMask使用硬件钱包<a href="https://shop.trezor.io/">Trezor</a>或<a href="https://shop.ledger.com/products/ledger-nano-s">Ledger</a>。</p>
 
 <ul class="children children-li">
     
@@ -819,7 +811,7 @@
             
                 
 <li>
-<a href="/dapp-developer/resources/" >开发资源</a>
+<a href="/wallet/metamask/" >配置MetaMask钱包</a>
 </li>
                 
 
@@ -832,20 +824,7 @@
             
                 
 <li>
-<a href="/dapp-developer/ios-build/" >iOS版本编译</a>
-</li>
-                
-
-                
-            
-            
-        
-    
-        
-            
-                
-<li>
-<a href="/dapp-developer/android-build/" >安卓版本编译</a>
+<a href="/wallet/network/" >Kaleidochain网络配置</a>
 </li>
                 
 
@@ -996,6 +975,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -1008,6 +988,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1252,7 +1235,6 @@
             
                 
                     
-                    
                 
                 
 
@@ -1265,9 +1247,6 @@
             
             
                 
-                    
-                        
-                        
                     
                 
                 
@@ -1324,10 +1303,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/contract/solidity-rand/" title="获取随机数"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/getting-started/testing-your-dapp/" title="测试你的应用"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/dapp-developer/resources/" title="开发资源" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/wallet/metamask/" title="配置MetaMask钱包" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>

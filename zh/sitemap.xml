@@ -52,6 +52,10 @@
   </url>
   
   <url>
+    <loc>https://docs.kaleidochain.io/wallet/metamask/</loc>
+  </url>
+  
+  <url>
     <loc>https://docs.kaleidochain.io/mining/register-miner-key/</loc>
     <lastmod>2019-05-23T17:47:37+08:00</lastmod>
   </url>
@@ -100,7 +104,15 @@
   </url>
   
   <url>
+    <loc>https://docs.kaleidochain.io/wallet/network/</loc>
+  </url>
+  
+  <url>
     <loc>https://docs.kaleidochain.io/contract/quick-start/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.kaleidochain.io/wallet/</loc>
   </url>
   
   <url>

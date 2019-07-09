@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>DApp开发 :: Kaleido文档</title>
+    <title>配置MetaMask钱包 :: Kaleido文档</title>
 
     
     <link href="/css/nucleus.css?1562663273" rel="stylesheet">
@@ -41,7 +41,7 @@
 </style>
 
   </head>
-  <body class="" data-url="/dapp-developer/">
+  <body class="" data-url="/wallet/metamask/">
     <nav id="sidebar" class="">
 
 
@@ -216,7 +216,7 @@
   
     
     <li data-nav-id="/wallet/" title="钱包" class="dd-item 
-        
+        parent
         
         
         ">
@@ -240,7 +240,7 @@
  
   
     
-      <li data-nav-id="/wallet/metamask/" title="配置MetaMask钱包" class="dd-item ">
+      <li data-nav-id="/wallet/metamask/" title="配置MetaMask钱包" class="dd-item active">
         <a href="/wallet/metamask/">
         配置MetaMask钱包
         
@@ -559,8 +559,8 @@
   
     
     <li data-nav-id="/dapp-developer/" title="DApp开发" class="dd-item 
-        parent
-        active
+        
+        
         
         ">
       <a href="/dapp-developer/">
@@ -686,7 +686,7 @@
                   
                     
                     
-                      <option id="zh" value="https://docs.kaleidochain.io/dapp-developer/" selected>中文</option>
+                      <option id="zh" value="https://docs.kaleidochain.io/wallet/metamask/" selected>中文</option>
                     
                   
               
@@ -755,7 +755,13 @@
             
           
           
-            <a href='/'>kaleidochain</a> > DApp开发
+            
+            
+          
+          
+            <a href='/'>kaleidochain</a> > <a href='/wallet/'>钱包</a> > 配置MetaMask钱包
+          
+         
           
          
           
@@ -766,7 +772,18 @@
                 
                     <div class="progress">
     <div class="wrapper">
-
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#配置metamask">配置MetaMask</a></li>
+<li><a href="#安装metamask">安装MetaMask</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
     </div>
 </div>
 
@@ -782,7 +799,7 @@
           
             <h1>
               
-              DApp开发
+              配置MetaMask钱包
             </h1>
           
 
@@ -791,80 +808,52 @@
 
 
 
-	<p>Kaleido链除了可以开发以太坊上基于Solidity的智能合约外，还能开发结合链上智能合约的纯P2P的分布式应用。Kaleido对去中心化的、可验证的应用开发做了全面的支持，包括提升了链的性能，对虚拟机做了功能扩展，提供了开发SDK和相关demo等资源。DApp可以通过链上的分布式账本结合P2P网络的通信机制来完成复杂的P2P应用。</p>
 
-<p>一个完整的基于kaleido的P2P应用开发由三个部分组成：</p>
+<p><span id="add-network"/></p>
 
-<ol>
-<li>链上的合约代码，负责应用的结算和公共共识部分，一般以基于ERC20的Token合约实现。</li>
-<li>lua脚本部分，这块是游戏和核心逻辑，通过交易形式存在链上合约中，在游戏运行时从链上下载下来在本地轻节点的lua虚拟机中执行。</li>
-<li>前端js代码负责界面的交互和与lua脚本的通信。</li>
-</ol>
+<h3 id="配置metamask">配置MetaMask</h3>
 
-<p>下面的内容主要对基于Kaleido进行DApp应用开发的方法进行说明。</p>
+<p>MetaMask通过网络设置来支持KAL，你只需一步配置，即可在MetaMask中使用KAL。如果你还没有安装MetaMask，可以参考下面的<a href="#install-metamask">安装MetaMask</a>。</p>
 
-<ul class="children children-li">
-    
+<p>打开MetaMask，点击右上角下拉框打开网络配置界面，点击最后一项。如下图：</p>
 
-    
-        
-    
-    
-    
+<p><img src="/images/metamask/metamask-add-network-step-1.png" alt="MetaMask Add Network Step 1" /></p>
 
-    
-        
-    
-        
-            
-                
-<li>
-<a href="/dapp-developer/resources/" >开发资源</a>
-</li>
-                
+<p>根据<a href="/wallet/network">Kaleidochain网络配置</a>信息，选择主网络或测试网络，填写网络配置项，然后点击保存，并关闭配置界面。如下图：</p>
 
-                
-            
-            
-        
-    
-        
-            
-                
-<li>
-<a href="/dapp-developer/ios-build/" >iOS版本编译</a>
-</li>
-                
+<p><img src="/images/metamask/metamask-add-network-step-2.png" alt="MetaMask Add Network Step 2" /></p>
 
-                
-            
-            
-        
-    
-        
-            
-                
-<li>
-<a href="/dapp-developer/android-build/" >安卓版本编译</a>
-</li>
-                
+<p>此时，主界面显示已经连上Kaleido主网络，你可以在这里查看自己的KAL余额或发送交易，最近发送的交易也会显示在这里。</p>
 
-                
-            
-            
-        
-    
+<p><strong>注意</strong>：<strong>配置或切换网络</strong>后，可能会出现按钮点击无反应的情况，此时只需要<strong>重启浏览器</strong>即可。这是MetaMask的问题，官方正在解决中。</p>
 
-    
-</ul>
+<p><img src="/images/metamask/metamask-add-network-step-3.png" alt="MetaMask Add Network Step 3" /></p>
 
+<p><span id="install-metamask"/></p>
 
+<h3 id="安装metamask">安装MetaMask</h3>
 
+<p>请务必确保从浏览器官方渠道（<a href="https://chrome.google.com/webstore/detail/nkbihfbeogaeaoehlefnkodbefgpgknn">Chrome</a> <a href="https://addons.mozilla.org/en-US/firefox/addon/ether-metamask/">Firefox</a> <a href="https://addons.opera.com/en/extensions/details/metamask/">Opera</a>）下载安装<a href="https://metamask.io/">MetaMask</a>钱包。</p>
+
+<p>安装后，你可以新建一个账户，或导入原有的助记词来恢复账户。如下图：</p>
+
+<p><img src="/images/metamask/metamask-step-1.png" alt="MetaMask Step 1" /></p>
+
+<p>然后设置MetaMask钱包的打开密码。如下图：</p>
+
+<p><img src="/images/metamask/metamask-step-2.png" alt="MetaMask Step 2" /></p>
+
+<p>完成后，你会看到MetaMask钱包的主界面。如下图：</p>
+
+<p><img src="/images/metamask/metamask-step-3.png" alt="MetaMask Step 3" /></p>
+
+<p>现在，你可以<a href="#add-network">配置MetaMask</a>来使用KAL了。</p>
 
 
 <footer class=" footline" >
 	
 </footer>
+
 
         
         </div> 
@@ -996,6 +985,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -1008,6 +998,7 @@
             
             
                 
+                    
                     
                 
                 
@@ -1025,85 +1016,8 @@
             
                 
                     
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
                         
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
                         
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
                     
                 
                 
@@ -1196,6 +1110,22 @@
             
         
                     
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
                         
             
             
@@ -1244,6 +1174,19 @@
             
         
                     
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
             
         
                     
@@ -1252,6 +1195,56 @@
             
                 
                     
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
                     
                 
                 
@@ -1265,9 +1258,6 @@
             
             
                 
-                    
-                        
-                        
                     
                 
                 
@@ -1324,10 +1314,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/contract/solidity-rand/" title="获取随机数"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/wallet/" title="钱包"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/dapp-developer/resources/" title="开发资源" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/wallet/network/" title="Kaleidochain网络配置" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1358,3 +1348,4 @@
 
   </body>
 </html>
+
