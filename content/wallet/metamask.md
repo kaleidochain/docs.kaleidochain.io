@@ -28,7 +28,7 @@ MetaMask通过网络设置来支持KAL，你只需一步配置，即可在MetaMa
 <span id="install-metamask"/>
 ### 安装MetaMask
 
-请务必确保从浏览器官方渠道（[Chrome](https://chrome.google.com/webstore/detail/nkbihfbeogaeaoehlefnkodbefgpgknn) [Firefox](https://addons.mozilla.org/en-US/firefox/addon/ether-metamask/) [Opera](https://addons.opera.com/en/extensions/details/metamask/)）下载安装[MetaMask](https://metamask.io/)钱包。
+请务必确保从浏览器官方渠道（[Chrome](https://chrome.google.com/webstore/detail/nkbihfbeogaeaoehlefnkodbefgpgknn) [Firefox](https://addons.mozilla.org/en-US/firefox/addon/ether-metamask/) [Opera](https://addons.opera.com/en/extensions/details/metamask/)）下载安装[MetaMask](https://metamask.io/)钱包。如果官方渠道打不开，可以在[官方下载插件包](https://github.com/MetaMask/metamask-extension/releases)选择手工安装，各浏览器的手工安装方法请参考[官方安装指引](https://metamask.zendesk.com/hc/en-us/articles/360015489471-How-to-Install-MetaMask-Manually)。
 
 安装后，你可以新建一个账户，或导入原有的助记词来恢复账户。如下图：
 
