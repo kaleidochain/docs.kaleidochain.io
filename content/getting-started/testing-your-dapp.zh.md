@@ -8,7 +8,7 @@ Kaleidochain官方维护了一个测试网络的全节点`testnet.kaleidochain.i
 
 <!--more-->
 
-部署时所需要的token，可以通过[测试网络KAL分发页面](http://faucet-testnet.kaleidochain.io)免费领取。
+部署时所需要的token，可以通过[测试网络KAL分发页面](http://faucet-testnet.kalscan.io)免费领取。
 
 此外，你也可以[启动一个测试网节点](/getting-started/installing-node/#作为服务节点启动)，待区块数据同步好后(可能需要数小时时间)，即可开始测试。
 

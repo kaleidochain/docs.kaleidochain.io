@@ -13,7 +13,8 @@ Kaleidochain生态目前运营有主网络和测试网络。主网络用于正�
 | ChainID         | 888                                                                      | 889                                                  |
 | Symbol          | KAL                                                                      | KAL                                                  |
 | Block Explorer  | `https://kalscan.io`                                                     | `https://testnet.kalscan.io`                         |
-| Buy KAL         | [Buy KAL with Digifinex](https://www.digifinex.vip/zh-cn/trade/USDT/KAL) | [Get it Free](http://faucet-testnet.kaleidochain.io) |
+| Buy KAL         | [Buy KAL with Digifinex](https://www.digifinex.vip/zh-cn/trade/USDT/KAL) | [Get it Free](http://faucet-testnet.kalscan.io)      |
 
-Kaleidochain生态由社区共同构建和维护，感谢kalscan.io提供免费的API服务和浏览器支持。
+Kaleidochain生态由社区共同构建和维护，感谢kalscan.io提供的服务和支持。
+
 
