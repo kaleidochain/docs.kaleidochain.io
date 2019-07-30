@@ -50,7 +50,7 @@ docker exec -it kalnode kalgo --testnet attach &amp;gt; personal.newAccount(&#39
       <pubDate>Thu, 23 May 2019 12:11:28 +0800</pubDate>
       
       <guid>https://docs.kaleidochain.io/getting-started/getting-testnet-token/</guid>
-      <description>我们创建了一个免费领取kaleidochain测试网络KAL Token的页面 ，点击进去，填写自己的账户地址即可领取。</description>
+      <description>可以在测试网的faucet服务页面，免费领取到测试网络的KAL ，点击进去，填写自己的账户地址即可领取。</description>
     </item>
     
     <item>

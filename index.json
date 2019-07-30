@@ -81,7 +81,7 @@
 	"title": "获取测试网KAL",
 	"tags": [],
 	"description": "",
-	"content": "我们创建了一个免费领取kaleidochain测试网络KAL Token的页面 ，点击进去，填写自己的账户地址即可领取。\n"
+	"content": "可以在测试网的faucet服务页面，免费领取到测试网络的KAL ，点击进去，填写自己的账户地址即可领取。\n"
 },
 {
 	"uri": "https://docs.kaleidochain.io/dapp-developer/ios-build/",
@@ -109,7 +109,7 @@
 	"title": "Kaleidochain网络配置",
 	"tags": [],
 	"description": "",
-	"content": "Kaleidochain生态目前运营有主网络和测试网络。主网络用于正式使用，测试网络用于开发测试使用。\n    主网络 测试网络     Network Name Kaleido Main Network Kaleido Test Network   RPC URL https://api.kalscan.io https://api-testnet.kalscan.io   RPC PORT 443 443   ChainID 888 889   Symbol KAL KAL   Block Explorer https://kalscan.io https://testnet.kalscan.io   Buy KAL Buy KAL with Digifinex Get it Free    Kaleidochain生态由社区共同构建和维护，感谢kalscan.io提供免费的API服务和浏览器支持。\n"
+	"content": "Kaleidochain生态目前运营有主网络和测试网络。主网络用于正式使用，测试网络用于开发测试使用。\n    主网络 测试网络     Network Name Kaleido Main Network Kaleido Test Network   RPC URL https://api.kalscan.io https://api-testnet.kalscan.io   RPC PORT 443 443   ChainID 888 889   Symbol KAL KAL   Block Explorer https://kalscan.io https://testnet.kalscan.io   Buy KAL Buy KAL with Digifinex Get it Free    Kaleidochain生态由社区共同构建和维护，感谢kalscan.io提供的服务和支持。\n"
 },
 {
 	"uri": "https://docs.kaleidochain.io/contract/quick-start/",
