@@ -8,7 +8,7 @@ Kaleidochain生态目前运营有主网络和测试网络。主网络用于正�
 |                 | 主网络                                                                   | 测试网络                                             |
 | :-------------: | :--------------------                                                    | :-----------------------------                       |
 | Network Name    | `Kaleido Main Network`                                                   | `Kaleido Test Network`                               |
-| RPC URL         | `https://api.kalscan.io`                                                 | `https://api-testnet.kalscan.io`                     |
+| RPC URL         | `https://api.kalscan.io`                                                 | `https://api.kalscan.io/testnet`                    |
 | RPC PORT        | 443                                                                      | 443                                                  |
 | ChainID         | 888                                                                      | 889                                                  |
 | Symbol          | KAL                                                                      | KAL                                                  |
