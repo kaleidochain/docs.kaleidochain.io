@@ -12,6 +12,7 @@ Kaleidochain生态目前运营有主网络和测试网络。主网络用于正�
 | RPC PORT        | 443                                                                      | 443                                                  |
 | ChainID         | 888                                                                      | 889                                                  |
 | Symbol          | KAL                                                                      | KAL                                                  |
+| HD path         | `m/44'/383'/0'/0`                                                        | `m/44'/1'/0'/0`                                      |
 | Block Explorer  | `https://kalscan.io`                                                     | `https://testnet.kalscan.io`                         |
 | Buy KAL         | [Buy KAL with Digifinex](https://www.digifinex.vip/zh-cn/trade/USDT/KAL) | [Get it Free](http://faucet-testnet.kalscan.io)      |
 
