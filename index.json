@@ -35,18 +35,18 @@
 	"content": "我们首先需要创建挖矿公私钥对，得到挖矿凭证minerkey。\n假设当前区块高度为12065，通常情况下，你想尽快开始挖矿，那么你应该选择比当前区块高度略大或相等的高度值，这里我们选取12100，来生成从12100高度开始挖矿的minerkey，这个minerkey属于12100高度所在区间。这个开始高度由参数--begin指定。此外，在生成minerkey的时候，还要通过--miner指明矿工账号，--coinbase指明受益人的地址（即接收区块奖励的地址）。\n如下命令就是用来生成一个属于12100高度所在区间的挖矿凭证minerkey，矿工账号miner和受益人coinbase都是0x958DE277Cde7f5808a910dBf6f7854DF52C25833。\ndocker run --rm -v $KALEIDO_HOME:/root/.kaleido \\ kaleidochain/kalgo --testnet makeminerkey \\ --miner.stakeowner 0x958DE277Cde7f5808a910dBf6f7854DF52C25833 \\ --minerkey.coinbase 0x958DE277Cde7f5808a910dBf6f7854DF52C25833 \\ --minerkey.start 12100  以上命令执行需要一定的时间，完成后输出结果最后内容如下，这里给出了生成的minerkey，其内部包含了受益人coinbase的地址、起始高度begin、区间的结束高度end等信息。\nMinerKey: 0x39fb25e90000000000000000000000000000000000000000000000000000000000002f440000000000000000000000000000000000000000000000000000000000000064000000000000000000000000958de277cde7f5808a910dbf6f7854df52c2583355094cc911dca3b0ff42e63e7d4d627d5131307fcd495b535de4fa627bb999bfb728eed47ed4b7426c46e8b57c4132dc89e4092463267040c7c6769a80e72c69 Details: miner = 0x958DE277Cde7f5808a910dBf6f7854DF52C25833 coinbase = 0x958DE277Cde7f5808a910dBf6f7854DF52C25833 start = 12100 end = 1000000 lifespan = 100 vrfVerifier = 0x55094cc911dca3b0ff42e63e7d4d627d5131307fcd495b535de4fa627bb999bf voteVerfier = 0xb728eed47ed4b7426c46e8b57c4132dc89e4092463267040c7c6769a80e72c69  以上输出中的0x39fb25...就是挖矿凭证minerkey，其作用相当于公钥。对应的私钥数据存储在节点的数据目录$KALEIDO_HOME/testnet/kalgo/minerkeys下，注意不要公开或泄露该私钥数据。\n生成minerkey有以下几点需要注意：\n 必须提前100个区块注册：你如果想生成start=H的minerkey，就必须在H-100区块高度之前，完成注册 区块高度一旦到达你注册区间起始位置的100个区块以内，minerkey就无法修改 受益人Coinbase是可以随时修改，并在修改成功的下个区块立即生效，不受第2点的限制 更新minerkey时，新生成的区间的起始位置必须与要修改的minerkey一致，否则无法更新成功 你最多只能提前注册一个区间，即minerkey.start必须小于当前区块高度+1000000  如果私钥不慎遗失，并且此时minerkey无法修改，你可以将钱转入新的地址后，重新注册成为矿工即可。\n"
 },
 {
+	"uri": "https://docs.kaleidochain.io/wallet/kalconnect/",
+	"title": "使用KALconnect安全钱包",
+	"tags": [],
+	"description": "",
+	"content": " KALconnect是一个无需硬件的“硬件钱包”，并且整个项目代码完全开源，兼具硬件钱包级别的安全性和普通钱包的便捷性。\n要使用KALconnect安全钱包，首先需要下载安装KALconnect钱包APP。\n安装后，打开APP，即可创建一个全新的KAL钱包。KALconnect采用HD派生钱包技术，默认使用Kaleido主网路径m/44'/383'/0'/0派生的第一个钱包地址。\n使用KALconnect安全钱包 KALconnect使用了密钥存储和钱包功能界面物理分离的安全技术，安全性媲美硬件钱包。因此，使用时配合使用浏览器打开钱包功能网站https://kallet.kaleidochain.io，使用KALconnect安全钱包扫描建立本地的安全传输通道，相当于在手机APP和浏览器页面直接连接了一个虚拟的USB线。之后的所有操作，都从网页发起，并经由手机APP确认并签名后，发回网页进行处理。相当于每一笔交易都由两个独立设备分别进行两次确认，安全性非常高。\n具体操作演示如下：\n在浏览器中打开https://kallet.kaleidochain.io，点击Access My Wallet并选择KALconnect，会弹出一个二维码。\n在KALconnect钱包中，点击 SCAN TO CONNECT 进行扫描。此时，手机会和浏览器页面建立一个安全的加密P2P连接，连接成功后会返回主界面，而浏览器会进入操作功能界面。\n接下来就可以自由转账或调用合约了。如果你现在还没有主网KAL，可以线在测试网免费领取测试KAL进行体验。\n在测试网体验转账 KALconnect会使用测试网路径m/44'/1'/0'/0派生的第一个钱包地址用于测试网使用，我们点击最上方的网络切换到测试网即可看到。\n我们可以在测试网的Token龙头中免费领取几个测试KAL。\n稍等3秒左右，你又可以通过刷新看到测试KAL到账。\n接下来，使用手机与浏览器进行连接，进入功能界面。此时，还要在浏览器中切换到测试网中。\n因为我们有两个独立的设备：手机APP和浏览器。所以，都要切换到测试网络才可以。\n接下来，即可发起一个转账。例如给地址0xabc转账，并经过两次确认后，转账成功。\n完成后，你可以在浏览器中查看刚才的交易详情。\n"
+},
+{
 	"uri": "https://docs.kaleidochain.io/dapp-developer/resources/",
 	"title": "开发资源",
 	"tags": [],
 	"description": "",
 	"content": " 斗地主Demo   斗地主Demo源码   斗地主Demo APK  SDK下载   iOS版本的预编译SDK   Android版本的预编译SDK  编译环境说明  本Demo使用Cocos Creator V2.1.0开发与编译，可使用Mac版本或Windows版本进行构建与编译。下面以Mac版本的Cocos Creator为例对如何编译生成iOS版和Android版本的APP进行说明。 "
-},
-{
-	"uri": "https://docs.kaleidochain.io/wallet/metamask/",
-	"title": "配置MetaMask钱包",
-	"tags": [],
-	"description": "",
-	"content": " 配置MetaMask MetaMask通过网络设置来支持KAL，你只需一步配置，即可在MetaMask中使用KAL。如果你还没有安装MetaMask，可以参考下面的安装MetaMask。\n打开MetaMask，点击右上角下拉框打开网络配置界面，点击最后一项。如下图：\n根据Kaleidochain网络配置信息，选择主网络或测试网络，填写网络配置项，然后点击保存，并关闭配置界面。如下图：\n此时，主界面显示已经连上Kaleido主网络，你可以在这里查看自己的KAL余额或发送交易，最近发送的交易也会显示在这里。\n注意：配置或切换网络后，可能会出现按钮点击无反应的情况，此时只需要重启浏览器即可。这是MetaMask的问题，官方正在解决中。\n安装MetaMask 请务必确保从浏览器官方渠道（Chrome Firefox Opera）下载安装MetaMask钱包。如果官方渠道打不开，可以在官方下载插件包选择手工安装，各浏览器的手工安装方法请参考官方安装指引。\n安装后，你可以新建一个账户，或导入原有的助记词来恢复账户。如下图：\n然后设置MetaMask钱包的打开密码。如下图：\n完成后，你会看到MetaMask钱包的主界面。如下图：\n现在，你可以配置MetaMask来使用KAL了。\n"
 },
 {
 	"uri": "https://docs.kaleidochain.io/mining/register-miner-key/",
@@ -91,6 +91,13 @@
 	"content": " 环境准备 可参阅Cocos Creator官方文档《安装配置原生开发环境》安装XCode。\n构建  Demo源代码下载并解压后，点击Cocos Creator菜单栏的 项目 -\u0026gt; 构建发布 -\u0026gt; 构建，Cocos Creator将自动生成iOS版本与Android版本的相关工程文件与代码。\n 将build_kaleido/jsb-link/frameworks/runtime-src/proj.ios_mac/ios/NativeGengine.h、build_kaleido/jsb-link/frameworks/runtime-src/proj.ios_mac/ios/NativeGengine.m和build_kaleido/jsb-link/frameworks/runtime-src/proj.ios_mac/ios/RootViewController.mm拷贝至build/jsb-link/frameworks/runtime-src/proj.android-studio/ios目录中，并拖动至XCode开发环境中的ios目录。\n 将build_kaleido/jsb-link/frameworks/runtime-src/proj.ios_mac/ios/portal.lua.h拷贝至build/jsb-link/frameworks/runtime-src/proj.android-studio/ios目录中，并拖动至XCode开发环境中的Resources目录。\n 将 Gengine.framework 拷贝至build/jsb-link/frameworks/runtime-src/proj.ios_mac/目录中，并拖动至XCode开发环境中的Frameworks目录。\n 点击工程设置中 Build Phases -\u0026gt; Compile Sources ，在RootViewController.mm后面的Compiler Flags中添加 -fmodules -fcxx-modules 来消除Use of \u0026lsquo;@import\u0026rsquo; when modules are disabled的报错。\n 点击工程设置中 Build Settings，在搜索框中输入CLang，Apple Clang - Language - Modules -\u0026gt; Enable Modules (C and Objective-C) 更改为 Yes 来消除build/jsb-link/frameworks/runtime-src/proj.ios_mac/Gengine.framework/Headers/Universe.objc.h:20:37: No type or protocol named \u0026lsquo;goSeqRefInterface\u0026rsquo;的报错。\n 上述2至6修改后的工程文件可参考 build_kaleido/jsb-link/frameworks/runtime-src/proj.ios_mac/KaleidoDoudizhuDemo.xcodeproj/project.pbxproj\n  编译与运行 1. iOS Simulator运行 点击Cocos Creator菜单栏的 项目 -\u0026gt; 构建发布 -\u0026gt; 编译，编译完成后点击 运行\n2. 真机运行 构建完成后使用XCode打开 ./build/jsb-link/frameworks/runtime-src/proj.ios_mac/KaleidoDoudizhuDemo.xcodeproj，修改 Bundle Identifier 与 Signing，选择已连接至Mac上的手机后点击XCode中的 运行 按钮即可。\n"
 },
 {
+	"uri": "https://docs.kaleidochain.io/wallet/metamask/",
+	"title": "配置MetaMask钱包",
+	"tags": [],
+	"description": "",
+	"content": " 配置MetaMask MetaMask通过网络设置来支持KAL，你只需一步配置，即可在MetaMask中使用KAL。如果你还没有安装MetaMask，可以参考下面的安装MetaMask。\n打开MetaMask，点击右上角下拉框打开网络配置界面，点击最后一项。如下图：\n根据Kaleidochain网络配置信息，选择主网络或测试网络，填写网络配置项，然后点击保存，并关闭配置界面。如下图：\n此时，主界面显示已经连上Kaleido主网络，你可以在这里查看自己的KAL余额或发送交易，最近发送的交易也会显示在这里。\n注意：配置或切换网络后，可能会出现按钮点击无反应的情况，此时只需要重启浏览器即可。这是MetaMask的问题，官方正在解决中。\n安装MetaMask 请务必确保从浏览器官方渠道（Chrome Firefox Opera）下载安装MetaMask钱包。如果官方渠道打不开，可以在官方下载插件包选择手工安装，各浏览器的手工安装方法请参考官方安装指引。\n安装后，你可以新建一个账户，或导入原有的助记词来恢复账户。如下图：\n然后设置MetaMask钱包的打开密码。如下图：\n完成后，你会看到MetaMask钱包的主界面。如下图：\n现在，你可以配置MetaMask来使用KAL了。\n"
+},
+{
 	"uri": "https://docs.kaleidochain.io/getting-started/testing-your-dapp/",
 	"title": "测试你的应用",
 	"tags": [],
@@ -105,11 +112,18 @@
 	"content": " 环境准备 可参阅Cocos Creator官方文档《安装配置原生开发环境》安装Android SDK和Android NDK并在Cocos Creator中配置。\n构建  Demo源代码下载并解压后，点击Cocos Creator菜单栏的 项目 -\u0026gt; 构建发布 -\u0026gt; 构建，Cocos Creator将自动生成iOS版本与Android版本的相关工程文件与代码。\n build_kaleido/jsb-link/frameworks/runtime-src/proj.android-studio目录中一些项目文件的内容供开发者们参考，开发者需要根据自己的实际情况进行修改。\n 将build_kaleido/jsb-link/frameworks/runtime-src/proj.android-studio/app/src/org/cocos2dx/javascript/AppActivity.java中的修改拷贝至build/jsb-link/frameworks/runtime-src/proj.android-studio/app/src/org/cocos2dx/javascript/AppActivity.java\n 将build_kaleido/jsb-link/frameworks/runtime-src/proj.android-studio/app/src/io整个目录拷贝至build/jsb-link/frameworks/runtime-src/proj.android-studio/app/src/\n 将build_kaleido/jsb-link/frameworks/runtime-src/proj.android-studio/app/res/raw整个目录拷贝至build/jsb-link/frameworks/runtime-src/proj.android-studio/app/res/\n 在build/jsb-link/frameworks/runtime-src/proj.android-studio/app/中创建libs目录，并将 gengine.aar 拷贝到libs目录。\n 修改build/jsb-link/frameworks/runtime-src/proj.android-studio/app/build.gradle，将 minifyEnabled 和 shrinkResources 均设置为 false 。\nbuildTypes { release { debuggable false jniDebuggable false renderscriptDebuggable false minifyEnabled false shrinkResources false proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro' if (project.hasProperty(\u0026quot;RELEASE_STORE_FILE\u0026quot;)) { signingConfig signingConfigs.release } ... } }  修改build/jsb-link/frameworks/runtime-src/proj.android-studio/app/proguard-rules.pro，在文件最后添加\n# keep kaleido for release. -keep public class io.kaleidochain.** { *; } -dontwarn io.kaleidochain.**   编译与运行 点击Cocos Creator菜单栏的 项目 -\u0026gt; 构建发布 -\u0026gt; 编译，最后使用 adb install 进行安装运行。\n"
 },
 {
+	"uri": "https://docs.kaleidochain.io/wallet/kallet/",
+	"title": "使用Kallet网页钱包",
+	"tags": [],
+	"description": "",
+	"content": "Kallet网页钱包除了可以配合KALconnect使用外，还可以配合硬件钱包和MetaMask使用。你也可以使用keystore/助记词等方式直接使用网页钱包，但这种方式安全性较低，不建议普通用户使用。\n进入钱包后的操作界面都是一样的。\n"
+},
+{
 	"uri": "https://docs.kaleidochain.io/wallet/network/",
 	"title": "Kaleidochain网络配置",
 	"tags": [],
 	"description": "",
-	"content": "Kaleidochain生态目前运营有主网络和测试网络。主网络用于正式使用，测试网络用于开发测试使用。\n    主网络 测试网络     Network Name Kaleido Main Network Kaleido Test Network   RPC URL https://api.kalscan.io https://api-testnet.kalscan.io   RPC PORT 443 443   ChainID 888 889   Symbol KAL KAL   Block Explorer https://kalscan.io https://testnet.kalscan.io   Buy KAL Buy KAL with Digifinex Get it Free    Kaleidochain生态由社区共同构建和维护，感谢kalscan.io提供的服务和支持。\n"
+	"content": "Kaleidochain生态目前运营有主网络和测试网络。主网络用于正式使用，测试网络用于开发测试使用。\n    主网络 测试网络     Network Name Kaleido Main Network Kaleido Test Network   RPC URL https://api.kalscan.io https://api.kalscan.io/testnet   RPC PORT 443 443   ChainID 888 889   Symbol KAL KAL   HD path m/44'/383'/0'/0 m/44'/1'/0'/0   Block Explorer https://kalscan.io https://testnet.kalscan.io   Buy KAL Buy KAL with Digifinex Get it Free    Kaleidochain生态由社区共同构建和维护，感谢kalscan.io提供的服务和支持。\n"
 },
 {
 	"uri": "https://docs.kaleidochain.io/contract/quick-start/",
@@ -123,7 +137,7 @@
 	"title": "钱包",
 	"tags": [],
 	"description": "",
-	"content": "MetaMask是最好用的钱包之一，它是开源钱包，安全性很好，用起来也很方便。同时它也支持管理Kaleidochain的KAL。我们推荐初级用户使用MetaMask。\n如果需要更高的安全性，建议配合MetaMask使用硬件钱包Trezor或Ledger。\n 配置MetaMask钱包   Kaleidochain网络配置   "
+	"content": "MetaMask是最好用的钱包之一，它是开源钱包，安全性很好，用起来也很方便。同时它也支持管理Kaleidochain的KAL。我们推荐初级用户使用MetaMask。\n如果需要更高的安全性，建议配合MetaMask使用硬件钱包Trezor或Ledger。\n 使用KALconnect安全钱包   配置MetaMask钱包   使用Kallet网页钱包   Kaleidochain网络配置   "
 },
 {
 	"uri": "https://docs.kaleidochain.io/mining/",

@@ -62,7 +62,6 @@
   
   <url>
     <loc>https://docs.kaleidochain.io/en/categories/</loc>
-    <priority>0</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
@@ -77,7 +76,6 @@
   
   <url>
     <loc>https://docs.kaleidochain.io/en/tags/</loc>
-    <priority>0</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"

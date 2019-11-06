@@ -48,11 +48,11 @@
   </url>
   
   <url>
-    <loc>https://docs.kaleidochain.io/dapp-developer/resources/</loc>
+    <loc>https://docs.kaleidochain.io/wallet/kalconnect/</loc>
   </url>
   
   <url>
-    <loc>https://docs.kaleidochain.io/wallet/metamask/</loc>
+    <loc>https://docs.kaleidochain.io/dapp-developer/resources/</loc>
   </url>
   
   <url>
@@ -95,12 +95,20 @@
   </url>
   
   <url>
+    <loc>https://docs.kaleidochain.io/wallet/metamask/</loc>
+  </url>
+  
+  <url>
     <loc>https://docs.kaleidochain.io/getting-started/testing-your-dapp/</loc>
     <lastmod>2019-05-23T12:13:37+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://docs.kaleidochain.io/dapp-developer/android-build/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.kaleidochain.io/wallet/kallet/</loc>
   </url>
   
   <url>
@@ -168,7 +176,6 @@
   
   <url>
     <loc>https://docs.kaleidochain.io/categories/</loc>
-    <priority>0</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -183,7 +190,6 @@
   
   <url>
     <loc>https://docs.kaleidochain.io/tags/</loc>
-    <priority>0</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"

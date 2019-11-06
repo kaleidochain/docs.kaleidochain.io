@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>介绍 :: Kaleido文档</title>
+    <title>使用KALconnect安全钱包 :: Kaleido文档</title>
 
     
     <link href="/css/nucleus.css?1573053635" rel="stylesheet">
@@ -41,7 +41,7 @@
 </style>
 
   </head>
-  <body class="" data-url="/introduction/">
+  <body class="" data-url="/wallet/kalconnect/">
     <nav id="sidebar" class="">
 
 
@@ -86,8 +86,8 @@
   
     
     <li data-nav-id="/introduction/" title="介绍" class="dd-item 
-        parent
-        active
+        
+        
         
         ">
       <a href="/introduction/">
@@ -216,7 +216,7 @@
   
     
     <li data-nav-id="/wallet/" title="钱包" class="dd-item 
-        
+        parent
         
         
         ">
@@ -240,7 +240,7 @@
  
   
     
-      <li data-nav-id="/wallet/kalconnect/" title="使用KALconnect安全钱包" class="dd-item ">
+      <li data-nav-id="/wallet/kalconnect/" title="使用KALconnect安全钱包" class="dd-item active">
         <a href="/wallet/kalconnect/">
         使用KALconnect安全钱包
         
@@ -720,23 +720,11 @@
               
               
                   
-                    
-                    
-                      <option id="en" value="https://docs.kaleidochain.io/en/introduction/">English</option>
-                    
-                  
-              
-                  
-              
-          
-              
-              
-                  
               
                   
                     
                     
-                      <option id="zh" value="https://docs.kaleidochain.io/introduction/" selected>中文</option>
+                      <option id="zh" value="https://docs.kaleidochain.io/wallet/kalconnect/" selected>中文</option>
                     
                   
               
@@ -805,7 +793,13 @@
             
           
           
-            <a href='/'>kaleidochain</a> > 介绍
+            
+            
+          
+          
+            <a href='/'>kaleidochain</a> > <a href='/wallet/'>钱包</a> > 使用KALconnect安全钱包
+          
+         
           
          
           
@@ -822,9 +816,8 @@
 <ul>
 <li>
 <ul>
-<li><a href="#测试网络">测试网络</a></li>
-<li><a href="#参与社区讨论">参与社区讨论</a></li>
-<li><a href="#了解最新项目进展">了解最新项目进展</a></li>
+<li><a href="#使用kalconnect安全钱包">使用KALconnect安全钱包</a></li>
+<li><a href="#在测试网体验转账">在测试网体验转账</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -844,7 +837,7 @@
           
             <h1>
               
-              介绍
+              使用KALconnect安全钱包
             </h1>
           
 
@@ -853,34 +846,70 @@
 
 
 
-	
 
-<p>Kaleido是新一代高性能区块链游戏平台。它采用了公开透明的、纯PoS区块链共识技术，实现了纯分布式的、可扩展的和高安全的区块链。它还提供了可信P2P传输、零知识证明等机制，尤其使得游戏类应用开发更为便捷，运行效果更好。</p>
+<p>KALconnect是一个无需硬件的“硬件钱包”，并且整个项目代码完全开源，兼具硬件钱包级别的安全性和普通钱包的便捷性。</p>
 
-<h3 id="测试网络">测试网络</h3>
+<p>要使用KALconnect安全钱包，首先需要<a href="https://kaleidochain.io/zh/download-wallet/">下载安装KALconnect钱包APP</a>。</p>
 
-<p>目前，我们的测试网络正在运营。该文档主要以测试网为主，说明如何安装、配置并加入Kaleido区块链。
-主链发布后，该文档也会相应地更新。</p>
+<p>安装后，打开APP，即可创建一个全新的KAL钱包。KALconnect采用HD派生钱包技术，默认使用Kaleido主网路径<code>m/44'/383'/0'/0</code>派生的第一个钱包地址。</p>
 
-<h3 id="参与社区讨论">参与社区讨论</h3>
+<p><img alt="KALconnect Main Page" src="/images/kalconnect-main.png" height="400px"/></p>
 
-<p>你可以在我们的社区与Kaleido开发者和其他社区成员一起交流与讨论，可以获得更有针对性的帮助和信息。</p>
+<h3 id="使用kalconnect安全钱包">使用KALconnect安全钱包</h3>
 
-<blockquote>
-<p><i class="fas fa-fw fa-info"></i> 社区正在建设中，稍后会在这里公开。</p>
-</blockquote>
+<p>KALconnect使用了密钥存储和钱包功能界面物理分离的安全技术，安全性媲美硬件钱包。因此，使用时配合使用浏览器打开钱包功能网站<code>https://kallet.kaleidochain.io</code>，使用KALconnect安全钱包扫描建立本地的安全传输通道，相当于在手机APP和浏览器页面直接连接了一个虚拟的USB线。之后的所有操作，都从网页发起，并经由手机APP确认并签名后，发回网页进行处理。相当于每一笔交易都由两个独立设备分别进行两次确认，安全性非常高。</p>
 
-<h3 id="了解最新项目进展">了解最新项目进展</h3>
+<p>具体操作演示如下：</p>
 
-<p>你可以在我们的<a href="https://blog.kaleidochain.io/">博客</a>了解项目的最新进展情况。</p>
+<p>在浏览器中打开<code>https://kallet.kaleidochain.io</code>，点击<code>Access My Wallet</code>并选择<code>KALconnect</code>，会弹出一个二维码。</p>
 
+<p><img alt="KALwallet QRcode" src="/images/kallet-qrcode.png" height="400px"/></p>
 
+<p>在KALconnect钱包中，点击 <em>SCAN TO CONNECT</em> 进行扫描。此时，手机会和浏览器页面建立一个安全的加密P2P连接，连接成功后会返回主界面，而浏览器会进入操作功能界面。</p>
 
+<p><img alt="KALwallet QRcode" src="/images/kalconnect-scan.jpg" height="400px"/>
+<img alt="KALwallet QRcode" src="/images/kalconnect-scan-connecting.png" height="400px"/>
+<img alt="KALwallet QRcode" src="/images/kalconnect-scan-complete.png" height="400px"/>
+<img alt="KALwallet QRcode" src="/images/kalconnect-testnet-connected.png" height="400px"/></p>
+
+<p>接下来就可以自由转账或调用合约了。如果你现在还没有主网KAL，可以线在测试网免费领取测试KAL进行体验。</p>
+
+<h3 id="在测试网体验转账">在测试网体验转账</h3>
+
+<p>KALconnect会使用测试网路径<code>m/44'/1'/0'/0</code>派生的第一个钱包地址用于测试网使用，我们点击最上方的网络切换到测试网即可看到。</p>
+
+<p><img alt="KALwallet QRcode" src="/images/kalconnect-switch-network.png" height="400px"/>
+<img alt="KALwallet QRcode" src="/images/kalconnect-testnet.png" height="400px"/></p>
+
+<p>我们可以在测试网的Token龙头中免费领取几个测试KAL。</p>
+
+<p><img alt="" src="/images/faucet.png" height="400px"/></p>
+
+<p>稍等3秒左右，你又可以通过刷新看到测试KAL到账。</p>
+
+<p>接下来，使用手机与浏览器进行连接，进入功能界面。此时，还要在浏览器中切换到测试网中。</p>
+
+<p><img alt="" src="/images/kallet-change-network.png" height="400px"/></p>
+
+<p>因为我们有两个独立的设备：手机APP和浏览器。所以，都要切换到测试网络才可以。</p>
+
+<p>接下来，即可发起一个转账。例如给地址<code>0xabc</code>转账，并经过两次确认后，转账成功。</p>
+
+<p><img alt="" src="/images/kallet-confirmation.png" height="400px"/>
+<img alt="" src="/images/kalconnect-verify-txn.png" height="400px"/>
+<img alt="" src="/images/kalconnect-verify-txn-checked.png" height="400px"/>
+<img alt="" src="/images/kalconnect-verify-txn-done.png" height="400px"/>
+<img alt="" src="/images/kallet-confirmation-done.png" height="400px"/></p>
+
+<p>完成后，你可以在浏览器中查看刚才的交易详情。</p>
+
+<p><img alt="" src="/images/kallet-history.png" height="400px"/></p>
 
 
 <footer class=" footline" >
 	
 </footer>
+
 
         
         </div> 
@@ -913,6 +942,8 @@
             
                 
                     
+                        
+                        
                     
                 
                 
@@ -930,9 +961,6 @@
             
                 
                     
-                        
-                        
-                    
                 
                 
 
@@ -940,22 +968,6 @@
                     
                     
 
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
                     
                         
             
@@ -1005,22 +1017,6 @@
             
         
                     
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
                         
             
             
@@ -1037,10 +1033,47 @@
             
         
                     
+            
+        
+                    
                         
             
             
                 
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
                     
                 
                 
@@ -1369,10 +1402,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/" title="kaleidochain"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/wallet/" title="钱包"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/getting-started/" title="开始" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/wallet/metamask/" title="配置MetaMask钱包" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1403,3 +1436,4 @@
 
   </body>
 </html>
+
