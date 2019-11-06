@@ -1,6 +1,6 @@
 ---
 title: "配置MetaMask钱包"
-weight: 1
+weight: 3
 ---
 
 
